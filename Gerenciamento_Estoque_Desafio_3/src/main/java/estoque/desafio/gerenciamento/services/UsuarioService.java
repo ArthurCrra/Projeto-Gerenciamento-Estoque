@@ -2,9 +2,9 @@ package estoque.desafio.gerenciamento.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+
 import org.springframework.stereotype.Service;
 
 import estoque.desafio.gerenciamento.entities.Usuario;
@@ -15,17 +15,13 @@ import estoque.desafio.gerenciamento.repositories.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-	private UsuarioRepository usuarioRepository;
-	private PasswordEncoder passwordEncoder;
+	private final UsuarioRepository usuarioRepository;
 
-	public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+	public UsuarioService(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
-		this.passwordEncoder = passwordEncoder;
 	}
 
 	public Usuario criarUsuario(Usuario usuario) {
-		String pass = passwordEncoder.encode(usuario.getSenha());
-		usuario.setSenha(pass);
 		usuarioRepository.save(usuario);
 		return usuario;
 	}
@@ -35,27 +31,24 @@ public class UsuarioService {
 	}
 
 	public Usuario atualizarSenha(AtualizarSenhaDTO senhaUsuarioDTO) {
-		Optional<Usuario> usuario = usuarioRepository.findById(senhaUsuarioDTO.getCodigo());
-		String pass = passwordEncoder.encode(senhaUsuarioDTO.getSenha());
-		usuario.get().setSenha(pass);
-		usuarioRepository.save(usuario.get());
-		return usuario.get();
+		Optional<Usuario> usuarioOpt = usuarioRepository.findById(senhaUsuarioDTO.getCodigo());
+		if (usuarioOpt.isPresent()) {
+			Usuario usuario = usuarioOpt.get();
+			usuario.setSenha(senhaUsuarioDTO.getSenha());
+			usuarioRepository.save(usuario);
+			return usuario;
+		}
+		throw new RuntimeException("Usuário não encontrado");
 	}
-	
+
 	public void excluirUsuario(Long codigo) {
 		usuarioRepository.deleteById(codigo);
 	}
-	
+
 	public Optional<Usuario> getUsuarioAutenticacao(String username) {
 		return usuarioRepository.findByMatricula(username);
 	}
-	
-	public boolean isAuthenticated(LoginDTO loginDTO) {
-		Optional<Usuario> usuario = usuarioRepository.findByMatricula(loginDTO.getMatricula());
-		if(Optional.ofNullable(usuario).isPresent() && usuario.get().getSenha().equals(loginDTO.getSenha()))
-			return true;
-		return false;
-	}
+
 	
 //	public String isAuthenticated(LoginDTO loginDTO) {
 //		Optional<Usuario> usuario = usuarioRepository.findByMatricula(loginDTO.getMatricula());

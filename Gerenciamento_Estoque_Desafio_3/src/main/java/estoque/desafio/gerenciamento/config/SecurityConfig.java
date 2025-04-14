@@ -18,31 +18,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
-	@Bean
-	protected SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager) throws Exception {
-		return httpSecurity
-				.csrf(c -> c.disable())
-				.authorizeHttpRequests(
-		authorizeConfig -> {
-			authorizeConfig.requestMatchers("/usuario/**").hasAnyRole("GP", "RT");
-			authorizeConfig.requestMatchers("/projeto/add").hasAnyRole("GP", "RT"); // role vai ser ou GP(Gerente de Projeto) e RT(Responsável Técnico)
-			authorizeConfig.anyRequest().authenticated();
-		}
-						)
-				.addFilter(new JWTAuthenticationFilter(authenticationManager))
-				.addFilter(new JWTValidateFilter(authenticationManager))
-				.build();
-	}
-	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
 
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf().disable()
+				.authorizeHttpRequests(auth -> auth
+						.anyRequest().permitAll()
+				);
+		return http.build();
+	}
 }

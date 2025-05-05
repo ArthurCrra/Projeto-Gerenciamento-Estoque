@@ -5,14 +5,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 
 @Entity
 public class Compra {
@@ -22,6 +16,9 @@ public class Compra {
 	private Long codigo;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataEnvio; // Data que a mercadoria saiu do fornecedor
+
+	@Column(nullable = true)
+	private String observacao; // Complemento vai ser aqui
 	
 	@ManyToOne
 	@JoinColumn(name = "projeto", nullable = false)
@@ -31,11 +28,7 @@ public class Compra {
 	@OneToMany(mappedBy = "compra")
 	@JsonIgnoreProperties("compra")
 	private Set<Item> itens;
-	
-	@OneToOne(mappedBy = "compra")
-	@JsonIgnoreProperties("compra")
-	private Complemento complemento;
-	
+
 	@OneToOne(mappedBy = "compra")
 	@JsonIgnoreProperties("compra")
 	private Invoice invoice;
@@ -78,14 +71,6 @@ public class Compra {
 
 	public void setItens(Set<Item> itens) {
 		this.itens = itens;
-	}
-
-	public Complemento getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(Complemento complemento) {
-		this.complemento = complemento;
 	}
 
 	public Invoice getInvoice() {

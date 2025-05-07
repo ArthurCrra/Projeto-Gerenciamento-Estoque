@@ -20,7 +20,6 @@ public class Projeto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	private int idProjeto;
 	private String apelidoProjeto;
 	
 	@ManyToOne
@@ -38,14 +37,6 @@ public class Projeto {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}
-
-	public int getIdProjeto() {
-		return idProjeto;
-	}
-
-	public void setIdProjeto(int idProjeto) {
-		this.idProjeto = idProjeto;
 	}
 
 	public String getApelidoProjeto() {

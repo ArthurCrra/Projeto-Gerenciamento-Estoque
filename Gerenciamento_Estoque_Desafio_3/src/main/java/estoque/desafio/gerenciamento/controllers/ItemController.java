@@ -21,7 +21,7 @@ public class ItemController {
     }
 
 
-    @PostMapping("/adicionar/{armazenamentoCodigo}/{fornecedorCodigo}")
+    @PostMapping("/adicionar/{armazenamentoId}/{fornecedorId}")
     public ResponseEntity<Item> adicionarItem(@RequestBody Item item, @PathVariable Long armazenamentoCodigo, @PathVariable Long fornecedorCodigo) {
         try {
             Item novoItem = itemService.salvarItem(item, armazenamentoCodigo, fornecedorCodigo);
@@ -43,7 +43,7 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/buscar/{codigo}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<?> buscarItemPorCodigo(@PathVariable Long codigo) {
         try{
             Optional<Item> item = itemService.listarItemPorId(codigo);

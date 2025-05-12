@@ -30,10 +30,10 @@ public class CompraController {
         }
     }
 
-    @GetMapping("/buscar/{codigo}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<?> listarComprasPorProjeto(@PathVariable Long codigo) {
         try {
-            List<Compra> compras = compraService.buscaProjeto(codigo);
+            List<Compra> compras = compraService.findByProjeto(codigo);
             if (compras.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compras não encontradas");
             } else {
@@ -55,7 +55,7 @@ public class CompraController {
     }
 
 
-    @DeleteMapping("/excluir/{codigo}")
+    @DeleteMapping("/excluir/{id}")
     public ResponseEntity<?> excluirCompra(@PathVariable Long codigo) {
         try {
             if (compraService.findById(codigo).isEmpty()) {

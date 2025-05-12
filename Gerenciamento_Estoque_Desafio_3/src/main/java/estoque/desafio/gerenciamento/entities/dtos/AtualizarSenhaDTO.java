@@ -2,15 +2,15 @@ package estoque.desafio.gerenciamento.entities.dtos;
 
 public class AtualizarSenhaDTO {
 	
-	private Long codigo;
+	private Long id;
 	private String senha;
 	
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 	
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long codigo) {
+		this.id = id;
 	}
 	
 	public String getSenha() {

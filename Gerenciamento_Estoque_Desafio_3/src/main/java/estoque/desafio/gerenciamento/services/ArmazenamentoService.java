@@ -26,8 +26,8 @@ public class ArmazenamentoService {
         return armazenamentoRepository.findAll();
     }
 
-    public Optional<Armazenamento> findById(Long codigo) {
-        return armazenamentoRepository.findById(codigo);
+    public Optional<Armazenamento> findById(Long id) {
+        return armazenamentoRepository.findById(id);
     }
 
     @Transactional
@@ -36,8 +36,8 @@ public class ArmazenamentoService {
     }
 
     @Transactional
-    public void deleteById(Long codigo) {
-        armazenamentoRepository.deleteById(codigo);
+    public void deleteById(Long id) {
+        armazenamentoRepository.deleteById(id);
     }
 
     @Transactional

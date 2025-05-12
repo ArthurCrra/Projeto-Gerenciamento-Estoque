@@ -15,7 +15,7 @@ public class Fornecedor {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private Long id;
 	private String nome;
 	private String email;
 	private String telefone;
@@ -27,11 +27,11 @@ public class Fornecedor {
 	private Set<Item> itens;
 
 	public Long getCodigo() {
-		return codigo;
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setCodigo(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {

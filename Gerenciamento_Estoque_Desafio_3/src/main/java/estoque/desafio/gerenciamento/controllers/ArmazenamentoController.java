@@ -3,7 +3,6 @@ package estoque.desafio.gerenciamento.controllers;
 import estoque.desafio.gerenciamento.entities.Armazenamento;
 import estoque.desafio.gerenciamento.services.ArmazenamentoService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,7 @@ public class ArmazenamentoController {
         }
     }
 
-    @GetMapping("/buscar/{codigo}")
+    @GetMapping("/buscar/{id}")
     public ResponseEntity<?> buscarArmazenamentoPorCodigo(@PathVariable Long codigo) {
         try {
             Optional<Armazenamento> armazenamento = armazenamentoService.findById(codigo);
@@ -54,13 +53,13 @@ public class ArmazenamentoController {
         }
     }
 
-    @PutMapping("/atualizar/{codigo}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<?> atualizarArmazenamento(@PathVariable Long codigo, @RequestBody Armazenamento armazenamento) {
         try {
             if (armazenamentoService.findById(codigo).isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Armazenamento não encontrado");
             }
-            armazenamento.setCodigo(codigo);
+            armazenamento.setId(codigo);
             Armazenamento armazenamentoAtualizado = armazenamentoService.salvar(armazenamento);
             return ResponseEntity.ok(armazenamentoAtualizado);
         } catch (Exception e) {
@@ -68,7 +67,7 @@ public class ArmazenamentoController {
         }
     }
 
-    @DeleteMapping("/excluir/{codigo}")
+    @DeleteMapping("/excluir/{id}")
     public ResponseEntity<?> excluirArmazenamento(@PathVariable Long codigo) {
         try {
             if (armazenamentoService.findById(codigo).isEmpty()) {
@@ -81,7 +80,7 @@ public class ArmazenamentoController {
         }
     }
 
-    @DeleteMapping("/excluir-item/{armazenamentoCodigo}/{itemCodigo}")
+    @DeleteMapping("/excluir-item/{armazenamentoCodigo}/{itemId}")
     public ResponseEntity<?> removerItemDeArmazenamento(@PathVariable Long armazenamentoCodigo, @PathVariable Long itemCodigo) {
         try {
             boolean removido = armazenamentoService.removeItemDeArmazenamento(armazenamentoCodigo, itemCodigo);

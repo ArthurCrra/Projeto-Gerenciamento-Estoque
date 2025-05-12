@@ -16,7 +16,7 @@ public class Invoice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private Long id;
 	private LocalDateTime dataEmissao;
 	private double valorTotalInvoice;
 	
@@ -25,12 +25,12 @@ public class Invoice {
 	@JsonIgnoreProperties("invoice")
 	private Compra compra;
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public LocalDateTime getDataEmissao() {

@@ -59,7 +59,7 @@ public class UsuarioController {
 		}
 	}
 	
-	@DeleteMapping("/excluir/{codigo}")
+	@DeleteMapping("/excluir/{id}")
 	public ResponseEntity<?> excluirUsuario(@RequestBody Long codigo) {
 		try {
 			usuarioService.excluirUsuario(codigo);

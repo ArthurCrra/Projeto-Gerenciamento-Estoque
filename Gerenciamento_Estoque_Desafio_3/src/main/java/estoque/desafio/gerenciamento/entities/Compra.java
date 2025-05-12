@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +12,7 @@ public class Compra {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private Long id;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataEnvio; // Data que a mercadoria saiu do fornecedor
 
@@ -33,12 +32,12 @@ public class Compra {
 	@JsonIgnoreProperties("compra")
 	private Invoice invoice;
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public LocalDateTime getDataCompra() {
@@ -81,4 +80,11 @@ public class Compra {
 		this.invoice = invoice;
 	}
 
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 }

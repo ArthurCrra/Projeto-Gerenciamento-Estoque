@@ -21,9 +21,12 @@ public class CompraService {
     }
 
     public Compra add(Compra compra) {
-        if (compra.getProjeto() == null) {
+        if (compra.getProjeto() == null || compra.getProjeto().getCodigo() == null) {
             throw new IllegalArgumentException("Projeto da compra não pode ser nulo");
         }
+
+        Projeto projeto = projetoRepository.findById(compra.getProjeto().getCodigo())
+                .orElseThrow(() -> new IllegalArgumentException("Projeto não encontrado"));
 
         return compraRepository.save(compra);
     }
@@ -32,10 +35,22 @@ public class CompraService {
 
     public List<Compra> buscarTodas() {return compraRepository.findAll();}
 
-    public List<Compra> buscaProjeto(Long projetoId) {
+    public List<Compra> findByProjeto(Long projetoId) {
         return compraRepository.findByProjetoId(projetoId);
     }
 
     public void deleteById(Long id) {compraRepository.deleteById(id);}
+
+    public Compra atualizarCompra(Long id, Compra novaCompra) {
+        Compra compraExistente = compraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compra não encontrada"));
+
+        compraExistente.setDataCompra(novaCompra.getDataCompra());
+        compraExistente.setDataEnvio(novaCompra.getDataEnvio());
+        compraExistente.setObservacao(novaCompra.getObservacao());
+        compraExistente.setProjeto(novaCompra.getProjeto());
+
+        return compraRepository.save(compraExistente);
+    }
 
 }

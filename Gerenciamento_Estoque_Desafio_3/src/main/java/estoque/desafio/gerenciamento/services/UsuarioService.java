@@ -31,7 +31,7 @@ public class UsuarioService {
 	}
 
 	public Usuario atualizarSenha(AtualizarSenhaDTO senhaUsuarioDTO) {
-		Optional<Usuario> usuarioOpt = usuarioRepository.findById(senhaUsuarioDTO.getCodigo());
+		Optional<Usuario> usuarioOpt = usuarioRepository.findById(senhaUsuarioDTO.getId());
 		if (usuarioOpt.isPresent()) {
 			Usuario usuario = usuarioOpt.get();
 			usuario.setSenha(senhaUsuarioDTO.getSenha());
@@ -41,8 +41,8 @@ public class UsuarioService {
 		throw new RuntimeException("Usuário não encontrado");
 	}
 
-	public void excluirUsuario(Long codigo) {
-		usuarioRepository.deleteById(codigo);
+	public void excluirUsuario(Long id) {
+		usuarioRepository.deleteById(id);
 	}
 
 	public Optional<Usuario> getUsuarioAutenticacao(String username) {

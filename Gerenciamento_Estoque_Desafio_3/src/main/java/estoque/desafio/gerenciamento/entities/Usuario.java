@@ -22,10 +22,7 @@ public class Usuario {
 	private String nome;
 	private String senha;
 	private String funcao; // role: GP ou RT
-	
-//	@OneToMany(mappedBy = "usuario")
-//	@JsonIgnoreProperties("usuario")
-//	private Set<Projeto> projetos;
+
 	
 	public Long getId() {
 		return id;

@@ -34,13 +34,7 @@ public class ItemService {
 
 	}
 
-	public Item salvarItem(Item item, Long armazenamentoId, Long fornecedorId) {
-		Armazenamento armazenamento = armazenamentoRepository.findById(armazenamentoId).
-				orElseThrow(() -> new RuntimeException("Armazenamento não encontrado"));
-		item.setArmazenamento(armazenamento);
-		Fornecedor fornecedor = fornecedorRepository.findById(fornecedorId).
-				orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
-		item.setFornecedor(fornecedor);
+	public Item salvarItem(Item item) {
 		return itemRepository.save(item);
 	}
 

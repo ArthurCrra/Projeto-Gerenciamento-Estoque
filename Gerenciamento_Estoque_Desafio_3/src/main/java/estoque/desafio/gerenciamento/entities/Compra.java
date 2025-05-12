@@ -15,18 +15,21 @@ public class Compra {
 	private Long id;
 	private LocalDateTime dataCompra;
 	private LocalDateTime dataEnvio; // Data que a mercadoria saiu do fornecedor
-
-	@Column(nullable = true)
 	private String observacao; // Complemento vai ser aqui
 	
 	@ManyToOne
-	@JoinColumn(name = "projeto", nullable = false)
+	@JoinColumn(name = "projeto_id", nullable = false)
 	@JsonIgnoreProperties("compras")
 	private Projeto projeto;
 	
 	@OneToMany(mappedBy = "compra")
 	@JsonIgnoreProperties("compra")
 	private Set<Item> itens;
+
+	@ManyToOne
+	@JoinColumn(name = "fornecedor_id")
+	@JsonIgnoreProperties("compra")
+	private Fornecedor fornecedor;
 
 	@OneToOne(mappedBy = "compra")
 	@JsonIgnoreProperties("compra")
@@ -87,4 +90,14 @@ public class Compra {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+
 }

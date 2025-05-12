@@ -21,10 +21,10 @@ public class ItemController {
     }
 
 
-    @PostMapping("/adicionar/{armazenamentoId}/{fornecedorId}")
-    public ResponseEntity<Item> adicionarItem(@RequestBody Item item, @PathVariable Long armazenamentoCodigo, @PathVariable Long fornecedorCodigo) {
+    @PostMapping("/adicionar")
+    public ResponseEntity<Item> adicionarItem(@RequestBody Item item) {
         try {
-            Item novoItem = itemService.salvarItem(item, armazenamentoCodigo, fornecedorCodigo);
+            Item novoItem = itemService.salvarItem(item);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoItem);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

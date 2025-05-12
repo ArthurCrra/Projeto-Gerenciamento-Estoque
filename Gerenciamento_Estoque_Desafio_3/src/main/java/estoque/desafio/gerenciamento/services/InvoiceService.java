@@ -17,7 +17,7 @@ public class InvoiceService {
     }
 
     public Optional<Invoice> findByCompra(Long id) {
-        return invoiceRepository.findByCompra(id);
+        return invoiceRepository.findByCompraId(id);
     }
 
     public Invoice add(Invoice invoice) {

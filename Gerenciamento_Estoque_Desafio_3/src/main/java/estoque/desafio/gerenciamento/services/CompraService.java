@@ -21,11 +21,11 @@ public class CompraService {
     }
 
     public Compra add(Compra compra) {
-        if (compra.getProjeto() == null || compra.getProjeto().getCodigo() == null) {
+        if (compra.getProjeto() == null || compra.getProjeto().getId() == null) {
             throw new IllegalArgumentException("Projeto da compra não pode ser nulo");
         }
 
-        Projeto projeto = projetoRepository.findById(compra.getProjeto().getCodigo())
+        Projeto projeto = projetoRepository.findById(compra.getProjeto().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Projeto não encontrado"));
 
         return compraRepository.save(compra);

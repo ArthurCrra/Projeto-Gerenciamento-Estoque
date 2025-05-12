@@ -47,9 +47,8 @@ public class FornecedorController {
             fornecedorDTO.setEmail(fornecedor.getEmail());
             fornecedorDTO.setTelefone(fornecedor.getTelefone());
             fornecedorDTO.setCnpj(fornecedor.getCnpj());
-            fornecedorDTO.setEndereco(fornecedor.getEndereco());
 
-            Fornecedor fornecedorAtualizado = fornecedorService.atualizarFornecedor(fornecedor.getCodigo(), fornecedorDTO);
+            Fornecedor fornecedorAtualizado = fornecedorService.atualizarFornecedor(fornecedor.getId(), fornecedorDTO);
             return ResponseEntity.ok(fornecedorAtualizado);
         } catch (Exception e) {
             return new ResponseEntity<>("Erro ao atualizar fornecedor: " + e.getMessage(), HttpStatusCode.valueOf(500));

@@ -23,7 +23,6 @@ public class FornecedorService {
         fornecedor.setEmail(fornecedorDTO.getEmail());
         fornecedor.setTelefone(fornecedorDTO.getTelefone());
         fornecedor.setCnpj(fornecedorDTO.getCnpj());
-        fornecedor.setEndereco(fornecedorDTO.getEndereco());
 
         fornecedorRepository.save(fornecedor);
         return fornecedor;
@@ -49,7 +48,6 @@ public class FornecedorService {
             fornecedor.setEmail(fornecedorDTO.getEmail());
             fornecedor.setTelefone(fornecedorDTO.getTelefone());
             fornecedor.setCnpj(fornecedorDTO.getCnpj());
-            fornecedor.setEndereco(fornecedorDTO.getEndereco());
             return fornecedorRepository.save(fornecedor);
         } else {
             throw new Exception("Fornecedor não encontrado");

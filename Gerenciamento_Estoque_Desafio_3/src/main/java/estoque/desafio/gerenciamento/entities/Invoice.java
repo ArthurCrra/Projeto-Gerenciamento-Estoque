@@ -18,7 +18,6 @@ public class Invoice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private LocalDateTime dataEmissao;
-	private double valorTotalInvoice;
 	
 	@OneToOne
 	@JoinColumn(name = "compra", nullable = false)
@@ -41,13 +40,6 @@ public class Invoice {
 		this.dataEmissao = dataEmissao;
 	}
 
-	public double getValorTotalInvoice() {
-		return valorTotalInvoice;
-	}
-
-	public void setValorTotalInvoice(double valorTotalInvoice) {
-		this.valorTotalInvoice = valorTotalInvoice;
-	}
 
 	public Compra getCompra() {
 		return compra;

@@ -45,19 +45,4 @@ public class UsuarioService {
 		usuarioRepository.deleteById(id);
 	}
 
-	public Optional<Usuario> getUsuarioAutenticacao(String username) {
-		return usuarioRepository.findByMatricula(username);
-	}
-
-	
-//	public String isAuthenticated(LoginDTO loginDTO) {
-//		Optional<Usuario> usuario = usuarioRepository.findByMatricula(loginDTO.getMatricula());
-//		if(Optional.ofNullable(usuario).isPresent() && usuario.get().getSenha().equals(loginDTO.getSenha())) {
-//			UUID uuid = UUID.randomUUID();
-//			String myRandom = uuid.toString();
-//			return myRandom;
-//		}
-//		return "";
-//	}
-
 }

@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import org.antlr.v4.runtime.misc.NotNull;
+
 
 @Entity
 public class Item {
@@ -16,20 +16,11 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String descricao;
-	private String tipo;
+	private String nome;
+	private double valorUnitario;
+	private int quantidade;
+	private double valorTotal;
 
-	@NotNull
-	private double valoUnitario;
-
-	@NotNull
-	private String quantComprada;
-	private double valorTotalItem;
-	
-	@ManyToOne
-	@JoinColumn(name = "fornecedor_id", nullable = false)
-	@JsonIgnoreProperties("itens")
-	private Fornecedor fornecedor;
 	
 	@ManyToOne
 	@JoinColumn(name = "armazenamento_id", nullable = false)
@@ -49,53 +40,21 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {return nome;}
+
+	public void setNome(String nome) {this.nome = nome;}
+
+	public double getValorUnitario() {
+		return valorUnitario;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setValorUnitario(double valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
+	public int getQuantidade() {return quantidade;}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public double getValoUnitario() {
-		return valoUnitario;
-	}
-
-	public void setValoUnitario(double valoUnitario) {
-		this.valoUnitario = valoUnitario;
-	}
-
-	public String getQuantComprada() {
-		return quantComprada;
-	}
-
-	public void setQuantComprada(String quantComprada) {
-		this.quantComprada = quantComprada;
-	}
-
-	public double getValorTotalItem() {
-		return this.valoUnitario * Double.parseDouble(this.quantComprada);
-	}
-
-	public void setValorTotalItem(double valorTotalItem) {
-		this.valorTotalItem = valorTotalItem;
-	}
-
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
+	public void setQuantidade(int quantidade) {this.quantidade = quantidade;}
 
 	public Armazenamento getArmazenamento() {
 		return armazenamento;
@@ -113,4 +72,11 @@ public class Item {
 		this.compra = compra;
 	}
 
+	public double getValorTotal() {
+		return valorUnitario * quantidade;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
 }

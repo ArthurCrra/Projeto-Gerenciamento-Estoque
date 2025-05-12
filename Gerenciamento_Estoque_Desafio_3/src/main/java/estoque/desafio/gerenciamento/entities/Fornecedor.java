@@ -1,5 +1,6 @@
 package estoque.desafio.gerenciamento.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,19 +21,16 @@ public class Fornecedor {
 	private String email;
 	private String telefone;
 	private String cnpj;
-	private String endereco;
 	
 	@OneToMany(mappedBy = "fornecedor")
 	@JsonIgnoreProperties("fornecedor")
-	private Set<Item> itens;
+	private Set<Compra> compras = new HashSet<>();
 
-	public Long getCodigo() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setCodigo(Long id) {
-		this.id = id;
-	}
+	public void setId(Long id) {this.id = id;}
 
 	public String getNome() {
 		return nome;
@@ -66,20 +64,6 @@ public class Fornecedor {
 		this.cnpj = cnpj;
 	}
 
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public Set<Item> getItens() {
-		return itens;
-	}
-
-	public void setItens(Set<Item> itens) {
-		this.itens = itens;
-	}
-
+	public Set<Compra> getCompras() {return compras;}
+	public void setCompras(Set<Compra> compras) {this.compras = compras;}
 }

@@ -19,11 +19,11 @@ public class Projeto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+	private Long id;
 	private String apelidoProjeto;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario", nullable = false)
+	@JoinColumn(name = "usuario")
 	@JsonIgnoreProperties("projetos")
 	private Usuario usuario;
 	
@@ -31,12 +31,12 @@ public class Projeto {
 	@JsonIgnoreProperties("projeto")
 	private Set<Compra> compras;
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getApelidoProjeto() {

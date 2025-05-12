@@ -7,7 +7,6 @@ public class FornecedorDTO {
     private String email;
     private String telefone;
     private String cnpj;
-    private String endereco;
 
     public String getNome() {
         return nome;
@@ -49,11 +48,4 @@ public class FornecedorDTO {
         this.cnpj = cnpj;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
 }

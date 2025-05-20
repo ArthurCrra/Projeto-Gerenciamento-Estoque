@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f0ab8bac-bd94-4d15-8fd0-3a6bcf37a97f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Projeto-Gerenciamento-Estoque.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/GerenciamentoEstoqueDesafio3Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/controllers/ArmazenamentoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/controllers/CompraController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/controllers/FornecedorController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/controllers/InvoiceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/controllers/ItemController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/controllers/ProjetoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/controllers/UsuarioController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/Armazenamento.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/Compra.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/Fornecedor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/Invoice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/Projeto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/Usuario.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/dtos/AtualizarSenhaDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/dtos/FornecedorDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/entities/dtos/LoginDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/repositories/ArmazenamentoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/repositories/CompraRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/repositories/FornecedorRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/repositories/InvoiceRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/repositories/ItemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/repositories/ProjetoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/repositories/UsuarioRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/services/ArmazenamentoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/services/CompraService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/services/FornecedorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/services/InvoiceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/services/ItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/services/ProjetoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/java/estoque/desafio/gerenciamento/services/UsuarioService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/src/test/java/estoque/desafio/GerenciamentoEstoqueDesafio3ApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/GerenciamentoEstoqueDesafio3Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/config/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/controllers/ArmazenamentoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/controllers/CompraController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/controllers/FornecedorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/controllers/InvoiceController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/controllers/ItemController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/controllers/ProjetoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/controllers/UsuarioController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/Armazenamento.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/Compra.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/Fornecedor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/Invoice.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/Projeto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/Usuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/dtos/AtualizarSenhaDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/dtos/FornecedorDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/entities/dtos/LoginDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/repositories/ArmazenamentoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/repositories/CompraRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/repositories/FornecedorRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/repositories/InvoiceRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/repositories/ItemRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/repositories/ProjetoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/repositories/UsuarioRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/services/ArmazenamentoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/services/CompraService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/services/FornecedorService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/services/InvoiceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/services/ItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/services/ProjetoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/classes/estoque/desafio/gerenciamento/services/UsuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gerenciamento_Estoque_Desafio_3/target/test-classes/estoque/desafio/GerenciamentoEstoqueDesafio3ApplicationTests.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="userSettingsFile" value="C:\Users\lucas\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2xJxZydZdtJsJyTHVVLojxpXwWy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.GerenciamentoEstoqueDesafio3Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="GerenciamentoEstoqueDesafio3Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="gerenciamento" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="estoque.desafio.gerenciamento.GerenciamentoEstoqueDesafio3Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f0ab8bac-bd94-4d15-8fd0-3a6bcf37a97f" name="Changes" comment="" />
+      <created>1747670037917</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747670037917</updated>
+      <workItem from="1747670040228" duration="400000" />
+      <workItem from="1747670468342" duration="7261000" />
+      <workItem from="1747757215890" duration="2816000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

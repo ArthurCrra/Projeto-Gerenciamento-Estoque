@@ -6,11 +6,12 @@ function Login() {
 
 
   return (
-    <div className='loginForm'>
-      <form action="">
+    <div className='container'>
+      <form>
         <h1>Gerenciador de estoque</h1>
         <input name='email' type='text'/>
         <input name='senha' type='text'/>
+        <button type='button'>Entrar</button>
       </form>
     </div>
   )

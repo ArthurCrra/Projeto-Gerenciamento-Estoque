@@ -1,7 +1,7 @@
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, Navigate} from 'react-router-dom'
 
-import { Home } from '../pages/Home'
-import { Destiny } from '../pages/Destiny'
+import {Login} from '../pages/Login';
+import {Projetos} from '../pages/Projetos';
 
 
 
@@ -9,8 +9,9 @@ import { Destiny } from '../pages/Destiny'
 export function AuthRoutes() {
  return (
    <Routes>
-     <Route path="/" element={<Home />} />
-     <Route path="/destino" element={<Destiny />} />
-   </Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/projetos" element={<Projetos />} />
+    </Routes>
  )
 }

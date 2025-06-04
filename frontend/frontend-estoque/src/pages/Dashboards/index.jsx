@@ -2,7 +2,7 @@
 import './style.css'
 
 
-function Login() {
+export function Dashboard() {
 
 
   return (
@@ -17,4 +17,3 @@ function Login() {
   )
 }
 
-export default Login

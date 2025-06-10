@@ -8,6 +8,4 @@ import estoque.desafio.gerenciamento.entities.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	Optional<Usuario> findByMatricula(String matricula);
-
 }

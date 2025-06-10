@@ -1,14 +1,9 @@
 package estoque.desafio.gerenciamento.entities;
 
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,10 +13,10 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String matricula;
 	private String nome;
+	private String email;
 	private String senha;
-	private String funcao; // role: GP ou RT
+
 
 	
 	public Long getId() {
@@ -32,20 +27,20 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getMatricula() {
-		return matricula;
-	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {
@@ -55,14 +50,7 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	public String getFuncao() {
-		return funcao;
-	}
 
-	public void setFuncao(String funcao) {
-		this.funcao = funcao;
-	}
 
 //	public Set<Projeto> getProjetos() {
 //		return projetos;

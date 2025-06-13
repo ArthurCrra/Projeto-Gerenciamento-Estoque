@@ -16,6 +16,7 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
+	private String funcao;
 
 
 	
@@ -51,8 +52,15 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	public String getFuncao() {
+		return funcao;
+	}
 
-//	public Set<Projeto> getProjetos() {
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
+	}
+
+	//	public Set<Projeto> getProjetos() {
 //		return projetos;
 //	}
 

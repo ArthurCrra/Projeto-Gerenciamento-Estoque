@@ -24,68 +24,10 @@ import AutorenewRoundedIcon from '@mui/icons-material/AutorenewRounded';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
-const listItems = [
-    {
-        id: 'INV-1234',
-        date: 'Feb 3, 2023',
-        status: 'Refunded',
-        customer: {
-            initial: 'O',
-            name: 'Olivia Ryhe',
-            email: 'olivia@email.com',
-        },
-    },
-    {
-        id: 'INV-1233',
-        date: 'Feb 3, 2023',
-        status: 'Paid',
-        customer: {
-            initial: 'S',
-            name: 'Steve Hampton',
-            email: 'steve.hamp@email.com',
-        },
-    },
-    {
-        id: 'INV-1232',
-        date: 'Feb 3, 2023',
-        status: 'Refunded',
-        customer: {
-            initial: 'C',
-            name: 'Ciaran Murray',
-            email: 'ciaran.murray@email.com',
-        },
-    },
-    {
-        id: 'INV-1231',
-        date: 'Feb 3, 2023',
-        status: 'Refunded',
-        customer: {
-            initial: 'M',
-            name: 'Maria Macdonald',
-            email: 'maria.mc@email.com',
-        },
-    },
-    {
-        id: 'INV-1230',
-        date: 'Feb 3, 2023',
-        status: 'Cancelled',
-        customer: {
-            initial: 'C',
-            name: 'Charles Fulton',
-            email: 'fulton@email.com',
-        },
-    },
-    {
-        id: 'INV-1229',
-        date: 'Feb 3, 2023',
-        status: 'Cancelled',
-        customer: {
-            initial: 'J',
-            name: 'Jay Hooper',
-            email: 'hooper@email.com',
-        },
-    },
-];
+import { useEffect, useState } from 'react';
+import { buscarItens } from '../../services/itensService';
+
+
 
 function RowMenu() {
     return (
@@ -108,10 +50,26 @@ function RowMenu() {
 }
 
 export default function Lista() {
+    interface Item {
+        id: number;
+        nome: string;
+        valorUnitario: number;
+        quantidade: number;
+        valorTotal: number;
+    }
+
+    const [itens, setItens] = useState<Item[]>([]);
+
+    useEffect(() => {
+        buscarItens()
+            .then(setItens)
+            .catch((error) => console.error('Erro ao buscar itens:', error));
+    }, []);
+
     return (
         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-            {listItems.map((listItem) => (
-                <List key={listItem.id} size="sm" sx={{ '--ListItem-paddingX': 0 }}>
+            {itens.map((item) => (
+                <List key={item.id} size="sm" sx={{ '--ListItem-paddingX': 0 }}>
                     <ListItem
                         sx={{
                             display: 'flex',
@@ -121,56 +79,26 @@ export default function Lista() {
                     >
                         <ListItemContent sx={{ display: 'flex', gap: 2, alignItems: 'start' }}>
                             <ListItemDecorator>
-                                <Avatar size="sm">{listItem.customer.initial}</Avatar>
+                                <Avatar size="sm">{item.nome[0]}</Avatar>
                             </ListItemDecorator>
                             <div>
                                 <Typography gutterBottom sx={{ fontWeight: 600 }}>
-                                    {listItem.customer.name}
+                                    {item.nome}
                                 </Typography>
                                 <Typography level="body-xs" gutterBottom>
-                                    {listItem.customer.email}
+                                    ID: {item.id}
                                 </Typography>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        gap: 0.5,
-                                        mb: 1,
-                                    }}
-                                >
-                                    <Typography level="body-xs">{listItem.date}</Typography>
-                                    <Typography level="body-xs">&bull;</Typography>
-                                    <Typography level="body-xs">{listItem.id}</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                                    <Link level="body-sm" component="button">
-                                        Download
-                                    </Link>
-                                    <RowMenu />
-                                </Box>
+                                <Typography level="body-xs">
+                                    Quantidade: {item.quantidade}
+                                </Typography>
+                                <Typography level="body-xs">
+                                    Valor Unitário: R$ {item.valorUnitario.toFixed(2)}
+                                </Typography>
+                                <Typography level="body-xs">
+                                    Valor Total: R$ {item.valorTotal.toFixed(2)}
+                                </Typography>
                             </div>
                         </ListItemContent>
-                        <Chip
-                            variant="soft"
-                            size="sm"
-                            startDecorator={
-                                {
-                                    Paid: <CheckRoundedIcon />,
-                                    Refunded: <AutorenewRoundedIcon />,
-                                    Cancelled: <BlockIcon />,
-                                }[listItem.status]
-                            }
-                            color={
-                                {
-                                    Paid: 'success',
-                                    Refunded: 'neutral',
-                                    Cancelled: 'danger',
-                                }[listItem.status] as ColorPaletteProp
-                            }
-                        >
-                            {listItem.status}
-                        </Chip>
                     </ListItem>
                     <ListDivider />
                 </List>

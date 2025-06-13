@@ -31,9 +31,6 @@ public class Compra {
 	@JsonIgnoreProperties("compra")
 	private Fornecedor fornecedor;
 
-	@OneToOne(mappedBy = "compra")
-	@JsonIgnoreProperties("compra")
-	private Invoice invoice;
 
 	public Long getId() {
 		return id;
@@ -73,14 +70,6 @@ public class Compra {
 
 	public void setItens(Set<Item> itens) {
 		this.itens = itens;
-	}
-
-	public Invoice getInvoice() {
-		return invoice;
-	}
-
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
 	}
 
 	public String getObservacao() {

@@ -21,7 +21,6 @@ public class Projeto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String apelidoProjeto;
-	private String descricao;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario")
@@ -48,9 +47,6 @@ public class Projeto {
 		this.apelidoProjeto = apelidoProjeto;
 	}
 
-	public String getDescricao() {return descricao;}
-
-	public void setDescricao(String descricao) {this.descricao = descricao;}
 
 	public Usuario getUsuario() {
 		return usuario;

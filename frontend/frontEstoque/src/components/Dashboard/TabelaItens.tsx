@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
-import type {ColorPaletteProp} from '@mui/joy/styles';
+import type { ColorPaletteProp } from '@mui/joy/styles';
 import Avatar from '@mui/joy/Avatar';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -35,188 +35,16 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 
-const rows = [
-  {
-    id: 'INV-1234',
-    date: 'Feb 3, 2023',
-    status: 'Refunded',
-    customer: {
-      initial: 'O',
-      name: 'Olivia Ryhe',
-      email: 'olivia@email.com',
-    },
-  },
-  {
-    id: 'INV-1233',
-    date: 'Feb 3, 2023',
-    status: 'Paid',
-    customer: {
-      initial: 'S',
-      name: 'Steve Hampton',
-      email: 'steve.hamp@email.com',
-    },
-  },
-  {
-    id: 'INV-1232',
-    date: 'Feb 3, 2023',
-    status: 'Refunded',
-    customer: {
-      initial: 'C',
-      name: 'Ciaran Murray',
-      email: 'ciaran.murray@email.com',
-    },
-  },
-  {
-    id: 'INV-1231',
-    date: 'Feb 3, 2023',
-    status: 'Refunded',
-    customer: {
-      initial: 'M',
-      name: 'Maria Macdonald',
-      email: 'maria.mc@email.com',
-    },
-  },
-  {
-    id: 'INV-1230',
-    date: 'Feb 3, 2023',
-    status: 'Cancelled',
-    customer: {
-      initial: 'C',
-      name: 'Charles Fulton',
-      email: 'fulton@email.com',
-    },
-  },
-  {
-    id: 'INV-1229',
-    date: 'Feb 3, 2023',
-    status: 'Cancelled',
-    customer: {
-      initial: 'J',
-      name: 'Jay Hooper',
-      email: 'hooper@email.com',
-    },
-  },
-  {
-    id: 'INV-1228',
-    date: 'Feb 3, 2023',
-    status: 'Refunded',
-    customer: {
-      initial: 'K',
-      name: 'Krystal Stevens',
-      email: 'k.stevens@email.com',
-    },
-  },
-  {
-    id: 'INV-1227',
-    date: 'Feb 3, 2023',
-    status: 'Paid',
-    customer: {
-      initial: 'S',
-      name: 'Sachin Flynn',
-      email: 's.flyn@email.com',
-    },
-  },
-  {
-    id: 'INV-1226',
-    date: 'Feb 3, 2023',
-    status: 'Cancelled',
-    customer: {
-      initial: 'B',
-      name: 'Bradley Rosales',
-      email: 'brad123@email.com',
-    },
-  },
-  {
-    id: 'INV-1225',
-    date: 'Feb 3, 2023',
-    status: 'Paid',
-    customer: {
-      initial: 'O',
-      name: 'Olivia Ryhe',
-      email: 'olivia@email.com',
-    },
-  },
-  {
-    id: 'INV-1224',
-    date: 'Feb 3, 2023',
-    status: 'Cancelled',
-    customer: {
-      initial: 'S',
-      name: 'Steve Hampton',
-      email: 'steve.hamp@email.com',
-    },
-  },
-  {
-    id: 'INV-1223',
-    date: 'Feb 3, 2023',
-    status: 'Paid',
-    customer: {
-      initial: 'C',
-      name: 'Ciaran Murray',
-      email: 'ciaran.murray@email.com',
-    },
-  },
-  {
-    id: 'INV-1221',
-    date: 'Feb 3, 2023',
-    status: 'Refunded',
-    customer: {
-      initial: 'M',
-      name: 'Maria Macdonald',
-      email: 'maria.mc@email.com',
-    },
-  },
-  {
-    id: 'INV-1220',
-    date: 'Feb 3, 2023',
-    status: 'Paid',
-    customer: {
-      initial: 'C',
-      name: 'Charles Fulton',
-      email: 'fulton@email.com',
-    },
-  },
-  {
-    id: 'INV-1219',
-    date: 'Feb 3, 2023',
-    status: 'Cancelled',
-    customer: {
-      initial: 'J',
-      name: 'Jay Hooper',
-      email: 'hooper@email.com',
-    },
-  },
-  {
-    id: 'INV-1218',
-    date: 'Feb 3, 2023',
-    status: 'Cancelled',
-    customer: {
-      initial: 'K',
-      name: 'Krystal Stevens',
-      email: 'k.stevens@email.com',
-    },
-  },
-  {
-    id: 'INV-1217',
-    date: 'Feb 3, 2023',
-    status: 'Paid',
-    customer: {
-      initial: 'S',
-      name: 'Sachin Flynn',
-      email: 's.flyn@email.com',
-    },
-  },
-  {
-    id: 'INV-1216',
-    date: 'Feb 3, 2023',
-    status: 'Cancelled',
-    customer: {
-      initial: 'B',
-      name: 'Bradley Rosales',
-      email: 'brad123@email.com',
-    },
-  },
-];
+import type { Item } from '../../types/Item';
+
+interface TabelaItensProps {
+  itens: Item[];
+  selected: number[];
+  setSelected: (ids: number[]) => void;
+  order: 'asc' | 'desc';
+  setOrder: (o: 'asc' | 'desc') => void;
+}
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -261,10 +89,13 @@ function RowMenu() {
     </Dropdown>
   );
 }
-export default function TabaelaCompras() {
+export function TabelaItens({ itens }: TabelaItensProps) {
+
   const [order, setOrder] = React.useState<Order>('desc');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [open, setOpen] = React.useState(false);
+
+  //FILTROS
   const renderFilters = () => (
     <React.Fragment>
       <FormControl size="sm">
@@ -303,6 +134,7 @@ export default function TabaelaCompras() {
       </FormControl>
     </React.Fragment>
   );
+
   return (
     <React.Fragment>
       <Sheet
@@ -388,16 +220,11 @@ export default function TabaelaCompras() {
                 <Checkbox
                   size="sm"
                   indeterminate={
-                    selected.length > 0 && selected.length !== rows.length
+                    selected.length > 0 && selected.length !== itens.length
                   }
-                  checked={selected.length === rows.length}
-                  onChange={(event) => {
-                    setSelected(
-                      event.target.checked ? rows.map((row) => row.id) : [],
-                    );
-                  }}
+                  checked={selected.length === itens.length}
                   color={
-                    selected.length > 0 || selected.length === rows.length
+                    selected.length > 0 || selected.length === itens.length
                       ? 'primary'
                       : undefined
                   }
@@ -428,75 +255,45 @@ export default function TabaelaCompras() {
                   Invoice
                 </Link>
               </th>
-              <th style={{ width: 140, padding: '12px 6px' }}>Data</th>
-              <th style={{ width: 140, padding: '12px 6px' }}>Status</th>
-              <th style={{ width: 240, padding: '12px 6px' }}>Customer</th>
-              <th style={{ width: 140, padding: '12px 6px' }}> </th>
+              <th style={{ width: 140, padding: '12px 6px' }}>Nome</th>
+              <th style={{ width: 140, padding: '12px 6px' }}>Quantidade</th>
+              <th style={{ width: 240, padding: '12px 6px' }}>Valor total</th>
+              <th style={{ width: 140, padding: '12px 6px' }}>Valor unitario</th>
+              <th style={{ width: 140, padding: '12px 6px' }}>Armazenamento</th>
             </tr>
           </thead>
           <tbody>
-            {[...rows].sort(getComparator(order, 'id')).map((row) => (
-              <tr key={row.id}>
+            {[...itens].sort(getComparator(order, 'id')).map((item) => (
+              <tr key={item.id}>
                 <td style={{ textAlign: 'center', width: 120 }}>
-                  <Checkbox
-                    size="sm"
-                    checked={selected.includes(row.id)}
-                    color={selected.includes(row.id) ? 'primary' : undefined}
-                    onChange={(event) => {
-                      setSelected((ids) =>
-                        event.target.checked
-                          ? ids.concat(row.id)
-                          : ids.filter((itemId) => itemId !== row.id),
-                      );
-                    }}
-                    slotProps={{ checkbox: { sx: { textAlign: 'left' } } }}
-                    sx={{ verticalAlign: 'text-bottom' }}
-                  />
+
                 </td>
                 <td>
-                  <Typography level="body-xs">{row.id}</Typography>
+                  <Typography level="body-xs">{item.id}</Typography>
                 </td>
                 <td>
-                  <Typography level="body-xs">{row.date}</Typography>
+                  <Typography level="body-xs">{item.nome}</Typography>
                 </td>
                 <td>
-                  <Chip
-                    variant="soft"
-                    size="sm"
-                    startDecorator={
-                      {
-                        Paid: <CheckRoundedIcon />,
-                        Refunded: <AutorenewRoundedIcon />,
-                        Cancelled: <BlockIcon />,
-                      }[row.status]
-                    }
-                    color={
-                      {
-                        Paid: 'success',
-                        Refunded: 'neutral',
-                        Cancelled: 'danger',
-                      }[row.status] as ColorPaletteProp
-                    }
-                  >
-                    {row.status}
-                  </Chip>
+                  <Typography level="body-xs">{item.quantidade}</Typography>
                 </td>
                 <td>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <Avatar size="sm">{row.customer.initial}</Avatar>
-                    <div>
-                      <Typography level="body-xs">{row.customer.name}</Typography>
-                      <Typography level="body-xs">{row.customer.email}</Typography>
-                    </div>
-                  </Box>
+                  <Typography level="body-xs">
+                    R$ {(item.valorUnitario * item.quantidade).toFixed(2) || '0.00'}
+                  </Typography>
                 </td>
                 <td>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <Link level="body-xs" component="button">
-                      Download
-                    </Link>
-                    <RowMenu />
-                  </Box>
+                  <Typography level="body-xs">
+                    R$ {item.valorUnitario.toFixed(2) || '0.00'}
+                  </Typography>
+                </td>
+                <td>
+                  <Typography level="body-xs">
+                    R$ {item.valorTotal.toFixed(2) || '0.00'}
+                  </Typography>
+                </td>
+                <td>
+                  <Typography level="body-xs">{item.armazenamento?.sala}</Typography>
                 </td>
               </tr>
             ))}

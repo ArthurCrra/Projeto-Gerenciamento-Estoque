@@ -12,11 +12,32 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
 import Sidebar from '../components/Dashboard/Sidebar';
-import Table from '../components/Dashboard/TabelaCompras';
-import OrderList from '../components/Dashboard/Lista';
 import Header from '../components/Dashboard/Header';
 
+import { useEffect, useState } from 'react';
+import { buscarItens } from '../services/itensService';
+import type { Item } from '../types/Item';
+import { TabelaItens } from '../components/Dashboard/TabelaItens';
+
 export default function Dashboard() {
+  const [itens, setItens] = useState<Item[]>([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    async function carregarItens() {
+      try {
+        const dados = await buscarItens();
+        setItens(dados);
+      } catch (error) {
+        console.error('Erro ao carregar itens:', error);
+      }
+    }
+
+    carregarItens();
+  }, []);
+
+  const [selected, setSelected] = useState<number[]>([]);
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -92,8 +113,13 @@ export default function Dashboard() {
               Download PDF
             </Button>
           </Box>
-          <Table />
-          <OrderList />
+          <TabelaItens
+            itens={itens}
+            selected={selected}
+            setSelected={setSelected}
+            order={order}
+            setOrder={setOrder}
+          />
         </Box>
       </Box>
     </CssVarsProvider>

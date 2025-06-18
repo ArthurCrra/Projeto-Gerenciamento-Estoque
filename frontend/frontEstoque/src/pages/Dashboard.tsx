@@ -103,7 +103,7 @@ export default function Dashboard() {
             }}
           >
             <Typography level="h2" component="h1">
-              Orders
+              Estoque
             </Typography>
             <Button
               color="primary"

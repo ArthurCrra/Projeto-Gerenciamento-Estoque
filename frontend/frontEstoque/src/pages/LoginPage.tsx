@@ -194,7 +194,7 @@ export default function LoginPage() {
                                     </Box>
                                     {erro && <Typography color="danger">{erro}</Typography>}
                                     <Button type="submit" fullWidth>
-                                        Sign in
+                                        Entrar
                                     </Button>
                                 </Stack>
                             </form>

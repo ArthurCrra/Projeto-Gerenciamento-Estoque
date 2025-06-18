@@ -99,10 +99,10 @@ export function TabelaItens({ itens }: TabelaItensProps) {
   const renderFilters = () => (
     <React.Fragment>
       <FormControl size="sm">
-        <FormLabel>Status</FormLabel>
+        <FormLabel>Projeto</FormLabel>
         <Select
           size="sm"
-          placeholder="Filter by status"
+          placeholder="Filtrar pelo projeto"
           slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
         >
           <Option value="paid">Paid</Option>
@@ -112,16 +112,17 @@ export function TabelaItens({ itens }: TabelaItensProps) {
         </Select>
       </FormControl>
       <FormControl size="sm">
-        <FormLabel>Category</FormLabel>
-        <Select size="sm" placeholder="All">
-          <Option value="all">All</Option>
-          <Option value="refund">Refund</Option>
-          <Option value="purchase">Purchase</Option>
-          <Option value="debit">Debit</Option>
-        </Select>
+        <FormLabel>Data</FormLabel>
+          <Input
+            type="date"
+            slotProps={{
+              input: {
+                min: '2020-01-01'
+              }
+            }}></Input>
       </FormControl>
       <FormControl size="sm">
-        <FormLabel>Customer</FormLabel>
+        <FormLabel>Armazenamento</FormLabel>
         <Select size="sm" placeholder="All">
           <Option value="all">All</Option>
           <Option value="olivia">Olivia Rhye</Option>
@@ -143,7 +144,7 @@ export function TabelaItens({ itens }: TabelaItensProps) {
       >
         <Input
           size="sm"
-          placeholder="Search"
+          placeholder="Pesquisar"
           startDecorator={<SearchIcon />}
           sx={{ flexGrow: 1 }}
         />
@@ -185,8 +186,8 @@ export function TabelaItens({ itens }: TabelaItensProps) {
         }}
       >
         <FormControl sx={{ flex: 1 }} size="sm">
-          <FormLabel>Search for order</FormLabel>
-          <Input size="sm" placeholder="Search" startDecorator={<SearchIcon />} />
+          <FormLabel>Pesquise por itens</FormLabel>
+          <Input size="sm" placeholder="Pesquisar" startDecorator={<SearchIcon />} />
         </FormControl>
         {renderFilters()}
       </Box>
@@ -205,6 +206,7 @@ export function TabelaItens({ itens }: TabelaItensProps) {
         <Table
           aria-labelledby="tableTitle"
           stickyHeader
+          size='lg'
           hoverRow
           sx={{
             '--TableCell-headBackground': 'var(--joy-palette-background-level1)',
@@ -217,19 +219,7 @@ export function TabelaItens({ itens }: TabelaItensProps) {
           <thead>
             <tr>
               <th style={{ width: 48, textAlign: 'center', padding: '12px 6px' }}>
-                <Checkbox
-                  size="sm"
-                  indeterminate={
-                    selected.length > 0 && selected.length !== itens.length
-                  }
-                  checked={selected.length === itens.length}
-                  color={
-                    selected.length > 0 || selected.length === itens.length
-                      ? 'primary'
-                      : undefined
-                  }
-                  sx={{ verticalAlign: 'text-bottom' }}
-                />
+                
               </th>
               <th style={{ width: 120, padding: '12px 6px' }}>
                 <Link
@@ -252,7 +242,7 @@ export function TabelaItens({ itens }: TabelaItensProps) {
                       : { '& svg': { transform: 'rotate(180deg)' } },
                   ]}
                 >
-                  Invoice
+                  Itens
                 </Link>
               </th>
               <th style={{ width: 140, padding: '12px 6px' }}>Nome</th>
@@ -276,11 +266,6 @@ export function TabelaItens({ itens }: TabelaItensProps) {
                 </td>
                 <td>
                   <Typography level="body-xs">{item.quantidade}</Typography>
-                </td>
-                <td>
-                  <Typography level="body-xs">
-                    R$ {(item.valorUnitario * item.quantidade).toFixed(2) || '0.00'}
-                  </Typography>
                 </td>
                 <td>
                   <Typography level="body-xs">

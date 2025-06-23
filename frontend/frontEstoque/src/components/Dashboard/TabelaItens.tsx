@@ -35,7 +35,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 
-import type { Item } from '../../types/Item';
+import type { Item } from '../../types/Interface';
 
 interface TabelaItensProps {
   itens: Item[];
@@ -90,51 +90,94 @@ function RowMenu() {
   );
 }
 export function TabelaItens({ itens }: TabelaItensProps) {
-
   const [order, setOrder] = React.useState<Order>('desc');
-  const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [open, setOpen] = React.useState(false);
+  const [busca, setBusca] = React.useState('');
+  const [filtroProjeto, setFiltroProjeto] = React.useState('');
+  const [filtroData, setFiltroData] = React.useState('');
+  const [filtroArmazenamento, setFiltroArmazenamento] = React.useState('');
 
-  //FILTROS
+  // 🔎 Filtro dos itens com segurança nos acessos
+  const itensFiltrados = itens.filter((item) => {
+    const nomeMatch = item.nome.toLowerCase().includes(busca.toLowerCase());
+
+    const projetoMatch =
+      !filtroProjeto || item.compra?.projeto?.apelidoProjeto === filtroProjeto;
+
+    const dataCompra = item.compra?.dataCompra;
+    const dataMatch =
+      !filtroData ||
+      (dataCompra instanceof Date
+        ? dataCompra.toISOString().startsWith(filtroData)
+        : new Date(dataCompra).toISOString().startsWith(filtroData));
+
+    const armazenamentoMatch =
+      !filtroArmazenamento || item.armazenamento?.sala === filtroArmazenamento;
+
+    return nomeMatch && projetoMatch && dataMatch && armazenamentoMatch;
+  });
+
+
+
   const renderFilters = () => (
-    <React.Fragment>
+    <>
+      {/* Filtro pelo projeto */}
       <FormControl size="sm">
         <FormLabel>Projeto</FormLabel>
         <Select
           size="sm"
           placeholder="Filtrar pelo projeto"
+          value={filtroProjeto}
+          onChange={(_, value) => setFiltroProjeto(value || '')}
           slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
         >
-          <Option value="paid">Paid</Option>
-          <Option value="pending">Pending</Option>
-          <Option value="refunded">Refunded</Option>
-          <Option value="cancelled">Cancelled</Option>
+          <Option value="">Todos os projetos</Option>
+          {[...new Set(itens.map(item => item.compra?.projeto?.apelidoProjeto))]
+            .filter(Boolean)
+            .map((apelido) => (
+              <Option key={apelido} value={apelido}>
+                {apelido}
+              </Option>
+            ))}
         </Select>
       </FormControl>
+      {/* Filtro pela data da compra */}
       <FormControl size="sm">
         <FormLabel>Data</FormLabel>
-          <Input
-            type="date"
-            slotProps={{
-              input: {
-                min: '2020-01-01'
-              }
-            }}></Input>
+        <Input
+          type="date"
+          value={filtroData}
+          onChange={(e) => setFiltroData(e.target.value)}
+          slotProps={{
+            input: {
+              min: '2020-01-01'
+            }
+          }}
+        />
       </FormControl>
+      {/* Filtro pelo armazenamento*/}
       <FormControl size="sm">
         <FormLabel>Armazenamento</FormLabel>
-        <Select size="sm" placeholder="All">
-          <Option value="all">All</Option>
-          <Option value="olivia">Olivia Rhye</Option>
-          <Option value="steve">Steve Hampton</Option>
-          <Option value="ciaran">Ciaran Murray</Option>
-          <Option value="marina">Marina Macdonald</Option>
-          <Option value="charles">Charles Fulton</Option>
-          <Option value="jay">Jay Hoper</Option>
+        <Select
+          size="sm"
+          placeholder="Filtrar pela sala"
+          value={filtroArmazenamento}
+          onChange={(_, value) => setFiltroArmazenamento(value || '')}
+        >
+          <Option value="">Todos os armazenamentos</Option>
+          {[...new Set(itens.map(item => item.armazenamento?.sala))]
+            .filter(Boolean)
+            .map((sala) => (
+              <Option key={sala} value={sala}>
+                {sala}
+              </Option>
+            ))}
         </Select>
       </FormControl>
-    </React.Fragment>
+    </>
   );
+
+
 
   return (
     <React.Fragment>
@@ -186,8 +229,8 @@ export function TabelaItens({ itens }: TabelaItensProps) {
         }}
       >
         <FormControl sx={{ flex: 1 }} size="sm">
-          <FormLabel>Pesquise por itens</FormLabel>
-          <Input size="sm" placeholder="Pesquisar" startDecorator={<SearchIcon />} />
+          <FormLabel>Pesquisa</FormLabel>
+          <Input size="sm" placeholder="Pesquisar" value={busca} onChange={(e) => setBusca(e.target.value)} startDecorator={<SearchIcon />} />
         </FormControl>
         {renderFilters()}
       </Box>
@@ -206,7 +249,9 @@ export function TabelaItens({ itens }: TabelaItensProps) {
         <Table
           aria-labelledby="tableTitle"
           stickyHeader
-          size='lg'
+          color="danger"
+          size='md'
+          stripe='odd'
           hoverRow
           sx={{
             '--TableCell-headBackground': 'var(--joy-palette-background-level1)',
@@ -218,67 +263,36 @@ export function TabelaItens({ itens }: TabelaItensProps) {
         >
           <thead>
             <tr>
-              <th style={{ width: 48, textAlign: 'center', padding: '12px 6px' }}>
-                
-              </th>
-              <th style={{ width: 120, padding: '12px 6px' }}>
-                <Link
-                  underline="none"
-                  color="primary"
-                  component="button"
-                  onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}
-                  endDecorator={<ArrowDropDownIcon />}
-                  sx={[
-                    {
-                      fontWeight: 'lg',
-                      '& svg': {
-                        transition: '0.2s',
-                        transform:
-                          order === 'desc' ? 'rotate(0deg)' : 'rotate(180deg)',
-                      },
-                    },
-                    order === 'desc'
-                      ? { '& svg': { transform: 'rotate(0deg)' } }
-                      : { '& svg': { transform: 'rotate(180deg)' } },
-                  ]}
-                >
-                  Itens
-                </Link>
-              </th>
-              <th style={{ width: 140, padding: '12px 6px' }}>Nome</th>
-              <th style={{ width: 140, padding: '12px 6px' }}>Quantidade</th>
-              <th style={{ width: 240, padding: '12px 6px' }}>Valor total</th>
-              <th style={{ width: 140, padding: '12px 6px' }}>Valor unitario</th>
-              <th style={{ width: 140, padding: '12px 6px' }}>Armazenamento</th>
+              <th style={{ width: 18, textAlign: 'center', padding: '10px 6px' }}></th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Nome</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Quantidade</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Valor unitario</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Valor total</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Armazenamento</th>
             </tr>
           </thead>
           <tbody>
-            {[...itens].sort(getComparator(order, 'id')).map((item) => (
+            {[...itensFiltrados].sort(getComparator(order, 'id')).map((item) => (
               <tr key={item.id}>
-                <td style={{ textAlign: 'center', width: 120 }}>
-
+                <td style={{ textAlign: 'center' }}></td>
+                <td>
+                  <Typography level="body-md">{item.nome}</Typography>
                 </td>
                 <td>
-                  <Typography level="body-xs">{item.id}</Typography>
+                  <Typography level="body-md">{item.quantidade}</Typography>
                 </td>
                 <td>
-                  <Typography level="body-xs">{item.nome}</Typography>
-                </td>
-                <td>
-                  <Typography level="body-xs">{item.quantidade}</Typography>
-                </td>
-                <td>
-                  <Typography level="body-xs">
+                  <Typography level="body-md">
                     R$ {item.valorUnitario.toFixed(2) || '0.00'}
                   </Typography>
                 </td>
                 <td>
-                  <Typography level="body-xs">
+                  <Typography level="body-md">
                     R$ {item.valorTotal.toFixed(2) || '0.00'}
                   </Typography>
                 </td>
                 <td>
-                  <Typography level="body-xs">{item.armazenamento?.sala}</Typography>
+                  <Typography level="body-md">{item.armazenamento?.sala}</Typography>
                 </td>
               </tr>
             ))}
@@ -300,28 +314,16 @@ export function TabelaItens({ itens }: TabelaItensProps) {
         <Button
           size="sm"
           variant="outlined"
-          color="neutral"
+          color="primary"
           startDecorator={<KeyboardArrowLeftIcon />}
         >
           Previous
         </Button>
 
-        <Box sx={{ flex: 1 }} />
-        {['1', '2', '3', '…', '8', '9', '10'].map((page) => (
-          <IconButton
-            key={page}
-            size="sm"
-            variant={Number(page) ? 'outlined' : 'plain'}
-            color="neutral"
-          >
-            {page}
-          </IconButton>
-        ))}
-        <Box sx={{ flex: 1 }} />
         <Button
           size="sm"
           variant="outlined"
-          color="neutral"
+          color="primary"
           endDecorator={<KeyboardArrowRightIcon />}
         >
           Next

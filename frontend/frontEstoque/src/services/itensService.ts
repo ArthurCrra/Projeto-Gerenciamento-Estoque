@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type { Item } from '../types/Item';
+import type { Item } from '../types/Interface';
 
 const API_URL = 'http://localhost:8080/item/buscar';
 

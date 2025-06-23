@@ -14,7 +14,6 @@ public class Compra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private LocalDateTime dataCompra;
-	private LocalDateTime dataEnvio; // Data que a mercadoria saiu do fornecedor
 	private String observacao; // Complemento vai ser aqui
 	
 	@ManyToOne
@@ -46,14 +45,6 @@ public class Compra {
 
 	public void setDataCompra(LocalDateTime dataCompra) {
 		this.dataCompra = dataCompra;
-	}
-
-	public LocalDateTime getDataEnvio() {
-		return dataEnvio;
-	}
-
-	public void setDataEnvio(LocalDateTime dataEnvio) {
-		this.dataEnvio = dataEnvio;
 	}
 
 	public Projeto getProjeto() {

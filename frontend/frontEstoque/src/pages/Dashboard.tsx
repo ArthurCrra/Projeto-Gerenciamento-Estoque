@@ -16,7 +16,7 @@ import Header from '../components/Dashboard/Header';
 
 import { useEffect, useState } from 'react';
 import { buscarItens } from '../services/itensService';
-import type { Item } from '../types/Item';
+import type { Item } from '../types/Interface';
 import { TabelaItens } from '../components/Dashboard/TabelaItens';
 
 export default function Dashboard() {
@@ -103,15 +103,8 @@ export default function Dashboard() {
             }}
           >
             <Typography level="h2" component="h1">
-              Estoque
+              Estoque de itens
             </Typography>
-            <Button
-              color="primary"
-              startDecorator={<DownloadRoundedIcon />}
-              size="sm"
-            >
-              Download PDF
-            </Button>
           </Box>
           <TabelaItens
             itens={itens}

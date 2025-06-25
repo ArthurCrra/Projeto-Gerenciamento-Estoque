@@ -11,17 +11,17 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
-import Sidebar from '../components/Dashboard/Sidebar';
-import Header from '../components/Dashboard/Header';
+import Sidebar from '../components/Itens/Sidebar';
+import Header from '../components/Itens/Header';
 
 import { useEffect, useState } from 'react';
 import { buscarItens } from '../services/itensService';
 import type { Item } from '../types/Interface';
-import { TabelaItens } from '../components/Dashboard/TabelaItens';
+import { Tabela } from '../components/Itens/Tabela';
 
-export default function Dashboard() {
+export default function Itens() {
   const [itens, setItens] = useState<Item[]>([]);
-  const [carregando, setCarregando] = useState(true);
+
 
   useEffect(() => {
     async function carregarItens() {
@@ -106,7 +106,7 @@ export default function Dashboard() {
               Estoque de itens
             </Typography>
           </Box>
-          <TabelaItens
+          <Tabela
             itens={itens}
             selected={selected}
             setSelected={setSelected}

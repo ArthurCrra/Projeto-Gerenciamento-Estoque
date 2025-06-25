@@ -153,19 +153,44 @@ export default function Sidebar() {
             <ListItemButton selected>
               <DashboardRoundedIcon />
               <ListItemContent>
-                <Typography level="title-sm">Estoque</Typography>
+                <Typography level="title-sm">Estoque de itens</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
 
-          <ListItem>
-            <ListItemButton>
-              <ShoppingCartRoundedIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Compras</Typography>
-              </ListItemContent>
-            </ListItemButton>
+          <ListItem nested>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
+                  <AssignmentRoundedIcon />
+                  <ListItemContent>
+                    <Typography level="title-sm">Compras</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon
+                    sx={[
+                      open
+                        ? {
+                          transform: 'rotate(180deg)',
+                        }
+                        : {
+                          transform: 'none',
+                        },
+                    ]}
+                  />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem sx={{ mt: 0.5 }}>
+                  <ListItemButton>Todas as compras</ListItemButton>
+                </ListItem>
+                <ListItem>
+                  <ListItemButton>Cadastrar nova compra</ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
           </ListItem>
+
         </List>
         <List
           size="sm"

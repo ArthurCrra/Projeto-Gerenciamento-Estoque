@@ -89,7 +89,7 @@ function RowMenu() {
     </Dropdown>
   );
 }
-export function TabelaItens({ itens }: TabelaItensProps) {
+export function Tabela({ itens }: TabelaItensProps) {
   const [order, setOrder] = React.useState<Order>('desc');
   const [open, setOpen] = React.useState(false);
   const [busca, setBusca] = React.useState('');
@@ -97,7 +97,7 @@ export function TabelaItens({ itens }: TabelaItensProps) {
   const [filtroData, setFiltroData] = React.useState('');
   const [filtroArmazenamento, setFiltroArmazenamento] = React.useState('');
 
-  // 🔎 Filtro dos itens com segurança nos acessos
+  
   const itensFiltrados = itens.filter((item) => {
     const nomeMatch = item.nome.toLowerCase().includes(busca.toLowerCase());
 
@@ -269,6 +269,7 @@ export function TabelaItens({ itens }: TabelaItensProps) {
               <th style={{ width: 120, padding: '12px 6px' }}>Valor unitario</th>
               <th style={{ width: 120, padding: '12px 6px' }}>Valor total</th>
               <th style={{ width: 120, padding: '12px 6px' }}>Armazenamento</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Compra</th>
             </tr>
           </thead>
           <tbody>
@@ -293,6 +294,9 @@ export function TabelaItens({ itens }: TabelaItensProps) {
                 </td>
                 <td>
                   <Typography level="body-md">{item.armazenamento?.sala}</Typography>
+                </td>
+                <td>
+                  <Typography level="body-md">{item.compra? `Compra #${item.compra.id}` : '—'}</Typography>
                 </td>
               </tr>
             ))}

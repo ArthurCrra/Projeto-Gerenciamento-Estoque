@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Login from '../pages/LoginPage';
-import Dashboard from '../pages/Dashboard';
+import Itens from '../pages/Itens';
 import { PrivateRoute } from './privateRoute';
 
 export function AuthRoutes() {
@@ -9,7 +9,7 @@ export function AuthRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={
         <PrivateRoute>
-          <Dashboard />
+          <Itens />
         </PrivateRoute>
       } />
       <Route path="*" element={<Login />} />

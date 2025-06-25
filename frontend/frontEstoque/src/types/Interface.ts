@@ -21,7 +21,7 @@ export interface Projeto {
 export interface Compra {
   id: number;
   dataCompra : Date;
-  obseravao: string;
+  observacao: string;
   projeto : Projeto;
   fornecedor: Fornecedor;
 }

@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useNavigate } from 'react-router-dom';
+
 import GlobalStyles from "@mui/joy/GlobalStyles";
 import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
@@ -68,6 +70,7 @@ function Toggler({
 }
 
 export default function Sidebar() {
+    const navigate = useNavigate();
   return (
     <Sheet
       className="Sidebar"
@@ -124,11 +127,6 @@ export default function Sidebar() {
         <Typography level="title-lg">Gerenciador de Estoque</Typography>
         <ColorSchemeToggle sx={{ ml: "auto" }} />
       </Box>
-      <Input
-        size="sm"
-        startDecorator={<SearchRoundedIcon />}
-        placeholder="Pesquisar"
-      />
       <Box
         sx={{
           minHeight: 0,
@@ -150,7 +148,7 @@ export default function Sidebar() {
           }}
         >
           <ListItem>
-            <ListItemButton selected>
+            <ListItemButton onClick={() => navigate('/tabelaItens')}>
               <DashboardRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Estoque de itens</Typography>
@@ -162,7 +160,7 @@ export default function Sidebar() {
             <Toggler
               renderToggle={({ open, setOpen }) => (
                 <ListItemButton onClick={() => setOpen(!open)}>
-                  <AssignmentRoundedIcon />
+                  <ShoppingCartRoundedIcon />
                   <ListItemContent>
                     <Typography level="title-sm">Compras</Typography>
                   </ListItemContent>
@@ -182,7 +180,7 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton>Todas as compras</ListItemButton>
+                  <ListItemButton selected>Todas as compras</ListItemButton>
                 </ListItem>
                 <ListItem>
                   <ListItemButton>Cadastrar nova compra</ListItemButton>

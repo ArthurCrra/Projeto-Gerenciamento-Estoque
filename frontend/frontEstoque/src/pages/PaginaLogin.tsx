@@ -4,13 +4,10 @@ import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import Checkbox from '@mui/joy/Checkbox';
-import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import IconButton from '@mui/joy/IconButton';
 import type { IconButtonProps } from '@mui/joy/IconButton';
-import Link from '@mui/joy/Link';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
@@ -22,7 +19,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/authContext'
-import { login } from '../services/authService'; // ajuste o caminho conforme sua estrutura
+import { login } from '../services/authService';
 
 interface FormElements extends HTMLFormControlsCollection {
     email: HTMLInputElement;
@@ -60,15 +57,20 @@ function ColorSchemeToggle(props: IconButtonProps) {
 const customTheme = extendTheme({ defaultColorSchethme: 'dark' });
 
 
-export default function LoginPage() {
+export default function PaginaDeLogin() {
 
     const navigate = useNavigate();
     const [erro, setErro] = useState('');
     const auth = useAuth();
 
+    const [user, setUser] = useState<any>(() => {
+        const savedUser = sessionStorage.getItem('user');
+        return savedUser ? JSON.parse(savedUser) : null;
+    });
+
     useEffect(() => {
         if (auth?.user) {
-            navigate('/dashboard');
+            navigate('/tabelaItens');
         }
     }, [auth?.user]);
 

@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import type { ColorPaletteProp } from '@mui/joy/styles';
-import Avatar from '@mui/joy/Avatar';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import Chip from '@mui/joy/Chip';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
@@ -17,23 +15,15 @@ import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
-import Checkbox from '@mui/joy/Checkbox';
 import IconButton, { iconButtonClasses } from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-import Menu from '@mui/joy/Menu';
-import MenuButton from '@mui/joy/MenuButton';
-import MenuItem from '@mui/joy/MenuItem';
-import Dropdown from '@mui/joy/Dropdown';
+
 
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import BlockIcon from '@mui/icons-material/Block';
-import AutorenewRoundedIcon from '@mui/icons-material/AutorenewRounded';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+
 
 import type { Item } from '../../types/Interface';
 
@@ -70,27 +60,9 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function RowMenu() {
-  return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
-      >
-        <MoreHorizRoundedIcon />
-      </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Edit</MenuItem>
-        <MenuItem>Rename</MenuItem>
-        <MenuItem>Move</MenuItem>
-        <Divider />
-        <MenuItem color="danger">Delete</MenuItem>
-      </Menu>
-    </Dropdown>
-  );
-}
+
 export function Tabela({ itens }: TabelaItensProps) {
-  const [order, setOrder] = React.useState<Order>('desc');
+  const [order] = React.useState<Order>('desc');
   const [open, setOpen] = React.useState(false);
   const [busca, setBusca] = React.useState('');
   const [filtroProjeto, setFiltroProjeto] = React.useState('');

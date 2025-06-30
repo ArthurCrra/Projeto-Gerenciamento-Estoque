@@ -9,5 +9,10 @@ type PrivateRouteProps = {
 
 export function PrivateRoute({ children }: PrivateRouteProps) {
     const auth = useAuth();
+
+    if (auth?.loading) {
+        return null; // ou um spinner/placeholder
+    }
+
     return auth?.user ? children : <Navigate to="/login" />;
 }

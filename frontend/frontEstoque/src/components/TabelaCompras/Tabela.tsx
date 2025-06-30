@@ -1,14 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import type { ColorPaletteProp } from '@mui/joy/styles';
-import Avatar from '@mui/joy/Avatar';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import Chip from '@mui/joy/Chip';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
-import Link from '@mui/joy/Link';
 import Input from '@mui/joy/Input';
 import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
@@ -17,23 +14,14 @@ import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
-import Checkbox from '@mui/joy/Checkbox';
 import IconButton, { iconButtonClasses } from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-import Menu from '@mui/joy/Menu';
-import MenuButton from '@mui/joy/MenuButton';
-import MenuItem from '@mui/joy/MenuItem';
-import Dropdown from '@mui/joy/Dropdown';
 
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import BlockIcon from '@mui/icons-material/Block';
-import AutorenewRoundedIcon from '@mui/icons-material/AutorenewRounded';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+
 
 import type { Compra } from '../../types/Interface';
 
@@ -70,33 +58,15 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function RowMenu() {
-  return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
-      >
-        <MoreHorizRoundedIcon />
-      </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Edit</MenuItem>
-        <MenuItem>Rename</MenuItem>
-        <MenuItem>Move</MenuItem>
-        <Divider />
-        <MenuItem color="danger">Delete</MenuItem>
-      </Menu>
-    </Dropdown>
-  );
-}
+
 export function Tabela({ compras }: TabelaComprasProps) {
-  const [order, setOrder] = React.useState<Order>('desc');
+  const [order] = React.useState<Order>('desc');
   const [open, setOpen] = React.useState(false);
   const [busca, setBusca] = React.useState('');
+
   const [filtroProjeto, setFiltroProjeto] = React.useState('');
   const [filtroData, setFiltroData] = React.useState('');
-  const [filtroArmazenamento, setFiltroArmazenamento] = React.useState('');
-
+  const [filtroFornecedor, setFiltroFornecedor] = React.useState('');
 
   const comprasFiltradas = compras.filter((compra) => {
     const nomeMatch = compra.observacao.toLowerCase().includes(busca.toLowerCase());
@@ -104,20 +74,18 @@ export function Tabela({ compras }: TabelaComprasProps) {
     const projetoMatch =
       !filtroProjeto || compra.projeto?.apelidoProjeto === filtroProjeto;
 
-    const dataCompra = item.compra?.dataCompra;
+    const dataCompra = compra.dataCompra;
     const dataMatch =
       !filtroData ||
       (dataCompra instanceof Date
         ? dataCompra.toISOString().startsWith(filtroData)
         : new Date(dataCompra).toISOString().startsWith(filtroData));
 
-    const armazenamentoMatch =
-      !filtroArmazenamento || item.armazenamento?.sala === filtroArmazenamento;
+    const fornecedorMatch =
+      !filtroFornecedor || compra.fornecedor?.nome === filtroFornecedor;
 
-    return nomeMatch && projetoMatch && dataMatch && armazenamentoMatch;
+    return nomeMatch && projetoMatch && dataMatch && fornecedorMatch;
   });
-
-
 
   const renderFilters = () => (
     <>
@@ -132,7 +100,7 @@ export function Tabela({ compras }: TabelaComprasProps) {
           slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
         >
           <Option value="">Todos os projetos</Option>
-          {[...new Set(itens.map(item => item.compra?.projeto?.apelidoProjeto))]
+          {[...new Set(compras.map(compra => compra.projeto?.apelidoProjeto))]
             .filter(Boolean)
             .map((apelido) => (
               <Option key={apelido} value={apelido}>
@@ -141,9 +109,10 @@ export function Tabela({ compras }: TabelaComprasProps) {
             ))}
         </Select>
       </FormControl>
-      {/* Filtro pela data da compra */}
+
+      {/* Filtro pela data */}
       <FormControl size="sm">
-        <FormLabel>Data</FormLabel>
+        <FormLabel>Data da compra</FormLabel>
         <Input
           type="date"
           value={filtroData}
@@ -155,28 +124,28 @@ export function Tabela({ compras }: TabelaComprasProps) {
           }}
         />
       </FormControl>
-      {/* Filtro pelo armazenamento*/}
+
+      {/* Filtro pelo fornecedor */}
       <FormControl size="sm">
-        <FormLabel>Armazenamento</FormLabel>
+        <FormLabel>Fornecedor</FormLabel>
         <Select
           size="sm"
-          placeholder="Filtrar pela sala"
-          value={filtroArmazenamento}
-          onChange={(_, value) => setFiltroArmazenamento(value || '')}
+          placeholder="Filtrar fornecedor"
+          value={filtroFornecedor}
+          onChange={(_, value) => setFiltroFornecedor(value || '')}
         >
-          <Option value="">Todos os armazenamentos</Option>
-          {[...new Set(itens.map(item => item.armazenamento?.sala))]
+          <Option value="">Todos os fornecedores</Option>
+          {[...new Set(compras.map(compra => compra.fornecedor?.nome))]
             .filter(Boolean)
-            .map((sala) => (
-              <Option key={sala} value={sala}>
-                {sala}
+            .map((fornecedor) => (
+              <Option key={fornecedor} value={fornecedor}>
+                {fornecedor}
               </Option>
             ))}
         </Select>
       </FormControl>
     </>
   );
-
 
 
   return (
@@ -264,7 +233,7 @@ export function Tabela({ compras }: TabelaComprasProps) {
           <thead>
             <tr>
               <th style={{ width: 18, textAlign: 'center', padding: '10px 6px' }}></th>
-              <th style={{ width: 120, padding: '12px 6px' }}>Data</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Data da compra</th>
               <th style={{ width: 120, padding: '12px 6px' }}>Observação</th>
               <th style={{ width: 120, padding: '12px 6px' }}>Projeto</th>
               <th style={{ width: 120, padding: '12px 6px' }}>Fornecedor</th>
@@ -275,16 +244,16 @@ export function Tabela({ compras }: TabelaComprasProps) {
               <tr key={compra.id}>
                 <td style={{ textAlign: 'center' }}></td>
                 <td>
-                  <Typography level="body-md">{compra.dataCompra? `${compra.dataCompra.getDate}`: '-'}</Typography>
+                  <Typography level="body-md">{compra.dataCompra ? new Date(compra.dataCompra).toLocaleDateString('pt-BR'): '-'}</Typography>
                 </td>
                 <td>
                   <Typography level="body-md">{compra.observacao}</Typography>
                 </td>
                 <td>
-                  <Typography level="body-md">{compra.projeto? `${compra.projeto.apelidoProjeto}` : '—'}</Typography>
+                  <Typography level="body-md">{compra.projeto ? `${compra.projeto.apelidoProjeto}` : '—'}</Typography>
                 </td>
                 <td>
-                  <Typography level="body-md">{compra.fornecedor? `${compra.fornecedor.nome}` : '—'}</Typography>
+                  <Typography level="body-md">{compra.fornecedor ? `${compra.fornecedor.nome}` : '—'}</Typography>
                 </td>
               </tr>
             ))}

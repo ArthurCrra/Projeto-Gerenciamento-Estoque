@@ -2,25 +2,24 @@
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
 import Breadcrumbs from '@mui/joy/Breadcrumbs';
 import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
-import Sidebar from '../components/Compras/Sidebar';
-import Header from '../components/Compras/Header';
+
+import Sidebar from '../components/TabelaCompras/Sidebar';
+import Header from '../components/TabelaCompras/Header';
 
 import { useEffect, useState } from 'react';
 import { buscarCompras } from '../services/comprasService';
-import type { Compra, Item } from '../types/Interface';
-import { Tabela} from '../components/Compras/Tabela';
+import type { Compra } from '../types/Interface';
+import { Tabela } from '../components/TabelaCompras/Tabela';
 
 
-export default function Compras() {
+export default function TabelaCompras() {
   const [compras, setCompras] = useState<Compra[]>([]);
 
 
@@ -64,34 +63,6 @@ export default function Compras() {
             gap: 1,
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Breadcrumbs
-              size="sm"
-              aria-label="breadcrumbs"
-              separator={<ChevronRightRoundedIcon fontSize="sm" />}
-              sx={{ pl: 0 }}
-            >
-              <Link
-                underline="none"
-                color="neutral"
-                href="#some-link"
-                aria-label="Home"
-              >
-                <HomeRoundedIcon />
-              </Link>
-              <Link
-                underline="hover"
-                color="neutral"
-                href="#some-link"
-                sx={{ fontSize: 12, fontWeight: 500 }}
-              >
-                Dashboard
-              </Link>
-              <Typography color="primary" sx={{ fontWeight: 500, fontSize: 12 }}>
-                Orders
-              </Typography>
-            </Breadcrumbs>
-          </Box>
           <Box
             sx={{
               display: 'flex',

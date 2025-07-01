@@ -53,8 +53,7 @@ function ColorSchemeToggle(props: IconButtonProps) {
         </IconButton>
     );
 }
-
-const customTheme = extendTheme({ defaultColorSchethme: 'dark' });
+const customTheme = extendTheme({ defaultColorScheme: 'dark' });
 
 
 export default function PaginaDeLogin() {

@@ -17,12 +17,9 @@ import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
 import IconButton, { iconButtonClasses } from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-
-
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+
 
 
 import type { Item } from '../../types/Interface';
@@ -287,23 +284,6 @@ export function Tabela({ itens }: TabelaItensProps) {
           },
         }}
       >
-        <Button
-          size="sm"
-          variant="outlined"
-          color="primary"
-          startDecorator={<KeyboardArrowLeftIcon />}
-        >
-          Previous
-        </Button>
-
-        <Button
-          size="sm"
-          variant="outlined"
-          color="primary"
-          endDecorator={<KeyboardArrowRightIcon />}
-        >
-          Next
-        </Button>
       </Box>
     </React.Fragment>
   );

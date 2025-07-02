@@ -272,23 +272,6 @@ export function Tabela({ compras }: TabelaComprasProps) {
           },
         }}
       >
-        <Button
-          size="sm"
-          variant="outlined"
-          color="primary"
-          startDecorator={<KeyboardArrowLeftIcon />}
-        >
-          Previous
-        </Button>
-
-        <Button
-          size="sm"
-          variant="outlined"
-          color="primary"
-          endDecorator={<KeyboardArrowRightIcon />}
-        >
-          Next
-        </Button>
       </Box>
     </React.Fragment>
   );

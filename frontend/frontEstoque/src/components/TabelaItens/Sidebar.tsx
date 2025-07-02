@@ -142,37 +142,13 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem nested>
-            <Toggler
-              renderToggle={({ open, setOpen }) => (
-                <ListItemButton onClick={() => setOpen(!open)}>
-                  <ShoppingCartRoundedIcon />
-                  <ListItemContent>
-                    <Typography level="title-sm">Compras</Typography>
-                  </ListItemContent>
-                  <KeyboardArrowDownIcon
-                    sx={[
-                      open
-                        ? {
-                          transform: 'rotate(180deg)',
-                        }
-                        : {
-                          transform: 'none',
-                        },
-                    ]}
-                  />
-                </ListItemButton>
-              )}
-            >
-              <List sx={{ gap: 0.5 }}>
-                <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton onClick={() => navigate('/tabelaCompras')}>Todas as compras</ListItemButton>
-                </ListItem>
-                <ListItem>
-                  <ListItemButton>Cadastrar nova compra</ListItemButton>
-                </ListItem>
-              </List>
-            </Toggler>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/tabelaCompras')}>
+              <ShoppingCartRoundedIcon />
+              <ListItemContent>
+                <Typography level="title-sm">Compras</Typography>
+              </ListItemContent>
+            </ListItemButton>
           </ListItem>
 
         </List>
@@ -186,7 +162,7 @@ export default function Sidebar() {
             mb: 2,
           }}
         >
-          
+
         </List>
       </Box>
       <Divider />

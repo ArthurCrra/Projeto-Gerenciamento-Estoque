@@ -2,12 +2,9 @@
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
-import Breadcrumbs from '@mui/joy/Breadcrumbs';
-import Link from '@mui/joy/Link';
+import Modal from '@mui/joy/Modal';
 import Typography from '@mui/joy/Typography';
-
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import Button from '@mui/joy/Button';
 
 
 import Sidebar from '../components/TabelaCompras/Sidebar';
@@ -17,10 +14,15 @@ import { useEffect, useState } from 'react';
 import { buscarCompras } from '../services/comprasService';
 import type { Compra } from '../types/Interface';
 import { Tabela } from '../components/TabelaCompras/Tabela';
+import { FormCompra } from '../components/FormCompra/FormCompra';
+import { ModalDialog } from '@mui/joy';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
 
 
 export default function TabelaCompras() {
   const [compras, setCompras] = useState<Compra[]>([]);
+  const [openModal, setOpenModal] = useState(false);
 
 
   useEffect(() => {
@@ -75,8 +77,16 @@ export default function TabelaCompras() {
             }}
           >
             <Typography level="h2" component="h1">
-              Estoque de itens
+              Compras
             </Typography>
+            <Button
+              color="success"
+              size="sm"
+              variant='soft'
+              onClick={() => setOpenModal(true)}
+            >
+              Cadastrar compra
+            </Button>
           </Box>
           <Tabela
             compras={compras}
@@ -86,6 +96,13 @@ export default function TabelaCompras() {
             setOrder={setOrder}
           />
         </Box>
+        <Modal open={openModal} onClose={() => setOpenModal(false)}>
+          <ModalDialog>
+            <DialogTitle>Nova Compra</DialogTitle>
+            <DialogContent>Preencha os dados abaixo</DialogContent>
+            <FormCompra onClose={() => setOpenModal(false)} />
+          </ModalDialog>
+        </Modal>
       </Box>
     </CssVarsProvider>
   );

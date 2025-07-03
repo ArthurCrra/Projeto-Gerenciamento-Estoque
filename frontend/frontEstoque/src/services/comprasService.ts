@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { Compra } from '../types/Interface';
+import type { NovaCompra } from '../types/Interface';
 
 const API_URL = 'http://localhost:8080/compra';
 
@@ -13,8 +14,8 @@ export async function buscarCompraPorId(id: number): Promise<Compra> {
   return response.data;
 }
 
-export async function cadastrarCompra(compra: Partial<Compra>) {
-  const response = await axios.post(`${API_URL}/cadastrar`, compra);
+export async function adicionarCompra(compra: NovaCompra): Promise<Compra> {
+  const response = await axios.post(`${API_URL}/adicionar`, compra);
   return response.data;
 }
 

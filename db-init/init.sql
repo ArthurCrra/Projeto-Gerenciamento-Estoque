@@ -71,6 +71,7 @@ CREATE TABLE invoice (
 --Usuario
 INSERT INTO Usuario (id, email, nome, senha, funcao) VALUES (1, 'joao@example.com', 'João Silva', '123456', 'Gerente');
 INSERT INTO Usuario (id, email, nome, senha, funcao) VALUES (2, 'maria@example.com', 'Maria Souza', 'abcdef', 'Técnico');
+INSERT INTO Usuario (id, email, nome, senha, funcao) VALUES (3, 'lucas@e.com', 'Lucas', '123', 'Dev');
 
 
 --fornecedor

@@ -50,3 +50,20 @@ export interface Invoice {
   dataEmissao : Date;
   compra : Compra;
 }
+
+
+export interface NovaCompra {
+  dataCompra: string; // como ISO string yyyy-MM-dd
+  observacao: string;
+  projeto: { id: number };
+  fornecedor: { id: number };
+}
+
+export interface NovoItem {
+  nome: string;
+  quantidade: number;
+  valorUnitario: number;
+  valorTotal: number;
+  armazenamento: { id: number };
+  compra: { id: number }; // ou o objeto `compraCriada`, como está no seu código
+}

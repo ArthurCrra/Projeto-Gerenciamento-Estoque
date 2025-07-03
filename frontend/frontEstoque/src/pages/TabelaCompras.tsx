@@ -1,45 +1,36 @@
-
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
-import Modal from '@mui/joy/Modal';
 import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
 
-
-import Sidebar from '../components/TabelaCompras/Sidebar';
 import Header from '../components/TabelaCompras/Header';
-
+import Sidebar from '../components/TabelaCompras/Sidebar';
 import { useEffect, useState } from 'react';
 import { buscarCompras } from '../services/comprasService';
-import type { Compra } from '../types/Interface';
 import { Tabela } from '../components/TabelaCompras/Tabela';
-import { FormCompra } from '../components/FormCompra/FormCompra';
-import { ModalDialog } from '@mui/joy';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-
+import type { Compra } from '../types/Interface';
+import FormCompra from '../components/FormCompra/FormCompra';
 
 export default function TabelaCompras() {
   const [compras, setCompras] = useState<Compra[]>([]);
+  const [selected, setSelected] = useState<number[]>([]);
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   const [openModal, setOpenModal] = useState(false);
 
+  const carregarCompras = async () => {
+    try {
+      const dados = await buscarCompras();
+      setCompras(dados);
+    } catch (error) {
+      console.error('Erro ao carregar compras:', error);
+    }
+  };
 
   useEffect(() => {
-    async function carregarCompras() {
-      try {
-        const dados = await buscarCompras();
-        setCompras(dados);
-      } catch (error) {
-        console.error('Erro ao carregar compras:', error);
-      }
-    }
-
     carregarCompras();
   }, []);
 
-  const [selected, setSelected] = useState<number[]>([]);
-  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -82,12 +73,13 @@ export default function TabelaCompras() {
             <Button
               color="success"
               size="sm"
-              variant='soft'
+              variant="soft"
               onClick={() => setOpenModal(true)}
             >
               Cadastrar compra
             </Button>
           </Box>
+
           <Tabela
             compras={compras}
             selected={selected}
@@ -96,15 +88,14 @@ export default function TabelaCompras() {
             setOrder={setOrder}
           />
         </Box>
-        <Modal open={openModal} onClose={() => setOpenModal(false)}>
-          <ModalDialog>
-            <DialogTitle>Nova Compra</DialogTitle>
-            <DialogContent>Preencha os dados abaixo</DialogContent>
-            <FormCompra onClose={() => setOpenModal(false)} />
-          </ModalDialog>
-        </Modal>
       </Box>
+
+      {/* Modal de cadastro */}
+      <FormCompra
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        recarregar={carregarCompras}
+      />
     </CssVarsProvider>
   );
 }
-

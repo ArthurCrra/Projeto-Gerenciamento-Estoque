@@ -11,7 +11,7 @@ export function PrivateRoute({ children }: PrivateRouteProps) {
     const auth = useAuth();
 
     if (auth?.loading) {
-        return null; // ou um spinner/placeholder
+        return null;
     }
 
     return auth?.user ? children : <Navigate to="/login" />;

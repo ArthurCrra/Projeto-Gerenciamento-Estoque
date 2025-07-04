@@ -2,7 +2,6 @@ import * as React from "react";
 import { useNavigate } from 'react-router-dom';
 
 import GlobalStyles from "@mui/joy/GlobalStyles";
-import { Inventory2 } from "@mui/icons-material";
 import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
 import Divider from "@mui/joy/Divider";
@@ -14,13 +13,13 @@ import ListItemContent from "@mui/joy/ListItemContent";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import {Inventory2} from "@mui/icons-material";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+
+
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../../utils";
-
 
 function Toggler({
   defaultExpanded = false,
@@ -135,7 +134,7 @@ export default function Sidebar() {
           }}
         >
           <ListItem>
-            <ListItemButton selected>
+            <ListItemButton onClick={() => navigate('/tabelaItens')}>
               <DashboardRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Estoque de itens</Typography>
@@ -153,7 +152,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={() => navigate('/tabelaArmazenamento')}>
+            <ListItemButton selected>
               <Inventory2 />
               <ListItemContent>
                 <Typography level="title-sm">Armazenamentos</Typography>
@@ -161,19 +160,9 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-        </List>
-        <List
-          size="sm"
-          sx={{
-            mt: "auto",
-            flexGrow: 0,
-            "--ListItem-radius": (theme) => theme.vars.radius.sm,
-            "--List-gap": "8px",
-            mb: 2,
-          }}
-        >
 
         </List>
+        
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>

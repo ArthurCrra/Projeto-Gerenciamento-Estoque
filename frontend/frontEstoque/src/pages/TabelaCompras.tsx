@@ -8,7 +8,7 @@ import Header from '../components/TabelaCompras/Header';
 import Sidebar from '../components/TabelaCompras/Sidebar';
 import { useEffect, useState } from 'react';
 import { buscarCompras } from '../services/comprasService';
-import { Tabela } from '../components/TabelaCompras/Tabela';
+import Tabela from '../components/TabelaCompras/Tabela';
 import type { Compra } from '../types/Interface';
 import FormCompra from '../components/FormCompra/FormCompra';
 

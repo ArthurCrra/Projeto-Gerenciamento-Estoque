@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import * as React from 'react';
-import type { ColorPaletteProp } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
@@ -19,8 +18,6 @@ import Typography from '@mui/joy/Typography';
 
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 
 import type { Compra } from '../../types/Interface';
@@ -59,7 +56,7 @@ function getComparator<Key extends keyof any>(
 }
 
 
-export function Tabela({ compras }: TabelaComprasProps) {
+export default function Tabela({ compras }: TabelaComprasProps) {
   const [order] = React.useState<Order>('desc');
   const [open, setOpen] = React.useState(false);
   const [busca, setBusca] = React.useState('');

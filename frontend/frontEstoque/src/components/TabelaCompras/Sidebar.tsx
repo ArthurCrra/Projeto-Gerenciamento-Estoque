@@ -15,6 +15,7 @@ import Sheet from "@mui/joy/Sheet";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import {Inventory2} from "@mui/icons-material";
 
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
@@ -150,9 +151,18 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/tabelaArmazenamento')}>
+              <Inventory2 />
+              <ListItemContent>
+                <Typography level="title-sm">Armazenamentos</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
 
         </List>
-        
+
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>

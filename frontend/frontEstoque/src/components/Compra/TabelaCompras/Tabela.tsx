@@ -20,7 +20,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
 
 
-import type { Compra } from '../../types/Interface';
+import type { Compra } from '../../../types/Interface';
 
 interface TabelaComprasProps {
   compras: Compra[];

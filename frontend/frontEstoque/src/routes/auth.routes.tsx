@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import Login from '../pages/PaginaLogin';
-import Itens from '../pages/TabelaItens';
-import TabelaCompras from '../pages/TabelaCompras';
-import TabelaArmazenamento from '../pages/TabelaArmazenamento';
+import Login from '../pages/Login/PaginaLogin';
+import Itens from '../pages/Iten/TabelaItens';
+import TabelaCompras from '../pages/Compra/TabelaCompras';
+import TabelaArmazenamento from '../pages/Armazenamento/TabelaArmazenamento';
 import { PrivateRoute } from './privateRoute';
 
 export function AuthRoutes() {

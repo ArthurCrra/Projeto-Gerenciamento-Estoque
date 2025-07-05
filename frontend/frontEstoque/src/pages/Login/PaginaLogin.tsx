@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CssVarsProvider, extendTheme, useColorScheme } from '@mui/joy/styles';
+import { CssVarsProvider, extendTheme, useColorScheme} from '@mui/joy/styles';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
@@ -18,8 +18,8 @@ import BadgeRoundedIcon from '@mui/icons-material/BadgeRounded';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/authContext'
-import { login } from '../services/authService';
+import { useAuth } from '../../contexts/authContext'
+
 
 interface FormElements extends HTMLFormControlsCollection {
     email: HTMLInputElement;

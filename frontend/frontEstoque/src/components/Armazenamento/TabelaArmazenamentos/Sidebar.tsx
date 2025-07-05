@@ -19,7 +19,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
-import { closeSidebar } from "../../utils";
+import { closeSidebar } from "../../../utils";
 
 function Toggler({
   defaultExpanded = false,

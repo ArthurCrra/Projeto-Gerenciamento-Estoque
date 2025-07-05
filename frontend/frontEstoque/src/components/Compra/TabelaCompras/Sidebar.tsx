@@ -19,7 +19,7 @@ import {Inventory2} from "@mui/icons-material";
 
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
-import { closeSidebar } from "../../utils";
+import { closeSidebar } from "../../../utils";
 
 function Toggler({
   defaultExpanded = false,

@@ -1,36 +1,43 @@
+
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
-import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
+import Breadcrumbs from '@mui/joy/Breadcrumbs';
+import Link from '@mui/joy/Link';
+import Typography from '@mui/joy/Typography';
 
-import Header from '../components/TabelaCompras/Header';
-import Sidebar from '../components/TabelaCompras/Sidebar';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
+
+import Sidebar from '../../components/Iten/TabelaItens/Sidebar';
+import Header from '../../components/Iten/TabelaItens/Header';
+
 import { useEffect, useState } from 'react';
-import { buscarCompras } from '../services/comprasService';
-import Tabela from '../components/TabelaCompras/Tabela';
-import type { Compra } from '../types/Interface';
-import FormCompra from '../components/FormCompra/FormCompra';
+import { buscarItens } from '../../services/itensService';
+import type { Item } from '../../types/Interface';
+import { Tabela } from '../../components/Iten/TabelaItens/Tabela';
 
-export default function TabelaCompras() {
-  const [compras, setCompras] = useState<Compra[]>([]);
-  const [selected, setSelected] = useState<number[]>([]);
-  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
-  const [openModal, setOpenModal] = useState(false);
+export default function Itens() {
+  const [itens, setItens] = useState<Item[]>([]);
 
-  const carregarCompras = async () => {
-    try {
-      const dados = await buscarCompras();
-      setCompras(dados);
-    } catch (error) {
-      console.error('Erro ao carregar compras:', error);
-    }
-  };
 
   useEffect(() => {
-    carregarCompras();
+    async function carregarItens() {
+      try {
+        const dados = await buscarItens();
+        setItens(dados);
+      } catch (error) {
+        console.error('Erro ao carregar itens:', error);
+      }
+    }
+
+    carregarItens();
   }, []);
 
+  const [selected, setSelected] = useState<number[]>([]);
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -68,20 +75,11 @@ export default function TabelaCompras() {
             }}
           >
             <Typography level="h2" component="h1">
-              Compras
+              Estoque de itens
             </Typography>
-            <Button
-              color="success"
-              size="sm"
-              variant="soft"
-              onClick={() => setOpenModal(true)}
-            >
-              Cadastrar compra
-            </Button>
           </Box>
-
           <Tabela
-            compras={compras}
+            itens={itens}
             selected={selected}
             setSelected={setSelected}
             order={order}
@@ -89,13 +87,7 @@ export default function TabelaCompras() {
           />
         </Box>
       </Box>
-
-      {/* Modal de cadastro */}
-      <FormCompra
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        recarregar={carregarCompras}
-      />
     </CssVarsProvider>
   );
 }
+

@@ -19,7 +19,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import ColorSchemeToggle from "./ColorSchemeToggle";
-import { closeSidebar } from "../../utils";
+import { closeSidebar } from "../../../utils";
 
 
 function Toggler({

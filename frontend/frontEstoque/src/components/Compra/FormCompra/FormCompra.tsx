@@ -11,12 +11,12 @@ import {
     Option,
 } from '@mui/joy';
 import { useEffect, useState } from 'react';
-import { adicionarCompra } from '../../services/comprasService';
-import { adicionarItem } from '../../services/itensService';
-import { buscarProjetos } from '../../services/projetosService';
-import { buscarFornecedores } from '../../services/fornecedorService';
-import { buscarArmazenamentos } from '../../services/armazenamentoService';
-import type { Projeto, Fornecedor, Armazenamento } from '../../types/Interface';
+import { adicionarCompra } from '../../../services/comprasService';
+import { adicionarItem } from '../../../services/itensService';
+import { buscarProjetos } from '../../../services/projetosService';
+import { buscarFornecedores } from '../../../services/fornecedorService';
+import { buscarArmazenamentos } from '../../../services/armazenamentoService';
+import type { Projeto, Fornecedor, Armazenamento } from '../../../types/Interface';
 
 interface Props {
     open: boolean;

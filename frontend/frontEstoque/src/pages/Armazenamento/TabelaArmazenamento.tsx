@@ -3,10 +3,10 @@ import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
-import Header from '../components/TabelaArmazenamentos/Header';
-import Sidebar from '../components/TabelaArmazenamentos/Sidebar';
+import Header from '../../components/Armazenamento/TabelaArmazenamentos/Header';
+import Sidebar from '../../components/Armazenamento/TabelaArmazenamentos/Sidebar';
 import { useState } from 'react';
-import { Tabela } from '../components/TabelaArmazenamentos/Tabela';
+import { Tabela } from '../../components/Armazenamento/TabelaArmazenamentos/Tabela';
 
 // TODO: Importar modal de formulário quando estiver pronto
 // import FormArmazenamento from '../components/FormArmazenamento/FormArmazenamento';

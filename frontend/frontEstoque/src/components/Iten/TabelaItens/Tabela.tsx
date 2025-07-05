@@ -22,7 +22,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 
-import type { Item } from '../../types/Interface';
+import type { Item } from '../../../types/Interface';
 
 interface TabelaItensProps {
   itens: Item[];

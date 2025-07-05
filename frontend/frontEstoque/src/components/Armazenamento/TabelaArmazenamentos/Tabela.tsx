@@ -23,7 +23,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 
-import type { Armazenamento } from '../../types/Interface';
+import type { Armazenamento } from '../../../types/Interface';
 
 interface Props {
   armazenamentos: Armazenamento[];

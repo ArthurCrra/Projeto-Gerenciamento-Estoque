@@ -15,6 +15,8 @@ import Sheet from "@mui/joy/Sheet";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import {Inventory2} from "@mui/icons-material";
+import {Workspaces} from "@mui/icons-material";
+import {Groups} from "@mui/icons-material";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 
@@ -159,6 +161,26 @@ export default function Sidebar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/tabelaProjetos')}>
+              <Workspaces />
+              <ListItemContent>
+                <Typography level="title-sm">Projetos</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/tabelaUsuarios')}>
+              <Groups />
+              <ListItemContent>
+                <Typography level="title-sm">Usuarios</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+
 
 
         </List>

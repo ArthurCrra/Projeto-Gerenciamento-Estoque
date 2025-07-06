@@ -14,10 +14,10 @@ import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { Inventory2 } from "@mui/icons-material";
+import {Inventory2} from "@mui/icons-material";
 import {Workspaces} from "@mui/icons-material";
 import {Groups} from "@mui/icons-material";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 
 
 import ColorSchemeToggle from "./ColorSchemeToggle";
@@ -145,7 +145,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton selected>
+            <ListItemButton onClick={() => navigate('/tabelaCompras')}>
               <ShoppingCartRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Compras</Typography>
@@ -154,7 +154,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={() => navigate('/tabelaArmazenamento')}>
+            <ListItemButton selected>
               <Inventory2 />
               <ListItemContent>
                 <Typography level="title-sm">Armazenamentos</Typography>
@@ -163,7 +163,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={() => navigate('/tabelaProjetos')}>
+            <ListItemButton selected>
               <Workspaces />
               <ListItemContent>
                 <Typography level="title-sm">Projetos</Typography>
@@ -181,8 +181,10 @@ export default function Sidebar() {
           </ListItem>
 
 
-        </List>
 
+
+        </List>
+        
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>

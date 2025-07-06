@@ -18,6 +18,8 @@ import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import {Workspaces} from "@mui/icons-material";
+import {Groups} from "@mui/icons-material";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar } from "../../../utils";
 
@@ -157,6 +159,24 @@ export default function Sidebar() {
               <Inventory2 />
               <ListItemContent>
                 <Typography level="title-sm">Armazenamentos</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/tabelaProjetos')}>
+              <Workspaces />
+              <ListItemContent>
+                <Typography level="title-sm">Projetos</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={() => navigate('/tabelaUsuarios')}>
+              <Groups />
+              <ListItemContent>
+                <Typography level="title-sm">Usuarios</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

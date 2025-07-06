@@ -6,15 +6,29 @@ import Typography from '@mui/joy/Typography';
 
 import Header from '../../components/Projeto/TabelaProjetos/Header';
 import Sidebar from '../../components/Projeto/TabelaProjetos/Sidebar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tabela } from '../../components/Projeto/TabelaProjetos/Tabela';
+import type { Projeto } from '../../types/Interface'; 
+import { buscarProjetos } from '../../services/projetosService';
 
-// TODO: Importar modal de formulário quando estiver pronto
-// import FormProjeto from '../../components/Projeto/FormProjeto/FormProjeto';
+
 
 export default function TabelaProjetos() {
     const [openModal, setOpenModal] = useState(false);
-    const [projetos, setProjetos] = useState([]); // TODO: buscar os dados futuramente
+    const [projetos, setProjetos] = useState<Projeto[]>([]);
+
+    const carregarProjetos = async () => {
+        try {
+            const dados = await buscarProjetos();
+            setProjetos(dados);
+        } catch (error) {
+            console.error('Erro ao carregar projetos:', error);
+        }
+    };
+
+    useEffect(() => {
+        carregarProjetos();
+    }, []);
 
     return (
         <CssVarsProvider disableTransitionOnChange>

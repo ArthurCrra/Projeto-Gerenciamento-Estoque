@@ -6,15 +6,29 @@ import Typography from '@mui/joy/Typography';
 
 import Header from '../../components/Usuario/TabelaUsuarios/Header';
 import Sidebar from '../../components/Usuario/TabelaUsuarios/Sidebar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tabela } from '../../components/Usuario/TabelaUsuarios/Tabela';
+import { buscarUsuarios } from '../../services/usuarioService';
+import type { Usuario } from '../../types/Interface';
 
-// TODO: Importar modal de formulário quando estiver pronto
-// import FormUsuario from '../../components/Usuario/FormUsuario/FormUsuario';
+
 
 export default function TabelaUsuarios() {
     const [openModal, setOpenModal] = useState(false);
-    const [usuarios, setUsuarios] = useState([]); // TODO: buscar os dados futuramente
+    const [usuarios, setUsuarios] = useState<Usuario[]>([]); // TODO: buscar os dados futuramente
+
+    const carregarUsuarios = async () => {
+            try {
+                const dados = await buscarUsuarios();
+                setUsuarios(dados);
+            } catch (error) {
+                console.error('Erro ao carregar projetos:', error);
+            }
+        };
+    
+        useEffect(() => {
+            carregarUsuarios();
+        }, []);
 
     return (
         <CssVarsProvider disableTransitionOnChange>

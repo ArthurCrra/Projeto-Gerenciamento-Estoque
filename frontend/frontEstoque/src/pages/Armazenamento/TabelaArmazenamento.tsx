@@ -5,15 +5,29 @@ import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
 import Header from '../../components/Armazenamento/TabelaArmazenamentos/Header';
 import Sidebar from '../../components/Armazenamento/TabelaArmazenamentos/Sidebar';
-import { useState } from 'react';
-import { Tabela } from '../../components/Armazenamento/TabelaArmazenamentos/Tabela';
 
-// TODO: Importar modal de formulário quando estiver pronto
-// import FormArmazenamento from '../components/FormArmazenamento/FormArmazenamento';
+import { useEffect, useState } from 'react';
+import { Tabela } from '../../components/Armazenamento/TabelaArmazenamentos/Tabela';
+import type { Armazenamento } from '../../types/Interface';
+import { buscarArmazenamentos } from '../../services/armazenamentoService';
+
 
 export default function TabelaArmazenamento() {
     const [openModal, setOpenModal] = useState(false);
-    const [armazenamentos, setArmazenamentos] = useState([]); // TODO: buscar os dados futuramente
+    const [armazenamentos, setArmazenamentos] = useState<Armazenamento[]>([]);
+
+    const carregarArmazenamentos = async () => {
+        try {
+            const dados = await buscarArmazenamentos();
+            setArmazenamentos(dados);
+        }catch (error){
+            console.error('Erro ao carregar armazenamentos:', error);
+        }
+    };
+
+     useEffect(() => {
+        carregarArmazenamentos();
+      }, []);
 
     return (
         <CssVarsProvider disableTransitionOnChange>
@@ -64,12 +78,12 @@ export default function TabelaArmazenamento() {
                         </Button>
                     </Box>
 
-                    <Tabela armazenamentos={armazenamentos}/>
+                    <Tabela armazenamentos={armazenamentos} />
                 </Box>
             </Box>
 
             {/* Modal de cadastro */}
-            
+
         </CssVarsProvider>
     );
 }

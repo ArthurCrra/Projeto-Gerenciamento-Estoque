@@ -68,49 +68,125 @@ CREATE TABLE invoice (
 -- PARTE 2: INSERCAO DOS DADOS INICIAIS
 -- =================================================================
 
---Usuario
-INSERT INTO Usuario (id, email, nome, senha, funcao) VALUES (1, 'joao@example.com', 'João Silva', '123456', 'Gerente');
-INSERT INTO Usuario (id, email, nome, senha, funcao) VALUES (2, 'maria@example.com', 'Maria Souza', 'abcdef', 'Técnico');
-INSERT INTO Usuario (id, email, nome, senha, funcao) VALUES (3, 'lucas@e.com', 'Lucas', '123', 'Dev');
+-- USUÁRIOS
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (1, 'joãosilva@example.com', 'João Silva', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (2, 'mariasouza@example.com', 'Maria Souza', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (3, 'lucaspereira@example.com', 'Lucas Pereira', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (4, 'anaoliveira@example.com', 'Ana Oliveira', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (5, 'carloslima@example.com', 'Carlos Lima', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (6, 'fernandarocha@example.com', 'Fernanda Rocha', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (7, 'brunoribeiro@example.com', 'Bruno Ribeiro', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (8, 'paulaalmeida@example.com', 'Paula Almeida', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (9, 'rodrigomartins@example.com', 'Rodrigo Martins', '123456', 'Usuário');
+INSERT INTO usuario (id, email, nome, senha, funcao) VALUES (10, 'julianacosta@example.com', 'Juliana Costa', '123456', 'Usuário');
 
+-- FORNECEDORES
+INSERT INTO fornecedor (id, nome, email, telefone, cnpj) VALUES (1, 'Fornecedor A', 'contato@fornecedorA.com', '(48) 99999-1111', '12.345.678/0001-90');
+INSERT INTO fornecedor (id, nome, email, telefone, cnpj) VALUES (2, 'Fornecedor B', 'contato@fornecedorB.com', '(11) 98888-2222', '98.765.432/0001-09');
 
---fornecedor
-INSERT INTO Fornecedor (id, cnpj, email, nome, telefone) 
-VALUES (1, 'Fornecedor A', 'contato@fornecedorA.com', '(48) 99999-1111', '12.345.678/0001-90');
+-- ARMAZENAMENTO
+INSERT INTO armazenamento (id, sala, armario) VALUES (1, 'A1', 'Sala 101');
+INSERT INTO armazenamento (id, sala, armario) VALUES (2, 'B3', 'Sala 202');
 
-INSERT INTO Fornecedor (id, cnpj, email, nome, telefone) 
-VALUES (2, 'Fornecedor B', 'contato@fornecedorB.com', '(11) 98888-2222', '98.765.432/0001-09');
+-- PROJETOS
+INSERT INTO projeto (id, apelido_projeto, usuario) VALUES (1, 'Projeto Alpha', 1);
+INSERT INTO projeto (id, apelido_projeto, usuario) VALUES (2, 'Projeto Beta', 2);
+INSERT INTO projeto (id, apelido_projeto, usuario) VALUES (3, 'Projeto Gama', 3);
+INSERT INTO projeto (id, apelido_projeto, usuario) VALUES (4, 'Projeto Delta', 4);
+INSERT INTO projeto (id, apelido_projeto, usuario) VALUES (5, 'Projeto Ômega', 5);
 
+-- COMPRAS
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (1, 2, '2025-06-02 10:00:00', 'Compra de novos sensores', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (2, 3, '2025-06-03 10:00:00', 'Aquisição de ferramentas básicas', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (3, 4, '2025-06-04 10:00:00', 'Reposição de peças quebradas', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (4, 5, '2025-06-05 10:00:00', 'Aquisição de ferramentas básicas', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (5, 1, '2025-06-06 10:00:00', 'Compra de componentes elétricos', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (6, 2, '2025-06-07 10:00:00', 'Compra de novos sensores', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (7, 3, '2025-06-08 10:00:00', 'Compra de novos sensores', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (8, 4, '2025-06-09 10:00:00', 'Aquisição de ferramentas básicas', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (9, 5, '2025-06-10 10:00:00', 'Reposição de peças quebradas', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (10, 1, '2025-06-11 10:00:00', 'Compra de componentes elétricos', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (11, 2, '2025-06-12 10:00:00', 'Aquisição de ferramentas básicas', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (12, 3, '2025-06-13 10:00:00', 'Reposição de peças quebradas', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (13, 4, '2025-06-14 10:00:00', 'Compra de novos sensores', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (14, 5, '2025-06-15 10:00:00', 'Reposição de peças quebradas', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (15, 1, '2025-06-16 10:00:00', 'Reforço de estoque de cabos', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (16, 2, '2025-06-17 10:00:00', 'Reposição de peças quebradas', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (17, 3, '2025-06-18 10:00:00', 'Reposição de peças quebradas', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (18, 4, '2025-06-19 10:00:00', 'Reposição de peças quebradas', 1);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (19, 5, '2025-06-20 10:00:00', 'Reforço de estoque de cabos', 2);
+INSERT INTO compra (id, projeto_id, data_compra, observacao, fornecedor_id) VALUES (20, 1, '2025-06-21 10:00:00', 'Aquisição de ferramentas básicas', 1);
 
--- Armazenamento
-INSERT INTO Armazenamento (id, armario, sala) VALUES (1, 'Sala 101', 'A1');
-INSERT INTO Armazenamento (id, armario, sala) VALUES (2, 'Sala 202', 'B3');
+-- INVOICES
+INSERT INTO invoice (id, data_emissao, compra) VALUES (1, '2025-06-02 12:00:00', 1);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (2, '2025-06-03 12:00:00', 2);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (3, '2025-06-04 12:00:00', 3);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (4, '2025-06-05 12:00:00', 4);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (5, '2025-06-06 12:00:00', 5);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (6, '2025-06-07 12:00:00', 6);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (7, '2025-06-08 12:00:00', 7);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (8, '2025-06-09 12:00:00', 8);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (9, '2025-06-10 12:00:00', 9);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (10, '2025-06-11 12:00:00', 10);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (11, '2025-06-12 12:00:00', 11);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (12, '2025-06-13 12:00:00', 12);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (13, '2025-06-14 12:00:00', 13);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (14, '2025-06-15 12:00:00', 14);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (15, '2025-06-16 12:00:00', 15);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (16, '2025-06-17 12:00:00', 16);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (17, '2025-06-18 12:00:00', 17);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (18, '2025-06-19 12:00:00', 18);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (19, '2025-06-20 12:00:00', 19);
+INSERT INTO invoice (id, data_emissao, compra) VALUES (20, '2025-06-21 12:00:00', 20);
 
-
--- Projeto
-INSERT INTO Projeto (id, apelido_projeto, usuario) VALUES (1, 'Projeto Alpha', 1);
-INSERT INTO Projeto (id, apelido_projeto, usuario) VALUES (2, 'Projeto Beta', 2);
-
-
--- Compra
-INSERT INTO Compra (id, projeto_id, data_compra, observacao, fornecedor_id) 
-VALUES (1, 1, '2025-06-01 10:30:00', 'Compra de componentes elétricos', 1);
-
-INSERT INTO Compra (id, projeto_id, data_compra, observacao, fornecedor_id) 
-VALUES (2, 2, '2025-06-05 15:45:00', 'Compra de ferramentas', 2);
-
-
--- Item
-INSERT INTO Item (id, nome, quantidade, valor_total, valor_unitario, armazenamento_id, compra_id) 
-VALUES (1, 'Resistor 220 Ohm', 0.15, 100, 15.00, 1, 1);
-
-INSERT INTO Item (id, nome, quantidade, valor_total, valor_unitario, armazenamento_id, compra_id) 
-VALUES (2, 'Chave de Fenda', 10.00, 3, 30.00, 2, 2);
-
-
--- Invoice
-INSERT INTO Invoice (id, data_emissao, compra) 
-VALUES (1, '2025-06-02 08:00:00', 1);
-
-INSERT INTO Invoice (id, data_emissao, compra) 
-VALUES (2, '2025-06-06 09:30:00', 2);
+-- ITENS
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (1, 'Placa de circuito', 121.52, 28, 3402.56, 2, 2);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (2, 'Cabo USB', 24.11, 9, 216.99, 1, 3);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (3, 'Cabo USB', 109.12, 16, 1745.92, 2, 4);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (4, 'Placa de circuito', 118.36, 20, 2367.2, 1, 5);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (5, 'Multímetro', 156.78, 14, 2194.92, 2, 6);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (6, 'Arduino Uno', 187.29, 10, 1872.9, 1, 7);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (7, 'Sensor de temperatura', 62.12, 24, 1490.88, 2, 8);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (8, 'Sensor de temperatura', 117.0, 5, 585.0, 1, 9);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (9, 'Sensor de temperatura', 102.13, 26, 2655.38, 2, 10);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (10, 'Cabo USB', 81.5, 15, 1222.5, 1, 11);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (11, 'Sensor de temperatura', 80.99, 16, 1295.84, 2, 12);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (12, 'Resistor 220 Ohm', 116.14, 24, 2787.36, 1, 13);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (13, 'Multímetro', 139.53, 21, 2930.13, 2, 14);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (14, 'Placa de circuito', 171.49, 19, 3258.31, 1, 15);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (15, 'Arduino Uno', 134.43, 18, 2419.74, 2, 16);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (16, 'Fonte 12V', 199.55, 18, 3591.9, 1, 17);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (17, 'Placa de circuito', 128.64, 26, 3344.64, 2, 18);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (18, 'Fita Isolante', 22.46, 5, 112.3, 1, 19);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (19, 'Sensor de temperatura', 140.99, 25, 3524.75, 2, 20);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (20, 'Chave de Fenda', 199.04, 25, 4976.0, 1, 1);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (21, 'Multímetro', 13.61, 14, 190.54, 2, 2);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (22, 'Arduino Uno', 56.17, 5, 280.85, 1, 3);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (23, 'Fita Isolante', 20.07, 29, 582.03, 2, 4);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (24, 'Cabo USB', 108.54, 17, 1845.18, 1, 5);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (25, 'Chave de Fenda', 65.6, 1, 65.6, 2, 6);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (26, 'Chave de Fenda', 60.5, 12, 726.0, 1, 7);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (27, 'Capacitor 100uF', 11.92, 15, 178.8, 2, 8);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (28, 'Chave de Fenda', 178.41, 13, 2319.33, 1, 9);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (29, 'Arduino Uno', 98.75, 26, 2567.5, 2, 10);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (30, 'Capacitor 100uF', 91.18, 3, 273.54, 1, 11);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (31, 'Arduino Uno', 134.59, 29, 3903.11, 2, 12);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (32, 'Multímetro', 158.08, 11, 1738.88, 1, 13);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (33, 'Cabo USB', 143.29, 24, 3438.96, 2, 14);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (34, 'Sensor de temperatura', 97.31, 11, 1070.41, 1, 15);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (35, 'Chave de Fenda', 13.17, 22, 289.74, 2, 16);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (36, 'Fonte 12V', 190.57, 22, 4192.54, 1, 17);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (37, 'Sensor de temperatura', 150.43, 24, 3610.32, 2, 18);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (38, 'Chave de Fenda', 64.99, 20, 1299.8, 1, 19);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (39, 'Placa de circuito', 73.49, 29, 2131.21, 2, 20);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (40, 'Resistor 220 Ohm', 135.59, 21, 2847.39, 1, 1);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (41, 'Chave de Fenda', 20.72, 19, 393.68, 2, 2);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (42, 'Chave de Fenda', 167.73, 28, 4696.44, 1, 3);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (43, 'Arduino Uno', 132.51, 29, 3842.79, 2, 4);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (44, 'Resistor 220 Ohm', 69.37, 18, 1248.66, 1, 5);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (45, 'Arduino Uno', 25.21, 27, 680.67, 2, 6);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (46, 'Arduino Uno', 110.93, 4, 443.72, 1, 7);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (47, 'Capacitor 100uF', 75.65, 7, 529.55, 2, 8);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (48, 'Arduino Uno', 40.56, 1, 40.56, 1, 9);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (49, 'Resistor 220 Ohm', 120.06, 4, 480.24, 2, 10);
+INSERT INTO item (id, nome, valor_unitario, quantidade, valor_total, armazenamento_id, compra_id) VALUES (50, 'Capacitor 100uF', 111.95, 15, 1679.25, 1, 11);

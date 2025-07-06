@@ -15,7 +15,12 @@ import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
 import IconButton, { iconButtonClasses } from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-
+import MenuButton from '@mui/joy/MenuButton';
+import MenuItem from '@mui/joy/MenuItem';
+import Dropdown from '@mui/joy/Dropdown';
+import Menu from '@mui/joy/Menu';
+import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import Link from '@mui/joy/Link';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -24,40 +29,29 @@ import type { Compra } from '../../../types/Interface';
 
 interface TabelaComprasProps {
   compras: Compra[];
-  selected: number[];
-  setSelected: (ids: number[]) => void;
-  order: 'asc' | 'desc';
-  setOrder: (o: 'asc' | 'desc') => void;
 }
 
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-type Order = 'asc' | 'desc';
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
-) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+function RowMenu() {
+  return (
+    <Dropdown>
+      <MenuButton
+        slots={{ root: IconButton }}
+        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
+      >
+        <MoreHorizRoundedIcon />
+      </MenuButton>
+      <Menu size="sm" sx={{ minWidth: 140 }}>
+        <MenuItem>Editar</MenuItem>
+        <Divider />
+        <MenuItem color="danger">Deletar</MenuItem>
+      </Menu>
+    </Dropdown>
+  );
 }
 
 
 export default function Tabela({ compras }: TabelaComprasProps) {
-  const [order] = React.useState<Order>('desc');
   const [open, setOpen] = React.useState(false);
   const [busca, setBusca] = React.useState('');
 
@@ -234,14 +228,15 @@ export default function Tabela({ compras }: TabelaComprasProps) {
               <th style={{ width: 120, padding: '12px 6px' }}>Observação</th>
               <th style={{ width: 120, padding: '12px 6px' }}>Projeto</th>
               <th style={{ width: 120, padding: '12px 6px' }}>Fornecedor</th>
+              <th style={{ width: 120, padding: '12px 6px' }}></th>
             </tr>
           </thead>
           <tbody>
-            {[...comprasFiltradas].sort(getComparator(order, 'id')).map((compra) => (
+            {comprasFiltradas.map((compra) => (
               <tr key={compra.id}>
                 <td style={{ textAlign: 'center' }}></td>
                 <td>
-                  <Typography level="body-md">{compra.dataCompra ? new Date(compra.dataCompra).toLocaleDateString('pt-BR'): '-'}</Typography>
+                  <Typography level="body-md">{compra.dataCompra ? new Date(compra.dataCompra).toLocaleDateString('pt-BR') : '-'}</Typography>
                 </td>
                 <td>
                   <Typography level="body-md">{compra.observacao}</Typography>
@@ -252,6 +247,15 @@ export default function Tabela({ compras }: TabelaComprasProps) {
                 <td>
                   <Typography level="body-md">{compra.fornecedor ? `${compra.fornecedor.nome}` : '—'}</Typography>
                 </td>
+                <td>
+                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                    <Link level="body-md" component="button">
+                      Invoice
+                    </Link>
+                    <RowMenu />
+                  </Box>
+                </td>
+
               </tr>
             ))}
           </tbody>

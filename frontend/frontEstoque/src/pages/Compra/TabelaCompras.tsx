@@ -14,8 +14,6 @@ import FormCompra from '../../components/Compra/FormCompra/FormCompra';
 
 export default function TabelaCompras() {
   const [compras, setCompras] = useState<Compra[]>([]);
-  const [selected, setSelected] = useState<number[]>([]);
-  const [order, setOrder] = useState<'asc' | 'desc'>('asc');
   const [openModal, setOpenModal] = useState(false);
 
   const carregarCompras = async () => {
@@ -82,10 +80,7 @@ export default function TabelaCompras() {
 
           <Tabela
             compras={compras}
-            selected={selected}
-            setSelected={setSelected}
-            order={order}
-            setOrder={setOrder}
+          
           />
         </Box>
       </Box>

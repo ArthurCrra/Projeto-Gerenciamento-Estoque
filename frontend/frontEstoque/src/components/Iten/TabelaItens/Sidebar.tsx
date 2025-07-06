@@ -129,9 +129,9 @@ export default function Sidebar() {
         }}
       >
         <List
-          size="sm"
+          size="lg"
           sx={{
-            gap: 1,
+            gap: 3,
             "--List-nestedInsetStart": "30px",
             "--ListItem-radius": (theme) => theme.vars.radius.sm,
           }}

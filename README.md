@@ -11,8 +11,6 @@ Aplicação desenvolvida como projeto final do curso de Análise e Desenvolvimen
 - [Como usar](#como-usar)  
 - [Estrutura do projeto](#estrutura-do-projeto)  
 - [Contribuição](#contribuicao)  
-- [Licença](#licenca)  
-- [Contato](#contato)
 
 ---
 

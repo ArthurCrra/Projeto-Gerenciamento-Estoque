@@ -61,10 +61,10 @@ export function Tabela({ armazenamentos }: Props) {
     <React.Fragment>
       <Box sx={{ my: 2 }}>
         <FormControl>
-          <FormLabel>Pesquisar</FormLabel>
+          <FormLabel>Pesquisa</FormLabel>
           <Input
             size="sm"
-            placeholder="Buscar por sala ou armário"
+            placeholder="Pesquisar"
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             startDecorator={<SearchIcon />}

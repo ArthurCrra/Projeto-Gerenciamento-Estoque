@@ -46,7 +46,6 @@ public class CompraService {
                 .orElseThrow(() -> new RuntimeException("Compra não encontrada"));
 
         compraExistente.setDataCompra(novaCompra.getDataCompra());
-        compraExistente.setDataEnvio(novaCompra.getDataEnvio());
         compraExistente.setObservacao(novaCompra.getObservacao());
         compraExistente.setProjeto(novaCompra.getProjeto());
 

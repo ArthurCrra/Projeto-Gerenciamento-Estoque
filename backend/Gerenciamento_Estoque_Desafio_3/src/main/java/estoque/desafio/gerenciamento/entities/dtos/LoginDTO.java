@@ -2,14 +2,14 @@ package estoque.desafio.gerenciamento.entities.dtos;
 
 public class LoginDTO {
 	
-	private String matricula;
+	private String email;
 	private String senha;
 	
-	public String getMatricula() {
-		return matricula;
+	public String getEmail() {
+		return email;
 	}
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getSenha() {
 		return senha;

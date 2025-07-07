@@ -13,12 +13,6 @@ public class GerenciamentoEstoqueDesafio3Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GerenciamentoEstoqueDesafio3Application.class, args);
-		try {
-			FileUtils.writeByteArrayToFile(new File("/tmp/producao.cacerts"), DFCadeiaCertificados.geraCadeiaCertificados(DFAmbiente.PRODUCAO, "senha"));
-			FileUtils.writeByteArrayToFile(new File("/tmp/homologacao.cacerts"), DFCadeiaCertificados.geraCadeiaCertificados(DFAmbiente.HOMOLOGACAO, "senha"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }

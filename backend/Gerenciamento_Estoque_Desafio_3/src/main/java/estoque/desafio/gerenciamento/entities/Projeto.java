@@ -47,6 +47,7 @@ public class Projeto {
 		this.apelidoProjeto = apelidoProjeto;
 	}
 
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

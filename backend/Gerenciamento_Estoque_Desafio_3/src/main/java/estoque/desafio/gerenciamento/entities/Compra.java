@@ -14,7 +14,6 @@ public class Compra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private LocalDateTime dataCompra;
-	private LocalDateTime dataEnvio; // Data que a mercadoria saiu do fornecedor
 	private String observacao; // Complemento vai ser aqui
 	
 	@ManyToOne
@@ -31,9 +30,6 @@ public class Compra {
 	@JsonIgnoreProperties("compra")
 	private Fornecedor fornecedor;
 
-	@OneToOne(mappedBy = "compra")
-	@JsonIgnoreProperties("compra")
-	private Invoice invoice;
 
 	public Long getId() {
 		return id;
@@ -51,14 +47,6 @@ public class Compra {
 		this.dataCompra = dataCompra;
 	}
 
-	public LocalDateTime getDataEnvio() {
-		return dataEnvio;
-	}
-
-	public void setDataEnvio(LocalDateTime dataEnvio) {
-		this.dataEnvio = dataEnvio;
-	}
-
 	public Projeto getProjeto() {
 		return projeto;
 	}
@@ -73,14 +61,6 @@ public class Compra {
 
 	public void setItens(Set<Item> itens) {
 		this.itens = itens;
-	}
-
-	public Invoice getInvoice() {
-		return invoice;
-	}
-
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
 	}
 
 	public String getObservacao() {

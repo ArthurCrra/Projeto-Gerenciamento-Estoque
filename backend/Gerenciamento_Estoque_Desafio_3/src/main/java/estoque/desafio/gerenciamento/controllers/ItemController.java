@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "http://localhost:3000") // porta do front
 @RestController
 @RequestMapping("/item")
 public class ItemController {
@@ -39,14 +39,14 @@ public class ItemController {
             return ResponseEntity.ok(item);
         }
         catch(Exception e){
-            return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body("Erro ao buscar os armazenamentos");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar o item");
         }
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity<?> buscarItemPorCodigo(@PathVariable Long codigo) {
+    public ResponseEntity<?> buscarItemPorCodigo(@PathVariable Long id) {
         try{
-            Optional<Item> item = itemService.listarItemPorId(codigo);
+            Optional<Item> item = itemService.listarItemPorId(id);
             if (item.isPresent()) {
                 return ResponseEntity.ok(item.get());
             }

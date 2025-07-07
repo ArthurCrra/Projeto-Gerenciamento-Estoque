@@ -45,4 +45,16 @@ public class UsuarioService {
 		usuarioRepository.deleteById(id);
 	}
 
+	public Usuario login(String email, String senha) {
+		List<Usuario> usuarios = listarUsuarios();
+
+		for (Usuario usuario : usuarios) {
+			if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
+				return usuario;
+			}
+		}
+
+		throw new RuntimeException("Credenciais inválidas");
+	}
+
 }

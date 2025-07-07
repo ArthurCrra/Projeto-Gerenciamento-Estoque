@@ -201,7 +201,7 @@ export default function PaginaDeLogin() {
                     </Box>
                     <Box component="footer" sx={{ py: 3 }}>
                         <Typography level="body-xs" sx={{ textAlign: 'center' }}>
-                            © Your company {new Date().getFullYear()}
+                            © Gerenciador de Estoque {new Date().getFullYear()}
                         </Typography>
                     </Box>
                 </Box>

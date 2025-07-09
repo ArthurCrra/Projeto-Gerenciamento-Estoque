@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000") // porta do front
+@CrossOrigin(origins = "http://localhost:3005") // porta do front
 @RestController
 @RequestMapping("/fornecedor")
 public class FornecedorController {

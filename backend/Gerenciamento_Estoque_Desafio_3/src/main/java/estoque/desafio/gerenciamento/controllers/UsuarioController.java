@@ -11,7 +11,7 @@ import estoque.desafio.gerenciamento.entities.dtos.AtualizarSenhaDTO;
 import estoque.desafio.gerenciamento.entities.dtos.LoginDTO;
 import estoque.desafio.gerenciamento.services.UsuarioService;
 
-@CrossOrigin(origins = "http://localhost:3000") // porta do front
+@CrossOrigin(origins = "http://localhost:3005") // porta do front
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {

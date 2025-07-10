@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:5173") // porta do front
+@CrossOrigin(origins = "http://localhost:5174") // porta do front
 @RestController
 @RequestMapping("/projeto")
 public class ProjetoController {

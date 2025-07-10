@@ -67,3 +67,8 @@ export interface NovoItem {
   armazenamento: { id: number };
   compra: { id: number }; // ou o objeto `compraCriada`, como está no seu código
 }
+
+export interface Novoarmazenamento {
+  sala: string;
+  armario: string;
+}

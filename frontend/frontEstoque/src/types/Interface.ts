@@ -53,10 +53,10 @@ export interface Invoice {
 
 
 export interface NovaCompra {
-  dataCompra: string; // como ISO string yyyy-MM-dd
-  observacao: string;
-  projeto: { id: number };
-  fornecedor: { id: number };
+    dataCompra: string;
+    observacao: string;
+    projeto: { id: number };
+    fornecedor: { id: number };
 }
 
 export interface NovoItem {
@@ -65,5 +65,11 @@ export interface NovoItem {
   valorUnitario: number;
   valorTotal: number;
   armazenamento: { id: number };
-  compra: { id: number }; // ou o objeto `compraCriada`, como está no seu código
+  compra: { id: number }; 
+}
+
+
+export interface NovoArmazenamento {
+  sala: string;
+  armario: string;
 }

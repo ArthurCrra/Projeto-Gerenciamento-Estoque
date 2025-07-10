@@ -22,12 +22,14 @@ public class ItemController {
 
 
     @PostMapping("/adicionar")
-    public ResponseEntity<Item> adicionarItem(@RequestBody Item item) {
+    public ResponseEntity<?> adicionarItem(@RequestBody Item item) {
         try {
             Item novoItem = itemService.salvarItem(item);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoItem);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            e.printStackTrace(); // log no console do backend
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao criar o item: " + e.getMessage());
         }
 
     }

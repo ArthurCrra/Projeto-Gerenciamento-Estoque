@@ -1,33 +1,36 @@
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
+import Button from '@mui/joy/Button';
+import { useEffect, useState } from 'react';
+
+
 import Header from '../../components/Armazenamento/TabelaArmazenamentos/Header';
 import Sidebar from '../../components/Armazenamento/TabelaArmazenamentos/Sidebar';
-
-import { useEffect, useState } from 'react';
+import { buscarArmazenamentos } from '../../services/armazenamentoService';
 import { Tabela } from '../../components/Armazenamento/TabelaArmazenamentos/Tabela';
 import type { Armazenamento } from '../../types/Interface';
-import { buscarArmazenamentos } from '../../services/armazenamentoService';
-
+import FormArmazenamento from '../../components/Armazenamento/FormArmazenamento/FormArmazenamento';
 
 export default function TabelaArmazenamento() {
-    const [openModal, setOpenModal] = useState(false);
     const [armazenamentos, setArmazenamentos] = useState<Armazenamento[]>([]);
+    const [openModal, setOpenModal] = useState(false);
+
 
     const carregarArmazenamentos = async () => {
         try {
             const dados = await buscarArmazenamentos();
             setArmazenamentos(dados);
-        }catch (error){
-            console.error('Erro ao carregar armazenamentos:', error);
+        } catch (error) {
+            console.error('Erro ao carregar locais de armazenamento:', error);
         }
     };
 
-     useEffect(() => {
+
+    useEffect(() => {
         carregarArmazenamentos();
-      }, []);
+    }, []);
 
     return (
         <CssVarsProvider disableTransitionOnChange>
@@ -66,7 +69,7 @@ export default function TabelaArmazenamento() {
                         }}
                     >
                         <Typography level="h2" component="h1">
-                            Armazenamentos
+                            Armazenamento
                         </Typography>
                         <Button
                             color="success"
@@ -74,16 +77,24 @@ export default function TabelaArmazenamento() {
                             variant="soft"
                             onClick={() => setOpenModal(true)}
                         >
-                            Cadastrar Armazenamento
+                            Cadastrar armazenamento
                         </Button>
                     </Box>
 
-                    <Tabela armazenamentos={armazenamentos} />
+                    {/* Renderiza tabela*/}
+                    <Tabela
+                        armazenamentos={armazenamentos}
+                        recarregar={carregarArmazenamentos}
+                    />
                 </Box>
             </Box>
 
-            {/* Modal de cadastro */}
-
+            {/* Modal armazenamento */}
+            <FormArmazenamento
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                recarregar={carregarArmazenamentos}
+            />
         </CssVarsProvider>
     );
 }

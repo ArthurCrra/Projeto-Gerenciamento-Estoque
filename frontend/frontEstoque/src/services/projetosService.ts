@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import type { Projeto } from '../types/Interface';
+import type { NovoProjeto, Projeto } from '../types/Interface';
 
 const API_URL = 'http://localhost:8080/projeto';
 
@@ -15,8 +15,8 @@ export async function buscarProjetoPorId(id: number): Promise<Projeto> {
 }
 
 
-export async function cadastrarProjeto(projeto: Partial<Projeto>) {
-  const response = await axios.post(`${API_URL}/cadastrar`, projeto);
+export async function adicionarProjeto(projeto: NovoProjeto): Promise<Projeto> {
+  const response = await axios.post(`${API_URL}/adicionar`, projeto);
   return response.data;
 }
 

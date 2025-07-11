@@ -42,5 +42,15 @@ public class ProjetoController {
         }
     }
 
+    @PostMapping("/adicionar")
+    public ResponseEntity<?> adicionarProjeto(@RequestBody Projeto projeto) {
+        try{
+            Projeto novoProjeto = projetoService.add(projeto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoProjeto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao adicionar o projeto");
+        }
+    }
+
 
 }

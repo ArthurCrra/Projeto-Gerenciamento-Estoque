@@ -8,14 +8,18 @@ import Header from '../../components/Projeto/TabelaProjetos/Header';
 import Sidebar from '../../components/Projeto/TabelaProjetos/Sidebar';
 import { useEffect, useState } from 'react';
 import { Tabela } from '../../components/Projeto/TabelaProjetos/Tabela';
-import type { Projeto } from '../../types/Interface'; 
+import type { Projeto } from '../../types/Interface';
 import { buscarProjetos } from '../../services/projetosService';
+import FormProjeto from '../../components/Projeto/FormProjeto/FormProjeto';
 
 
 
 export default function TabelaProjetos() {
     const [openModal, setOpenModal] = useState(false);
     const [projetos, setProjetos] = useState<Projeto[]>([]);
+
+    const usuarioId = JSON.parse(sessionStorage.getItem('user') || '{}')?.id;
+
 
     const carregarProjetos = async () => {
         try {
@@ -82,8 +86,13 @@ export default function TabelaProjetos() {
                     <Tabela projetos={projetos} />
                 </Box>
             </Box>
-
             {/* TODO: Modal de cadastro de projeto */}
+            <FormProjeto
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                recarregar={carregarProjetos}
+                usuarioId={usuarioId}
+            />
         </CssVarsProvider>
     );
 }

@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { Tabela } from '../../components/Usuario/TabelaUsuarios/Tabela';
 import { buscarUsuarios } from '../../services/usuarioService';
 import type { Usuario } from '../../types/Interface';
+import FormUsuario from '../../components/Usuario/FormUsuario/FormUsuario'
 
 
 
@@ -18,17 +19,17 @@ export default function TabelaUsuarios() {
     const [usuarios, setUsuarios] = useState<Usuario[]>([]); // TODO: buscar os dados futuramente
 
     const carregarUsuarios = async () => {
-            try {
-                const dados = await buscarUsuarios();
-                setUsuarios(dados);
-            } catch (error) {
-                console.error('Erro ao carregar projetos:', error);
-            }
-        };
-    
-        useEffect(() => {
-            carregarUsuarios();
-        }, []);
+        try {
+            const dados = await buscarUsuarios();
+            setUsuarios(dados);
+        } catch (error) {
+            console.error('Erro ao carregar projetos:', error);
+        }
+    };
+
+    useEffect(() => {
+        carregarUsuarios();
+    }, []);
 
     return (
         <CssVarsProvider disableTransitionOnChange>
@@ -84,6 +85,11 @@ export default function TabelaUsuarios() {
             </Box>
 
             {/* TODO: Modal de cadastro de usuário */}
+            <FormUsuario
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                recarregar={carregarUsuarios}
+            />
         </CssVarsProvider>
     );
 }

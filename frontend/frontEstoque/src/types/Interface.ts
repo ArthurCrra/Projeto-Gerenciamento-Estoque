@@ -45,6 +45,16 @@ export interface Item {
   compra: Compra;
 }
 
+export interface ItemParaEdicao {
+  id: number;
+  nome: string;
+  quantidade: number;
+  valorUnitario: number;
+  valorTotal: number;
+  armazenamento: { id: number; sala: string; armario: string };
+  compra?: { id: number };
+};
+
 export interface Invoice {
   id: number;
   dataEmissao: Date;

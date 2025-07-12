@@ -30,7 +30,7 @@ public class Item {
 
 	@ManyToOne
 	@JoinColumn(name = "compra_id", nullable = false)
-	@JsonIgnoreProperties({"itens", "projeto", "fornecedor"})
+	@JsonIgnoreProperties({"itens","fornecedor"})
 	private Compra compra;
 
 	public Long getId() {

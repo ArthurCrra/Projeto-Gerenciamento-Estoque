@@ -31,7 +31,7 @@ public class ItemService {
 		return itemRepository.findAll();
 	}
 
-	public Optional<Item> listarItemPorId(Long id) {
+	public Optional<Item> findById(Long id) {
 		return itemRepository.findById(id);
 
 	}
@@ -49,8 +49,8 @@ public class ItemService {
 		return itemRepository.save(item);
 	}
 
-	public void deletarItem(Item item) {
-		itemRepository.delete(item);
+	public void deleteById(Long id) {
+		itemRepository.deleteById(id);
 	}
 
 

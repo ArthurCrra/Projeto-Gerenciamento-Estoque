@@ -11,22 +11,24 @@ import {
   Option,
 } from '@mui/joy';
 import { useEffect, useState } from 'react';
-import { adicionarItem } from '../../../services/itensService';
+import { adicionarItem, editarItem } from '../../../services/itensService';
 import { buscarArmazenamentos } from '../../../services/armazenamentoService';
-import type { Armazenamento } from '../../../types/Interface';
+import type { Armazenamento, Item } from '../../../types/Interface'; // <- IMPORTANTE
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  compraId: number;
+  compraId?: number;
   recarregar: () => void;
+  itemEdicao?: Item | null;
 }
 
-export default function FormItem({ open, onClose, compraId, recarregar }: Props) {
+export default function FormItem({ open, onClose, compraId, recarregar, itemEdicao }: Props) {
   const [armazenamentos, setArmazenamentos] = useState<Armazenamento[]>([]);
   const [itens, setItens] = useState([
     { nome: '', quantidade: '', valorUnitario: '', armazenamentoId: null as number | null },
   ]);
+
 
   useEffect(() => {
     async function carregar() {
@@ -36,12 +38,23 @@ export default function FormItem({ open, onClose, compraId, recarregar }: Props)
     carregar();
   }, []);
 
-  const handleAdicionarItem = () => {
-    setItens([
-      ...itens,
-      { nome: '', quantidade: '', valorUnitario: '', armazenamentoId: null },
-    ]);
-  };
+
+  useEffect(() => {
+    if (itemEdicao) {
+      setItens([
+        {
+          nome: itemEdicao.nome,
+          quantidade: String(itemEdicao.quantidade),
+          valorUnitario: String(itemEdicao.valorUnitario),
+          armazenamentoId: itemEdicao.armazenamento?.id || null,
+        },
+      ]);
+    } else {
+      setItens([
+        { nome: '', quantidade: '', valorUnitario: '', armazenamentoId: null },
+      ]);
+    }
+  }, [itemEdicao]);
 
   const handleItemChange = (index: number, field: string, value: any) => {
     const novosItens = [...itens];
@@ -53,28 +66,52 @@ export default function FormItem({ open, onClose, compraId, recarregar }: Props)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      for (const item of itens) {
-        await adicionarItem({
+      if (itemEdicao) {
+
+        const item = itens[0];
+        await editarItem({
+          ...itemEdicao,
           nome: item.nome,
           quantidade: parseFloat(item.quantidade),
           valorUnitario: parseFloat(item.valorUnitario),
           valorTotal: parseFloat(item.quantidade) * parseFloat(item.valorUnitario),
-          armazenamento: { id: item.armazenamentoId! },
-          compra: { id: compraId },
+          armazenamento: {
+            id: item.armazenamentoId!,
+            sala: '',
+            armario: ''
+          },
         });
+      } else {
+     
+        for (const item of itens) {
+          await adicionarItem({
+            nome: item.nome,
+            quantidade: parseFloat(item.quantidade),
+            valorUnitario: parseFloat(item.valorUnitario),
+            valorTotal: parseFloat(item.quantidade) * parseFloat(item.valorUnitario),
+            armazenamento: { id: item.armazenamentoId! },
+            compra: { id: compraId! },
+          });
+        }
       }
 
-      recarregar(); // Atualiza a tabela após cadastro
-      onClose();    // Fecha o modal
+      recarregar();
+      onClose();
     } catch (error) {
-      console.error('Erro ao cadastrar item:', error);
+      console.error('Erro ao salvar item:', error);
     }
+  };
+
+  const handleAdicionarItem = () => {
+    setItens([...itens, { nome: '', quantidade: '', valorUnitario: '', armazenamentoId: null }]);
   };
 
   return (
     <Modal open={open} onClose={onClose}>
       <ModalDialog size="lg" sx={{ width: '980px', maxHeight: '95vh', overflow: 'auto' }}>
-        <Typography level="h4">Cadastrar Itens da Compra</Typography>
+        <Typography level="h4">
+          {itemEdicao ? 'Editar Item' : 'Cadastrar Itens da Compra'}
+        </Typography>
         <form onSubmit={handleSubmit}>
           <Stack spacing={2}>
             {itens.map((item, index) => (
@@ -82,27 +119,21 @@ export default function FormItem({ open, onClose, compraId, recarregar }: Props)
                 <Input
                   placeholder="Nome do item"
                   value={item.nome}
-                  onChange={(e) =>
-                    handleItemChange(index, 'nome', e.target.value)
-                  }
+                  onChange={(e) => handleItemChange(index, 'nome', e.target.value)}
                   required
                 />
                 <Input
                   placeholder="Qtd"
                   type="number"
                   value={item.quantidade}
-                  onChange={(e) =>
-                    handleItemChange(index, 'quantidade', e.target.value)
-                  }
+                  onChange={(e) => handleItemChange(index, 'quantidade', e.target.value)}
                   required
                 />
                 <Input
                   placeholder="Valor unitário"
                   type="number"
                   value={item.valorUnitario}
-                  onChange={(e) =>
-                    handleItemChange(index, 'valorUnitario', e.target.value)
-                  }
+                  onChange={(e) => handleItemChange(index, 'valorUnitario', e.target.value)}
                   required
                 />
                 <Select
@@ -123,17 +154,14 @@ export default function FormItem({ open, onClose, compraId, recarregar }: Props)
               </Stack>
             ))}
 
-            <Button
-              variant="outlined"
-              color="neutral"
-              onClick={handleAdicionarItem}
-              
-            >
-              Adicionar outro item
-            </Button>
+            {!itemEdicao && (
+              <Button variant="outlined" color="neutral" onClick={handleAdicionarItem}>
+                Adicionar outro item
+              </Button>
+            )}
 
             <Button type="submit" color="success">
-              Salvar Itens
+              {itemEdicao ? 'Salvar Alterações' : 'Salvar Itens'}
             </Button>
           </Stack>
         </form>

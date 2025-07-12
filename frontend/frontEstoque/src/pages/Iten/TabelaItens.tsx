@@ -1,43 +1,54 @@
-
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
-import Breadcrumbs from '@mui/joy/Breadcrumbs';
-import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
-
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 
 import Sidebar from '../../components/Iten/TabelaItens/Sidebar';
 import Header from '../../components/Iten/TabelaItens/Header';
 
 import { useEffect, useState } from 'react';
-import { buscarItens } from '../../services/itensService';
+import { buscarItens, excluirItem } from '../../services/itensService';
 import type { Item } from '../../types/Interface';
 import { Tabela } from '../../components/Iten/TabelaItens/Tabela';
+import FormItem from '../../components/Iten/FormItem/FormItem';
 
 export default function Itens() {
   const [itens, setItens] = useState<Item[]>([]);
-
-
-  useEffect(() => {
-    async function carregarItens() {
-      try {
-        const dados = await buscarItens();
-        setItens(dados);
-      } catch (error) {
-        console.error('Erro ao carregar itens:', error);
-      }
-    }
-
-    carregarItens();
-  }, []);
+  const [itemSelecionado, setItemSelecionado] = useState<Item | null>(null);
+  const [openModalEditar, setOpenModalEditar] = useState(false);
 
   const [selected, setSelected] = useState<number[]>([]);
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+
+  const carregarItens = async () => {
+    try {
+      const dados = await buscarItens();
+      setItens(dados);
+    } catch (error) {
+      console.error('Erro ao carregar itens:', error);
+    }
+  };
+
+
+  const handleEditar = (item: Item) => {
+    setItemSelecionado(item);
+    setOpenModalEditar(true);
+  };
+
+
+  const handleExcluir = async (id: number) => {
+    try {
+      await excluirItem(id);
+      await carregarItens();
+    } catch (error) {
+      console.error('Erro ao excluir item:', error);
+    }
+  };
+  
+  useEffect(() => {
+    carregarItens();
+  }, []);
+
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -78,16 +89,26 @@ export default function Itens() {
               Estoque de itens
             </Typography>
           </Box>
+
           <Tabela
             itens={itens}
             selected={selected}
             setSelected={setSelected}
             order={order}
             setOrder={setOrder}
+            onEditar={handleEditar}
+            onExcluir={handleExcluir}
           />
         </Box>
       </Box>
+
+      {/* Modal de edição */}
+      <FormItem
+        open={openModalEditar}
+        onClose={() => setOpenModalEditar(false)}
+        recarregar={carregarItens}
+        itemEdicao={itemSelecionado}
+      />
     </CssVarsProvider>
   );
 }
-

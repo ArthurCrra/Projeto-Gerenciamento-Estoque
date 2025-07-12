@@ -75,7 +75,7 @@ export function Tabela({ armazenamentos, recarregar }: TabelaProps) {
           <FormLabel>Pesquisa</FormLabel>
           <Input
             size="sm"
-            placeholder="Pesquisar por sala ou armário..."
+            placeholder="Pesquisar"
             value={busca}
             onChange={e => setBusca(e.target.value)}
             startDecorator={<SearchIcon />}

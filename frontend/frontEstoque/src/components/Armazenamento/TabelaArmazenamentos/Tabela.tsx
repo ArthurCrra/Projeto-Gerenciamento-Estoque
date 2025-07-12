@@ -15,54 +15,67 @@ import Menu from '@mui/joy/Menu';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { excluirArmazenamento } from '../../../services/armazenamentoService';
-import type { Armazenamento } from '../../../types/Interface';
 
+import type { Armazenamento } from '../../../types/Interface';
+import ModalExclusao from '../ModalExclusao/ModalExclusao.tsx'; // 
 
 interface RowMenuProps {
-  onDelete: () => void;
+  armazenamento: Armazenamento;
+  onEditar: () => void;
+  onExcluir: () => void;
 }
 
-function RowMenu({ onDelete }: RowMenuProps) {
+function RowMenu({ armazenamento, onEditar, onExcluir }: RowMenuProps) {
+  const [modalAberto, setModalAberto] = React.useState(false);
+
+  const handleConfirmarExclusao = () => {
+    onExcluir();
+    setModalAberto(false);
+  };
+
   return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
-      >
-        <MoreHorizRoundedIcon />
-      </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Editar</MenuItem>
-        <Divider />
-        <MenuItem color="danger" onClick={onDelete}>
-          Deletar
-        </MenuItem>
-      </Menu>
-    </Dropdown>
+    <>
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
+        >
+          <MoreHorizRoundedIcon />
+        </MenuButton>
+        <Menu size="sm" sx={{ minWidth: 140 }}>
+          {/* O onClick agora chama a função onEditar recebida por props */}
+          <MenuItem onClick={onEditar}>Editar</MenuItem>
+          <Divider />
+          {/* O onClick agora abre o modal de confirmação */}
+          <MenuItem color="danger" onClick={() => setModalAberto(true)}>
+            Deletar
+          </MenuItem>
+        </Menu>
+      </Dropdown>
+
+      {/* NOVO: Modal de exclusão é renderizado aqui */}
+      <ModalExclusao
+        open={modalAberto}
+        onClose={() => setModalAberto(false)}
+        onConfirmar={handleConfirmarExclusao}
+        entidadeNome={`o armazenamento "${armazenamento.sala} - ${armazenamento.armario}"`}
+      />
+    </>
   );
 }
 
-// Props para a tabela principal
+
 interface TabelaProps {
   armazenamentos: Armazenamento[];
-  recarregar: () => void; // Prop para recarregar os dados
+  onEditar: (armazenamento: Armazenamento) => void;
+  onExcluir: (id: number) => void;
 }
 
-export function Tabela({ armazenamentos, recarregar }: TabelaProps) {
+
+export function Tabela({ armazenamentos, onEditar, onExcluir }: TabelaProps) {
   const [busca, setBusca] = React.useState('');
 
-  const handleExcluir = async (id: number) => {
-    if (window.confirm('Tem certeza que deseja excluir este item?')) {
-      try {
-        await excluirArmazenamento(id);
-        recarregar(); // Recarrega a lista após a exclusão
-      } catch (error) {
-        console.error('Erro ao excluir armazenamento:', error);
-        alert('Não foi possível excluir. Verifique se não há itens associados a este local.');
-      }
-    }
-  };
+
 
   const filtrados = armazenamentos.filter(a =>
     `${a.sala} ${a.armario}`.toLowerCase().includes(busca.toLowerCase())
@@ -118,7 +131,12 @@ export function Tabela({ armazenamentos, recarregar }: TabelaProps) {
                 </td>
                 <td>
                   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <RowMenu onDelete={() => handleExcluir(armazenamento.id)} />
+                    {/* ALTERADO: Passando as funções corretas para o RowMenu */}
+                    <RowMenu
+                      armazenamento={armazenamento}
+                      onEditar={() => onEditar(armazenamento)}
+                      onExcluir={() => onExcluir(armazenamento.id)}
+                    />
                   </Box>
                 </td>
               </tr>

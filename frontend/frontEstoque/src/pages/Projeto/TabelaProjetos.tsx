@@ -3,23 +3,24 @@ import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Typography from '@mui/joy/Typography';
+import { useEffect, useState } from 'react';
 
 import Header from '../../components/Projeto/TabelaProjetos/Header';
 import Sidebar from '../../components/Projeto/TabelaProjetos/Sidebar';
-import { useEffect, useState } from 'react';
 import { Tabela } from '../../components/Projeto/TabelaProjetos/Tabela';
-import type { Projeto } from '../../types/Interface';
-import { buscarProjetos } from '../../services/projetosService';
 import FormProjeto from '../../components/Projeto/FormProjeto/FormProjeto';
 
+import type { Projeto } from '../../types/Interface';
 
+import { buscarProjetos, excluirProjeto } from '../../services/projetosService';
 
 export default function TabelaProjetos() {
     const [openModal, setOpenModal] = useState(false);
     const [projetos, setProjetos] = useState<Projeto[]>([]);
+    
+    const [projetoParaEditar, setProjetoParaEditar] = useState<Projeto | null>(null);
 
     const usuarioId = JSON.parse(sessionStorage.getItem('user') || '{}')?.id;
-
 
     const carregarProjetos = async () => {
         try {
@@ -33,6 +34,35 @@ export default function TabelaProjetos() {
     useEffect(() => {
         carregarProjetos();
     }, []);
+
+    
+    const handleEditar = (projeto: Projeto) => {
+        setProjetoParaEditar(projeto); 
+        setOpenModal(true);          
+    };
+
+    
+    const handleExcluir = async (id: number) => {
+        
+        try {
+            await excluirProjeto(id); 
+            await carregarProjetos();   
+        } catch (error) {
+            console.error('Falha ao deletar o projeto:', error);
+            alert('Não foi possível excluir o projeto.');
+        }
+    };
+    
+    
+    const abrirModalNovoProjeto = () => {
+        setProjetoParaEditar(null); 
+        setOpenModal(true);
+    };
+
+    const fecharModal = () => {
+        setOpenModal(false);
+        setProjetoParaEditar(null);
+    };
 
     return (
         <CssVarsProvider disableTransitionOnChange>
@@ -77,21 +107,29 @@ export default function TabelaProjetos() {
                             color="success"
                             size="sm"
                             variant="soft"
-                            onClick={() => setOpenModal(true)}
+                            
+                            onClick={abrirModalNovoProjeto}
                         >
                             Cadastrar Projeto
                         </Button>
                     </Box>
 
-                    <Tabela projetos={projetos} />
+                    {/* */}
+                    <Tabela
+                        projetos={projetos}
+                        onEditar={handleEditar}
+                        onExcluir={handleExcluir}
+                    />
                 </Box>
             </Box>
-            {/* TODO: Modal de cadastro de projeto */}
+            
+            {/* ... */}
             <FormProjeto
                 open={openModal}
-                onClose={() => setOpenModal(false)}
+                onClose={fecharModal}
                 recarregar={carregarProjetos}
                 usuarioId={usuarioId}
+                projetoEdicao={projetoParaEditar} 
             />
         </CssVarsProvider>
     );

@@ -20,29 +20,6 @@ public class CompraController {
         this.compraService = compraService;
     }
 
-    @GetMapping("/buscar")
-    public ResponseEntity<?> listarCompras() {
-        try {
-            List<Compra> compras = compraService.buscarTodas();
-            return ResponseEntity.ok(compras);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar as compras: " + e.getMessage());
-        }
-    }
-
-    @GetMapping("/buscar/{id}")
-    public ResponseEntity<?> listarComprasPorProjeto(@PathVariable("id") Long projetoId) {
-        try {
-            List<Compra> compras = compraService.findByProjeto(projetoId);
-            if (compras.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compras não encontradas para o projeto " + projetoId);
-            } else {
-                return ResponseEntity.ok(compras);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar as compras: " + e.getMessage());
-        }
-    }
 
     @PostMapping("/adicionar")
     public ResponseEntity<?> salvarCompra(@RequestBody Compra compra) {
@@ -55,6 +32,62 @@ public class CompraController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar a compra: " + e.getMessage());
         }
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<?> listarCompras() {
+        try {
+            List<Compra> compras = compraService.buscarTodas();
+            return ResponseEntity.ok(compras);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar as compras: " + e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<?> buscarCompraPorId(@PathVariable Long id) {
+        try {
+            Optional<Compra> compra = compraService.findById(id);
+            if (compra.isPresent()) {
+                return ResponseEntity.ok(compra.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra não encontrada");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar a compra");
+        }
+    }
+
+
+    @GetMapping("/buscar/por-projeto/{projetoId}")
+    public ResponseEntity<?> listarComprasPorProjeto(@PathVariable Long projetoId) {
+        try {
+            List<Compra> compras = compraService.findByProjeto(projetoId);
+            if (compras.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhuma compra encontrada para o projeto " + projetoId);
+            } else {
+                return ResponseEntity.ok(compras);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar as compras do projeto: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<?> atualizarCompra(@PathVariable Long id, @RequestBody Compra compra) {
+        try {
+            // Verifica se a compra existe antes de tentar atualizar
+            if (compraService.findById(id).isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Compra não encontrada para atualização.");
+            }
+
+            Compra compraAtualizada = compraService.atualizarCompra(id, compra);
+            return ResponseEntity.ok(compraAtualizada);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar a compra: " + e.getMessage());
+        }
+    }
+
 
     @DeleteMapping("/excluir/{id}")
     public ResponseEntity<?> excluirCompra(@PathVariable("id") Long id) {

@@ -1,78 +1,87 @@
 import {
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Modal,
-    ModalDialog,
-    Stack,
-    Typography,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalDialog,
+  Stack,
+  Typography,
 } from '@mui/joy';
-import { useState } from 'react';
-import { adicionarArmazenamento } from '../../../services/armazenamentoService';
+import { useEffect, useState } from 'react';
+import { adicionarArmazenamento, editarArmazenamento } from '../../../services/armazenamentoService';
+import type { Armazenamento } from '../../../types/Interface';
 
 interface Props {
-    open: boolean;
-    onClose: () => void;
-    recarregar: () => void;
+  open: boolean;
+  onClose: () => void;
+  recarregar: () => void;
+  armazenamentoEdicao?: Armazenamento | null;
 }
 
-export default function FormArmazenamento({ open, onClose, recarregar }: Props) {
-    const [sala, setSala] = useState('');
-    const [armario, setArmario] = useState('');
+export default function FormArmazenamento({ open, onClose, recarregar, armazenamentoEdicao }: Props) {
+  const [sala, setSala] = useState('');
+  const [armario, setArmario] = useState('');
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            await adicionarArmazenamento({
-                sala,
-                armario,
-            });
+  useEffect(() => {
+    if (armazenamentoEdicao) {
+      setSala(armazenamentoEdicao.sala);
+      setArmario(armazenamentoEdicao.armario);
+    } else {
+      setSala('');
+      setArmario('');
+    }
+  }, [armazenamentoEdicao, open]);
 
-            recarregar(); // AtualizaTela
-            onClose();    
-            setSala('');  
-            setArmario('');
-        } catch (error) {
-            console.error('Erro ao cadastrar armazenamento:', error);
-            
-        }
-    };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const dados = { sala, armario };
+      if (armazenamentoEdicao) {
+        // Editando
+        await editarArmazenamento({ ...armazenamentoEdicao, ...dados });
+      } else {
+        // Adicionando
+        await adicionarArmazenamento(dados);
+      }
+      recarregar();
+      onClose();
+    } catch (error) {
+      console.error('Erro ao salvar armazenamento:', error);
+      alert('Falha ao salvar. Verifique os dados e tente novamente.');
+    }
+  };
 
-    return (
-        <Modal open={open} onClose={onClose}>
-            <ModalDialog size="md" sx={{ width: '500px' }}>
-                <Typography level="h4" sx={{ mb: 2 }}>
-                    Cadastrar Novo Armazenamento
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Stack spacing={2}>
-                        <FormControl>
-                            <FormLabel>Sala</FormLabel>
-                            <Input
-                                value={sala}
-                                onChange={(e) => setSala(e.target.value)}
-                                placeholder="A00"
-                                required
-                            />
-                        </FormControl>
-
-                        <FormControl>
-                            <FormLabel>Armário / Local</FormLabel>
-                            <Input
-                                value={armario}
-                                onChange={(e) => setArmario(e.target.value)}
-                                placeholder="Sala 000"
-                                required
-                            />
-                        </FormControl>
-
-                        <Button type="submit" color="success" sx={{ mt: 2 }}>
-                            Salvar
-                        </Button>
-                    </Stack>
-                </form>
-            </ModalDialog>
-        </Modal>
-    );
+  return (
+    <Modal open={open} onClose={onClose}>
+      <ModalDialog size="md" sx={{ width: '400px' }}>
+        <Typography level="h4">
+          {armazenamentoEdicao ? 'Editar Armazenamento' : 'Cadastrar Armazenamento'}
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={2} sx={{ mt: 2 }}>
+            <FormControl required>
+              <FormLabel>Sala</FormLabel>
+              <Input
+                placeholder="Ex: Almoxarifado"
+                value={sala}
+                onChange={(e) => setSala(e.target.value)}
+              />
+            </FormControl>
+            <FormControl required>
+              <FormLabel>Armário / Prateleira</FormLabel>
+              <Input
+                placeholder="Ex: A-01"
+                value={armario}
+                onChange={(e) => setArmario(e.target.value)}
+              />
+            </FormControl>
+            <Button type="submit" color="success">
+              {armazenamentoEdicao ? 'Salvar Alterações' : 'Salvar'}
+            </Button>
+          </Stack>
+        </form>
+      </ModalDialog>
+    </Modal>
+  );
 }

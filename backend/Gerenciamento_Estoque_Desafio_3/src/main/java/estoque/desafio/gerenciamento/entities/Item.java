@@ -16,6 +16,7 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String nome;
 	private double valorUnitario;
 	private int quantidade;
@@ -26,10 +27,10 @@ public class Item {
 	@JoinColumn(name = "armazenamento_id", nullable = false)
 	@JsonIgnoreProperties("itens")
 	private Armazenamento armazenamento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "compra_id", nullable = false)
-	@JsonIgnoreProperties("itens")
+	@JsonIgnoreProperties({"itens","fornecedor"})
 	private Compra compra;
 
 	public Long getId() {

@@ -7,14 +7,20 @@ import Button from '@mui/joy/Button';
 import Header from '../../components/Compra/TabelaCompras/Header';
 import Sidebar from '../../components/Compra/TabelaCompras/Sidebar';
 import { useEffect, useState } from 'react';
-import { buscarCompras } from '../../services/comprasService';
+import { buscarCompras, excluirCompra } from '../../services/comprasService';
 import Tabela from '../../components/Compra/TabelaCompras/Tabela';
-import type { Compra } from '../../types/Interface';
 import FormCompra from '../../components/Compra/FormCompra/FormCompra';
+import FormItem from '../../components/Iten/FormItem/FormItem';
+
+import type { Compra } from '../../types/Interface';
 
 export default function TabelaCompras() {
   const [compras, setCompras] = useState<Compra[]>([]);
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalCompra, setOpenModalCompra] = useState(false);
+  const [openModalItem, setOpenModalItem] = useState(false);
+  const [compraIdAtual, setCompraIdAtual] = useState<number | null>(null);
+  const [compraSelecionada, setCompraSelecionada] = useState<Compra | null>(null);
+ 
 
   const carregarCompras = async () => {
     try {
@@ -28,6 +34,30 @@ export default function TabelaCompras() {
   useEffect(() => {
     carregarCompras();
   }, []);
+
+ 
+ 
+  
+    const handleEditar = (compra: Compra) => {
+      setCompraSelecionada(compra);
+      setOpenModalCompra(true);
+    };
+
+
+  const handleExcluir = async (id: number) => {
+    try {
+      await excluirCompra(id);
+      await carregarCompras();
+    } catch (error) {
+      console.error('Erro ao excluir compra:', error);
+    }
+  };
+
+  const handleCompraCriada = (id: number) => {
+    setCompraIdAtual(id);
+    setOpenModalCompra(false);
+    setOpenModalItem(true);
+  };
 
   return (
     <CssVarsProvider disableTransitionOnChange>
@@ -72,7 +102,7 @@ export default function TabelaCompras() {
               color="success"
               size="sm"
               variant="soft"
-              onClick={() => setOpenModal(true)}
+              onClick={() => setOpenModalCompra(true)}
             >
               Cadastrar compra
             </Button>
@@ -80,17 +110,30 @@ export default function TabelaCompras() {
 
           <Tabela
             compras={compras}
-          
+            onEditar={handleEditar}
+            onExcluir={handleExcluir}
           />
         </Box>
       </Box>
 
-      {/* Modal de cadastro */}
+      {/* Modal de compra */}
       <FormCompra
-        open={openModal}
-        onClose={() => setOpenModal(false)}
+        open={openModalCompra}
+        onClose={() => setOpenModalCompra(false)}
         recarregar={carregarCompras}
+        onCompraCriada={handleCompraCriada}
+        compraEdicao={compraSelecionada}
       />
+
+      {/* Modal de item */}
+      {compraIdAtual !== null && (
+        <FormItem
+          open={openModalItem}
+          onClose={() => setOpenModalItem(false)}
+          compraId={compraIdAtual}
+          recarregar={carregarCompras}
+        />
+      )}
     </CssVarsProvider>
   );
 }

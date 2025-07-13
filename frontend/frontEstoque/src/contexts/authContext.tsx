@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
-    setLoading(false); // Terminou de verificar
+    setLoading(false);
   }, []);
 
   async function login(email: string, senha: string) {

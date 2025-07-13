@@ -22,34 +22,61 @@ import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import Link from '@mui/joy/Link';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
-
 import type { Item } from '../../../types/Interface';
+import ModalExclusao from '../ModalExclusao/ModalExclusao';
 
-function RowMenu() {
-  return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
-      >
-        <MoreHorizRoundedIcon />
-      </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Editar</MenuItem>
-        <Divider />
-        <MenuItem color="danger">Deletar</MenuItem>
-      </Menu>
-    </Dropdown>
-  );
+
+interface Props {
+  item: Item;
+  onEditar: (item: Item) => void;
+  onExcluir: (id: number) => void;
 }
 
+export function RowMenu({ item, onEditar, onExcluir }: Props) {
+  const [modalAberto, setModalAberto] = React.useState(false);
+
+  const handleConfirmarExclusao = () => {
+    onExcluir(item.id);
+    setModalAberto(false);
+  };
+
+  return (
+    <>
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
+        >
+          <MoreHorizRoundedIcon />
+        </MenuButton>
+        <Menu size="sm" sx={{ minWidth: 140 }}>
+          <MenuItem onClick={() => onEditar(item)}>Editar</MenuItem>
+          <Divider />
+          <MenuItem color="danger" onClick={() => setModalAberto(true)}>
+            Deletar
+          </MenuItem>
+        </Menu>
+      </Dropdown>
+
+      <ModalExclusao
+        open={modalAberto}
+        onClose={() => setModalAberto(false)}
+        onConfirmar={handleConfirmarExclusao}
+        mensagem={`Tem certeza que deseja excluir o item "${item.nome}"?`}
+      />
+    </>
+  );
+}
 interface TabelaItensProps {
   itens: Item[];
   selected: number[];
   setSelected: (ids: number[]) => void;
   order: 'asc' | 'desc';
   setOrder: (o: 'asc' | 'desc') => void;
+  onEditar: (item: Item) => void;
+  onExcluir: (id: number) => void;
 }
+
 
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -77,8 +104,14 @@ function getComparator<Key extends keyof any>(
 }
 
 
-export function Tabela({ itens }: TabelaItensProps) {
-  const [order] = React.useState<Order>('desc');
+export function Tabela({
+  itens,
+  selected,
+  setSelected,
+  order,
+  setOrder,
+  onEditar,
+  onExcluir, }: TabelaItensProps) {
   const [open, setOpen] = React.useState(false);
   const [busca, setBusca] = React.useState('');
   const [filtroProjeto, setFiltroProjeto] = React.useState('');
@@ -173,12 +206,6 @@ export function Tabela({ itens }: TabelaItensProps) {
         className="SearchAndFilters-mobile"
         sx={{ display: { xs: 'flex', sm: 'none' }, my: 1, gap: 1 }}
       >
-        <Input
-          size="sm"
-          placeholder="Pesquisar"
-          startDecorator={<SearchIcon />}
-          sx={{ flexGrow: 1 }}
-        />
         <IconButton
           size="sm"
           variant="outlined"
@@ -285,11 +312,11 @@ export function Tabela({ itens }: TabelaItensProps) {
                   <Typography level="body-md">{item.armazenamento?.sala}</Typography>
                 </td>
                 <td>
-                  <Typography level="body-md">{item.compra ? `Compra #${item.compra.id}` : '—'}</Typography>
+                  <Typography level="body-md">{item.compra ? `${item.compra.observacao}` : '—'}</Typography>
                 </td>
                 <td>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <RowMenu />
+                    <RowMenu item={item} onEditar={onEditar} onExcluir={onExcluir} />
                   </Box>
                 </td>
               </tr>

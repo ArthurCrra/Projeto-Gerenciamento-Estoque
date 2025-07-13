@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-@CrossOrigin(origins = "http://localhost:3000") // porta do front
+@CrossOrigin(origins = "http://localhost:5173") // porta do front
 @RestController
 @RequestMapping("/armazenamento")
 public class ArmazenamentoController {
@@ -54,12 +54,12 @@ public class ArmazenamentoController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizarArmazenamento(@PathVariable Long codigo, @RequestBody Armazenamento armazenamento) {
+    public ResponseEntity<?> atualizarArmazenamento(@PathVariable Long id, @RequestBody Armazenamento armazenamento) { // MUDANÇA AQUI
         try {
-            if (armazenamentoService.findById(codigo).isEmpty()) {
+            if (armazenamentoService.findById(id).isEmpty()) { // MUDANÇA AQUI
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Armazenamento não encontrado");
             }
-            armazenamento.setId(codigo);
+            armazenamento.setId(id);
             Armazenamento armazenamentoAtualizado = armazenamentoService.salvar(armazenamento);
             return ResponseEntity.ok(armazenamentoAtualizado);
         } catch (Exception e) {
@@ -68,12 +68,13 @@ public class ArmazenamentoController {
     }
 
     @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<?> excluirArmazenamento(@PathVariable Long codigo) {
+    public ResponseEntity<?> excluirArmazenamento(@PathVariable Long id) { // MUDANÇA AQUI
         try {
-            if (armazenamentoService.findById(codigo).isEmpty()) {
+
+            if (armazenamentoService.findById(id).isEmpty()) { // MUDANÇA AQUI
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Armazenamento não encontrado");
             }
-            armazenamentoService.deleteById(codigo);
+            armazenamentoService.deleteById(id);
             return ResponseEntity.ok("Armazenamento excluído com sucesso");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body("Erro ao excluir o armazenamento");

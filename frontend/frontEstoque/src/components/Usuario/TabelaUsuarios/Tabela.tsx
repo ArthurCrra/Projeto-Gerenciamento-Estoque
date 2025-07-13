@@ -24,30 +24,57 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
 
 import type { Usuario } from '../../../types/Interface';
+import ModalExclusao from '../ModalExclusao/ModalExclusao';
 
-interface Props {
-  usuarios: Usuario[];
+interface RowMenuProps {
+  usuario: Usuario;
+  onEditar: () => void;
+  onExcluir: () => void;
 }
 
-function RowMenu() {
+function RowMenu({ usuario, onEditar, onExcluir }: RowMenuProps) {
+  const [modalAberto, setModalAberto] = React.useState(false);
+
+  const handleConfirmarExclusao = () => {
+    onExcluir();
+    setModalAberto(false);
+  };
+
   return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
-      >
-        <MoreHorizRoundedIcon />
-      </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Editar</MenuItem>
-        <Divider />
-        <MenuItem color="danger">Deletar</MenuItem>
-      </Menu>
-    </Dropdown>
+    <>
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
+        >
+          <MoreHorizRoundedIcon />
+        </MenuButton>
+        <Menu size="sm" sx={{ minWidth: 140 }}>
+          <MenuItem onClick={onEditar}>Editar</MenuItem>
+          <Divider />
+          <MenuItem color="danger" onClick={() => setModalAberto(true)}>
+            Deletar
+          </MenuItem>
+        </Menu>
+      </Dropdown>
+
+      <ModalExclusao
+        open={modalAberto}
+        onClose={() => setModalAberto(false)}
+        onConfirmar={handleConfirmarExclusao}
+        entidadeNome={`A "${usuario.nome}"`}
+      />
+    </>
   );
 }
 
-export function Tabela({ usuarios }: Props) {
+interface TabelaProps {
+  usuarios: Usuario[];
+  onEditar: (usuario: Usuario) => void;
+  onExcluir: (id: number) => void;
+}
+
+export function Tabela({ usuarios, onEditar, onExcluir }: TabelaProps) {
   const [busca, setBusca] = React.useState('');
 
   const filtrados = usuarios.filter((usuario) =>
@@ -113,7 +140,10 @@ export function Tabela({ usuarios }: Props) {
                 </td>
                 <td>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <RowMenu />
+                    <RowMenu 
+                      usuario={usuario} 
+                      onEditar={() => onEditar(usuario)}
+                      onExcluir={() => onExcluir(usuario.id)}/>
                   </Box>
                 </td>
               </tr>

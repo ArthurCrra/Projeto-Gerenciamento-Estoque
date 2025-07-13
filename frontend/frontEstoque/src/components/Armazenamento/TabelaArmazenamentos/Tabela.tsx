@@ -1,61 +1,82 @@
 import * as React from 'react';
 import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
-import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog';
-import ModalClose from '@mui/joy/ModalClose';
-import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
 import Table from '@mui/joy/Table';
 import Sheet from '@mui/joy/Sheet';
-import IconButton, { iconButtonClasses } from '@mui/joy/IconButton';
+import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
 import MenuButton from '@mui/joy/MenuButton';
 import MenuItem from '@mui/joy/MenuItem';
 import Dropdown from '@mui/joy/Dropdown';
 import Menu from '@mui/joy/Menu';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
-import Link from '@mui/joy/Link';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
 
-import type { Armazenamento } from '../../../types/Interface';
 
-interface Props {
-  armazenamentos: Armazenamento[];
+import type { Armazenamento } from '../../../types/Interface';
+import ModalExclusao from '../ModalExclusao/ModalExclusao.tsx'; // 
+
+interface RowMenuProps {
+  armazenamento: Armazenamento;
+  onEditar: () => void;
+  onExcluir: () => void;
 }
 
-function RowMenu() {
+function RowMenu({ armazenamento, onEditar, onExcluir }: RowMenuProps) {
+  const [modalAberto, setModalAberto] = React.useState(false);
+
+  const handleConfirmarExclusao = () => {
+    onExcluir();
+    setModalAberto(false);
+  };
+
   return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
-      >
-        <MoreHorizRoundedIcon />
-      </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Editar</MenuItem>
-        <Divider />
-        <MenuItem color="danger">Deletar</MenuItem>
-      </Menu>
-    </Dropdown>
+    <>
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
+        >
+          <MoreHorizRoundedIcon />
+        </MenuButton>
+        <Menu size="sm" sx={{ minWidth: 140 }}>
+          <MenuItem onClick={onEditar}>Editar</MenuItem>
+          <Divider />
+          <MenuItem color="danger" onClick={() => setModalAberto(true)}>
+            Deletar
+          </MenuItem>
+        </Menu>
+      </Dropdown>
+
+      <ModalExclusao
+        open={modalAberto}
+        onClose={() => setModalAberto(false)}
+        onConfirmar={handleConfirmarExclusao}
+        entidadeNome={`o armazenamento "${armazenamento.sala} - ${armazenamento.armario}"`}
+      />
+    </>
   );
 }
 
 
-export function Tabela({ armazenamentos }: Props) {
+interface TabelaProps {
+  armazenamentos: Armazenamento[];
+  onEditar: (armazenamento: Armazenamento) => void;
+  onExcluir: (id: number) => void;
+}
+
+
+export function Tabela({ armazenamentos, onEditar, onExcluir }: TabelaProps) {
   const [busca, setBusca] = React.useState('');
 
-  const filtrados = armazenamentos.filter((a) =>
+
+
+  const filtrados = armazenamentos.filter(a =>
     `${a.sala} ${a.armario}`.toLowerCase().includes(busca.toLowerCase())
   );
-
-
 
   return (
     <React.Fragment>
@@ -66,7 +87,7 @@ export function Tabela({ armazenamentos }: Props) {
             size="sm"
             placeholder="Pesquisar"
             value={busca}
-            onChange={(e) => setBusca(e.target.value)}
+            onChange={e => setBusca(e.target.value)}
             startDecorator={<SearchIcon />}
           />
         </FormControl>
@@ -78,6 +99,7 @@ export function Tabela({ armazenamentos }: Props) {
           width: '100%',
           borderRadius: 'sm',
           overflow: 'auto',
+          '--TableCell-paddingY': '8px',
         }}
       >
         <Table
@@ -86,8 +108,6 @@ export function Tabela({ armazenamentos }: Props) {
           hoverRow
           sx={{
             '--TableCell-headBackground': 'var(--joy-palette-background-level1)',
-            '--TableCell-paddingY': '4px',
-            '--TableCell-paddingX': '8px',
           }}
         >
           <thead>
@@ -99,18 +119,22 @@ export function Tabela({ armazenamentos }: Props) {
             </tr>
           </thead>
           <tbody>
-            {filtrados.map((armazenamento) => (
+            {filtrados.map(armazenamento => (
               <tr key={armazenamento.id}>
                 <td style={{ textAlign: 'center' }}></td>
                 <td>
-                  <Typography level="body-md">{armazenamento.sala}</Typography>
+                  <Typography level="body-sm">{armazenamento.sala}</Typography>
                 </td>
                 <td>
-                  <Typography level="body-md">{armazenamento.armario}</Typography>
+                  <Typography level="body-sm">{armazenamento.armario}</Typography>
                 </td>
                 <td>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <RowMenu />
+                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <RowMenu
+                      armazenamento={armazenamento}
+                      onEditar={() => onEditar(armazenamento)}
+                      onExcluir={() => onExcluir(armazenamento.id)}
+                    />
                   </Box>
                 </td>
               </tr>

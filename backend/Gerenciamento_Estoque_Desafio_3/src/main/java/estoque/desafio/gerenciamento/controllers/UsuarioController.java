@@ -2,6 +2,8 @@ package estoque.desafio.gerenciamento.controllers;
 
 import java.util.List;
 
+import estoque.desafio.gerenciamento.entities.Compra;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import estoque.desafio.gerenciamento.entities.dtos.AtualizarSenhaDTO;
 import estoque.desafio.gerenciamento.entities.dtos.LoginDTO;
 import estoque.desafio.gerenciamento.services.UsuarioService;
 
-@CrossOrigin(origins = "http://localhost:3000") // porta do front
+@CrossOrigin(origins = "http://localhost:5173") // porta do front
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -61,11 +63,26 @@ public class UsuarioController {
 			return new ResponseEntity("Erro de Consulta", HttpStatusCode.valueOf(504));
 		}
 	}
+
+	@PutMapping("/atualizar/{id}")
+	public ResponseEntity<?> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
+		try {
+			// Verifica se a compra existe antes de tentar atualizar
+			if (usuarioService.findById(id).isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado para atualização.");
+			}
+
+			Usuario usaurioAtualizado = usuarioService.atualizarUsuario(id, usuario);
+			return ResponseEntity.ok(usaurioAtualizado);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o Usuario: " + e.getMessage());
+		}
+	}
 	
 	@DeleteMapping("/excluir/{id}")
-	public ResponseEntity<?> excluirUsuario(@RequestBody Long codigo) {
+	public ResponseEntity<?> excluirUsuario(@PathVariable Long id) {
 		try {
-			usuarioService.excluirUsuario(codigo);
+			usuarioService.excluirUsuario(id);
 			return ResponseEntity.ok("Excluido com Sucesso");
 		} catch (Exception e) {
 			return new ResponseEntity("Erro de Consulta", HttpStatusCode.valueOf(504));

@@ -33,6 +33,14 @@ O gerenciador de estoque é um sistema pensado para simplificar toda a gestão d
 
 ## Como usar
 
+### Requisitos
+- Docker
+- Docker Compose
+
+### Subindo a aplicação na sua maquina
+
+- `docker compose build`
+- `docker compose up`
 
 ---
 

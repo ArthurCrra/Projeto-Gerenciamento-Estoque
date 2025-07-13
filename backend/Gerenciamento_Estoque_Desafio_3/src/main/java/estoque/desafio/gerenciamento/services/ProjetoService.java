@@ -10,14 +10,14 @@ import java.util.Optional;
 @Service
 public class ProjetoService {
 
-    private ProjetoRepository projetoRepository;
+    private final ProjetoRepository projetoRepository;
 
     public ProjetoService(ProjetoRepository projetoRepository) {
         this.projetoRepository = projetoRepository;
     }
 
     public Projeto add(Projeto projeto){
-       return projetoRepository.save(projeto);
+        return projetoRepository.save(projeto);
     }
 
     public List<Projeto> findAll(){
@@ -32,4 +32,12 @@ public class ProjetoService {
         projetoRepository.deleteById(id);
     }
 
+    public Projeto update(Long id, Projeto projetoDetails) {
+        Projeto projeto = projetoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Projeto não encontrado com o id: " + id));
+        projeto.setApelidoProjeto(projetoDetails.getApelidoProjeto());
+
+
+        return projetoRepository.save(projeto);
+    }
 }

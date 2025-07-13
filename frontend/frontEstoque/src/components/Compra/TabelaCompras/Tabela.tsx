@@ -278,9 +278,6 @@ export default function Tabela({ compras, onEditar, onExcluir }: TabelaComprasPr
                 </td>
                 <td>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-                    <Link level="body-md" component="button">
-                      Invoice
-                    </Link>
                     <RowMenu
                       compra={compra}
                       onEditar={() => onEditar(compra)}

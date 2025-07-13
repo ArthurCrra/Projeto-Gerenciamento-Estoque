@@ -11,9 +11,13 @@ import MenuItem from '@mui/joy/MenuItem';
 import Dropdown from '@mui/joy/Dropdown';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import type { Projeto } from '../../../types/Interface';
-import ModalExclusao from '../ModalExclusao/ModalExclusao.tsx'; 
+import ModalExclusao from '../ModalExclusao/ModalExclusao.tsx';
+import FormControl from '@mui/joy/FormControl';
+import Input from '@mui/joy/Input';
+import FormLabel from '@mui/joy/FormLabel';
+import SearchIcon from '@mui/icons-material/Search';
 
-// Menu de Ações para cada linha da tabela
+
 function RowMenu({ onEditar, onExcluir }: { onEditar: () => void; onExcluir: () => void }) {
   return (
     <Dropdown>
@@ -42,6 +46,10 @@ interface TabelaProps {
 
 export function Tabela({ projetos, onEditar, onExcluir }: TabelaProps) {
   const [itemExclusao, setItemExclusao] = React.useState<Projeto | null>(null);
+  const [busca, setBusca] = React.useState('');
+  const filtrados = projetos.filter((projeto) =>
+    projeto.apelidoProjeto.toLowerCase().includes(busca.toLowerCase())
+  );
 
   const handleConfirmarExclusao = () => {
     if (itemExclusao) {
@@ -52,6 +60,19 @@ export function Tabela({ projetos, onEditar, onExcluir }: TabelaProps) {
 
   return (
     <React.Fragment>
+      <Box sx={{ my: 2 }}>
+        <FormControl>
+          <FormLabel>Pesquisa</FormLabel>
+          <Input
+            size="sm"
+            placeholder="Pesquisar"
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            startDecorator={<SearchIcon />}
+          />
+        </FormControl>
+      </Box>
+
       <Sheet
         variant="outlined"
         sx={{
@@ -69,14 +90,16 @@ export function Tabela({ projetos, onEditar, onExcluir }: TabelaProps) {
         >
           <thead>
             <tr>
-              <th style={{ width: '60%', padding: '12px' }}>Apelido do Projeto</th>
-              <th style={{ width: '30%', padding: '12px' }}>Responsável</th>
-              <th style={{ width: '10%', padding: '12px', textAlign: 'center' }}>Ações</th>
+              <th style={{ width: 18, textAlign: 'center', padding: '10px 6px' }}></th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Projeto</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Usuário Responsável</th>
+              <th style={{ width: 120, padding: '12px 6px' }}></th>
             </tr>
           </thead>
           <tbody>
-            {projetos.map((projeto) => (
+            {filtrados.map((projeto) => (
               <tr key={projeto.id}>
+                <td style={{ textAlign: 'center' }}></td>
                 <td>
                   <Typography level="body-sm">{projeto.apelidoProjeto}</Typography>
                 </td>

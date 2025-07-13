@@ -7,10 +7,10 @@ import Button from '@mui/joy/Button';
 import Header from '../../components/Compra/TabelaCompras/Header';
 import Sidebar from '../../components/Compra/TabelaCompras/Sidebar';
 import { useEffect, useState } from 'react';
-import { buscarCompras } from '../../services/comprasService';
+import { buscarCompras, excluirCompra } from '../../services/comprasService';
 import Tabela from '../../components/Compra/TabelaCompras/Tabela';
 import FormCompra from '../../components/Compra/FormCompra/FormCompra';
-import FormItem from '../../components/Iten/FormItem/FormItem'; // <- Importar novo modal
+import FormItem from '../../components/Iten/FormItem/FormItem';
 
 import type { Compra } from '../../types/Interface';
 
@@ -19,6 +19,8 @@ export default function TabelaCompras() {
   const [openModalCompra, setOpenModalCompra] = useState(false);
   const [openModalItem, setOpenModalItem] = useState(false);
   const [compraIdAtual, setCompraIdAtual] = useState<number | null>(null);
+  const [compraSelecionada, setCompraSelecionada] = useState<Compra | null>(null);
+ 
 
   const carregarCompras = async () => {
     try {
@@ -32,6 +34,24 @@ export default function TabelaCompras() {
   useEffect(() => {
     carregarCompras();
   }, []);
+
+ 
+ 
+  
+    const handleEditar = (compra: Compra) => {
+      setCompraSelecionada(compra);
+      setOpenModalCompra(true);
+    };
+
+
+  const handleExcluir = async (id: number) => {
+    try {
+      await excluirCompra(id);
+      await carregarCompras();
+    } catch (error) {
+      console.error('Erro ao excluir compra:', error);
+    }
+  };
 
   const handleCompraCriada = (id: number) => {
     setCompraIdAtual(id);
@@ -88,7 +108,11 @@ export default function TabelaCompras() {
             </Button>
           </Box>
 
-          <Tabela compras={compras} />
+          <Tabela
+            compras={compras}
+            onEditar={handleEditar}
+            onExcluir={handleExcluir}
+          />
         </Box>
       </Box>
 
@@ -98,6 +122,7 @@ export default function TabelaCompras() {
         onClose={() => setOpenModalCompra(false)}
         recarregar={carregarCompras}
         onCompraCriada={handleCompraCriada}
+        compraEdicao={compraSelecionada}
       />
 
       {/* Modal de item */}

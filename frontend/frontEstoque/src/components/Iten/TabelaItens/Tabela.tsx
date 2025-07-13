@@ -206,12 +206,6 @@ export function Tabela({
         className="SearchAndFilters-mobile"
         sx={{ display: { xs: 'flex', sm: 'none' }, my: 1, gap: 1 }}
       >
-        <Input
-          size="sm"
-          placeholder="Pesquisar"
-          startDecorator={<SearchIcon />}
-          sx={{ flexGrow: 1 }}
-        />
         <IconButton
           size="sm"
           variant="outlined"

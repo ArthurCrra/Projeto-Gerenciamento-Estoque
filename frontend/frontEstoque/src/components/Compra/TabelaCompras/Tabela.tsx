@@ -23,35 +23,64 @@ import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import Link from '@mui/joy/Link';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SearchIcon from '@mui/icons-material/Search';
+import ModalExclusao from '../ModalExclusao/ModalExclusao';
 
 
 import type { Compra } from '../../../types/Interface';
 
-interface TabelaComprasProps {
-  compras: Compra[];
+interface RowMenuProps {
+  compra: Compra;
+  onEditar: () => void;
+  onExcluir: () => void;
 }
 
+function RowMenu({ compra, onEditar, onExcluir }: RowMenuProps) {
+  const [modalAberto, setModalAberto] = React.useState(false);
 
-function RowMenu() {
+  const handleConfirmarExclusao = () => {
+    onExcluir();
+    setModalAberto(false);
+  };
+
   return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
-      >
-        <MoreHorizRoundedIcon />
-      </MenuButton>
-      <Menu size="sm" sx={{ minWidth: 140 }}>
-        <MenuItem>Editar</MenuItem>
-        <Divider />
-        <MenuItem color="danger">Deletar</MenuItem>
-      </Menu>
-    </Dropdown>
+    <>
+      <Dropdown>
+        <MenuButton
+          slots={{ root: IconButton }}
+          slotProps={{ root: { variant: 'plain', color: 'neutral', size: 'sm' } }}
+        >
+          <MoreHorizRoundedIcon />
+        </MenuButton>
+        <Menu size="sm" sx={{ minWidth: 140 }}>
+          <MenuItem onClick={onEditar}>Editar</MenuItem>
+          <Divider />
+          <MenuItem color="danger" onClick={() => setModalAberto(true)}>
+            Deletar
+          </MenuItem>
+        </Menu>
+      </Dropdown>
+
+      <ModalExclusao
+        open={modalAberto}
+        onClose={() => setModalAberto(false)}
+        onConfirmar={handleConfirmarExclusao}
+        entidadeNome={`A "${compra.observacao}"`}
+      />
+    </>
   );
 }
 
+interface TabelaComprasProps {
+  compras: Compra[];
+  onEditar: (compra: Compra) => void;
+  onExcluir: (id: number) => void;
+}
 
-export default function Tabela({ compras }: TabelaComprasProps) {
+
+
+
+
+export default function Tabela({ compras, onEditar, onExcluir }: TabelaComprasProps) {
   const [open, setOpen] = React.useState(false);
   const [busca, setBusca] = React.useState('');
 
@@ -252,7 +281,11 @@ export default function Tabela({ compras }: TabelaComprasProps) {
                     <Link level="body-md" component="button">
                       Invoice
                     </Link>
-                    <RowMenu />
+                    <RowMenu
+                      compra={compra}
+                      onEditar={() => onEditar(compra)}
+                      onExcluir={() => onExcluir(compra.id)}
+                    />
                   </Box>
                 </td>
 

@@ -13,3 +13,12 @@ export async function adicionarUsuario(usuario: NovoUsuario): Promise<Usuario> {
   const response = await axios.post(`${API_URL}/adicionar`, usuario);
   return response.data;
 }
+
+export async function editarUsuario(usuario: Usuario): Promise<Usuario> {
+  const response = await axios.put(`${API_URL}/atualizar/${usuario.id}`, usuario);
+  return response.data;
+}
+
+export async function excluirUsuario(id: number) {
+  await axios.delete(`${API_URL}/excluir/${id}`);
+}

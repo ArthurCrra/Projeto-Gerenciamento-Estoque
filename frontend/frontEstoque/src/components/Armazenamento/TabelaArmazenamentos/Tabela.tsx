@@ -43,17 +43,14 @@ function RowMenu({ armazenamento, onEditar, onExcluir }: RowMenuProps) {
           <MoreHorizRoundedIcon />
         </MenuButton>
         <Menu size="sm" sx={{ minWidth: 140 }}>
-          {/* O onClick agora chama a função onEditar recebida por props */}
           <MenuItem onClick={onEditar}>Editar</MenuItem>
           <Divider />
-          {/* O onClick agora abre o modal de confirmação */}
           <MenuItem color="danger" onClick={() => setModalAberto(true)}>
             Deletar
           </MenuItem>
         </Menu>
       </Dropdown>
 
-      {/* NOVO: Modal de exclusão é renderizado aqui */}
       <ModalExclusao
         open={modalAberto}
         onClose={() => setModalAberto(false)}
@@ -115,14 +112,16 @@ export function Tabela({ armazenamentos, onEditar, onExcluir }: TabelaProps) {
         >
           <thead>
             <tr>
-              <th style={{ width: '45%', padding: '12px' }}>Sala</th>
-              <th style={{ width: '45%', padding: '12px' }}>Armário</th>
-              <th style={{ width: '10%', padding: '12px', textAlign: 'center' }}>Ações</th>
+              <th style={{ width: 18, textAlign: 'center', padding: '10px 6px' }}></th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Sala</th>
+              <th style={{ width: 120, padding: '12px 6px' }}>Armário</th>
+              <th style={{ width: 120, padding: '12px 6px' }}></th>
             </tr>
           </thead>
           <tbody>
             {filtrados.map(armazenamento => (
               <tr key={armazenamento.id}>
+                <td style={{ textAlign: 'center' }}></td>
                 <td>
                   <Typography level="body-sm">{armazenamento.sala}</Typography>
                 </td>
@@ -131,7 +130,6 @@ export function Tabela({ armazenamentos, onEditar, onExcluir }: TabelaProps) {
                 </td>
                 <td>
                   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    {/* ALTERADO: Passando as funções corretas para o RowMenu */}
                     <RowMenu
                       armazenamento={armazenamento}
                       onEditar={() => onEditar(armazenamento)}

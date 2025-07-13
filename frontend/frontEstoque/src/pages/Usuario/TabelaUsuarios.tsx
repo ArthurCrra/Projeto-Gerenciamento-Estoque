@@ -8,7 +8,7 @@ import Header from '../../components/Usuario/TabelaUsuarios/Header';
 import Sidebar from '../../components/Usuario/TabelaUsuarios/Sidebar';
 import { useEffect, useState } from 'react';
 import { Tabela } from '../../components/Usuario/TabelaUsuarios/Tabela';
-import { buscarUsuarios } from '../../services/usuarioService';
+import { buscarUsuarios, excluirUsuario } from '../../services/usuarioService';
 import type { Usuario } from '../../types/Interface';
 import FormUsuario from '../../components/Usuario/FormUsuario/FormUsuario'
 
@@ -16,7 +16,9 @@ import FormUsuario from '../../components/Usuario/FormUsuario/FormUsuario'
 
 export default function TabelaUsuarios() {
     const [openModal, setOpenModal] = useState(false);
-    const [usuarios, setUsuarios] = useState<Usuario[]>([]); // TODO: buscar os dados futuramente
+    const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState<Usuario | null>(null);
+
 
     const carregarUsuarios = async () => {
         try {
@@ -30,6 +32,20 @@ export default function TabelaUsuarios() {
     useEffect(() => {
         carregarUsuarios();
     }, []);
+
+    const handleEditarUsuario = (usuario: Usuario) => {
+        setUsuarioSelecionado(usuario);
+        setOpenModal(true);
+    };
+
+    const handleExcluirUsuario = async (id: number) => {
+        try {
+            await excluirUsuario(id);
+            await carregarUsuarios();
+        } catch (error) {
+            console.error('Erro ao excluir usuário:', error);
+        }
+    };
 
     return (
         <CssVarsProvider disableTransitionOnChange>
@@ -79,16 +95,23 @@ export default function TabelaUsuarios() {
                             Cadastrar Usuário
                         </Button>
                     </Box>
-
-                    <Tabela usuarios={usuarios} />
+                    <Tabela
+                        usuarios={usuarios}
+                        onEditar={handleEditarUsuario}
+                        onExcluir={handleExcluirUsuario}
+                    />
                 </Box>
             </Box>
 
-            {/* TODO: Modal de cadastro de usuário */}
+            
             <FormUsuario
                 open={openModal}
-                onClose={() => setOpenModal(false)}
+                onClose={() => {
+                    setOpenModal(false);
+                    setUsuarioSelecionado(null);
+                }}
                 recarregar={carregarUsuarios}
+                usuarioEdicao={usuarioSelecionado}
             />
         </CssVarsProvider>
     );

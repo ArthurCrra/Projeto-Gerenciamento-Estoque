@@ -19,6 +19,11 @@ export async function adicionarCompra(compra: NovaCompra): Promise<Compra> {
   return response.data;
 }
 
+export async function editarCompra(compra: Compra): Promise<Compra> {
+  const response = await axios.put(`${API_URL}/atualizar/${compra.id}`, compra);
+  return response.data;
+}
+
 export async function excluirCompra(id: number) {
-  await axios.delete(`${API_URL}/deletar/${id}`);
+  await axios.delete(`${API_URL}/excluir/${id}`);
 }

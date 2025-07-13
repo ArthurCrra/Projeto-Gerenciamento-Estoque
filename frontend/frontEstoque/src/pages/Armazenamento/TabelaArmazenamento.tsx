@@ -30,23 +30,23 @@ export default function TabelaArmazenamento() {
     carregarArmazenamentos();
   }, []);
 
-  // Abre o modal para criar um novo armazenamento
+
   const handleNovo = () => {
     setArmazenamentoSelecionado(null);
     setOpenModalForm(true);
   };
 
-  // Abre o modal para editar um armazenamento existente
+
   const handleEditar = (armazenamento: Armazenamento) => {
     setArmazenamentoSelecionado(armazenamento);
     setOpenModalForm(true);
   };
 
-  // Executa a exclusão
+
   const handleExcluir = async (id: number) => {
     try {
       await excluirArmazenamento(id);
-      await carregarArmazenamentos(); // Recarrega a lista
+      await carregarArmazenamentos(); 
     } catch (error) {
       console.error('Erro ao excluir armazenamento:', error);
       alert('Não foi possível excluir. Verifique se não há itens associados a este local.');
@@ -110,7 +110,6 @@ export default function TabelaArmazenamento() {
         </Box>
       </Box>
 
-      {/* Modal para Adicionar/Editar Armazenamento */}
       <FormArmazenamento
         open={openModalForm}
         onClose={() => setOpenModalForm(false)}

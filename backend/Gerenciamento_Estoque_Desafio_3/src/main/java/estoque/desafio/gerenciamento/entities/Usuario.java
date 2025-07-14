@@ -19,6 +19,9 @@ public class Usuario {
 	private String funcao;
 
 
+	public Usuario() { }
+
+
 	
 	public Long getId() {
 		return id;

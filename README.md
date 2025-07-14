@@ -42,6 +42,7 @@ O gerenciador de estoque é um sistema pensado para simplificar toda a gestão d
 - `docker compose build`
 - `docker compose up`
 
+
 ---
 
 ## Estrutura do projeto

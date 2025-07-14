@@ -1,5 +1,6 @@
 package estoque.desafio.gerenciamento.controllers;
 
+import estoque.desafio.gerenciamento.entities.dtos.ProjetoDTO;
 import estoque.desafio.gerenciamento.entities.Projeto;
 import estoque.desafio.gerenciamento.services.ProjetoService;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:5173") // porta do front
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/projeto")
 public class ProjetoController {
@@ -50,11 +51,12 @@ public class ProjetoController {
         }
     }
 
-
+    
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizarProjeto(@PathVariable Long id, @RequestBody Projeto projetoDetails) {
+    public ResponseEntity<?> atualizarProjeto(@PathVariable Long id, @RequestBody ProjetoDTO projetoDTO) {
         try {
-            Projeto projetoAtualizado = projetoService.update(id, projetoDetails);
+            
+            Projeto projetoAtualizado = projetoService.update(id, projetoDTO);
             return ResponseEntity.ok(projetoAtualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

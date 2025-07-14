@@ -31,6 +31,8 @@ public class Projeto {
 	@JsonIgnoreProperties("projeto")
 	private Set<Compra> compras;
 
+	public Projeto() { }
+
 	public Long getId() {
 		return id;
 	}

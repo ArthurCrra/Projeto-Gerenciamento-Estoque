@@ -1,5 +1,6 @@
 package estoque.desafio.gerenciamento.services;
 
+import estoque.desafio.gerenciamento.entities.dtos.ProjetoDTO;
 import estoque.desafio.gerenciamento.entities.Projeto;
 import estoque.desafio.gerenciamento.repositories.ProjetoRepository;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,13 @@ public class ProjetoService {
         projetoRepository.deleteById(id);
     }
 
-    public Projeto update(Long id, Projeto projetoDetails) {
+    
+    public Projeto update(Long id, ProjetoDTO projetoDTO) {
         Projeto projeto = projetoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Projeto não encontrado com o id: " + id));
-        projeto.setApelidoProjeto(projetoDetails.getApelidoProjeto());
-
+        
+        
+        projeto.setApelidoProjeto(projetoDTO.getApelidoProjeto());
 
         return projetoRepository.save(projeto);
     }

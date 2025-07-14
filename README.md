@@ -42,6 +42,10 @@ O gerenciador de estoque é um sistema pensado para simplificar toda a gestão d
 - `docker compose build`
 - `docker compose up`
 
+As portas da aplicação estão organizadas da seguinte forma:
+
+http://localhost:5173 - Front
+http://localhost:8080 - Back
 
 ---
 
